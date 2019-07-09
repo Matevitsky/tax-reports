@@ -23,47 +23,17 @@
 
 </head>
 <body>
-<%--<div id="page-wrapper" >
-
-    <div class="col-lg-6">
-
-
-        <h1>Form Validation</h1>
-
-        <form role="form">
-
-            <div class="form-group has-success">
-                <label class="control-label" for="inputSuccess">Input with success</label>
-                <input type="text" class="form-control" id="inputSuccess">
-            </div>
-
-            <div class="form-group has-warning">
-                <label class="control-label" for="inputWarning">Input with warning</label>
-                <input type="text" class="form-control" id="inputWarning">
-            </div>
-
-            <div class="form-group has-error">
-                <label class="control-label" for="inputError">Input with error</label>
-                <input type="text" class="form-control" id="inputError">
-            </div>
-
-        </form>
-
-
-    </div>
-</div>
-</div>--%>
 
 <div class="row">
 
     <div class="col-lg-12 text-center v-center">
 
-        <h1>Sign Up</h1>
-        <p class="lead">Enter your email to sign-up for our newsletter</p>
+        <h1>Tax Reports</h1>
+        <p class="lead">Enter your email and password for login</p>
 
         <br>
         <br>
-        <br>
+
 
         <form class="col-lg-12">
             <div class="input-group" style="width: 340px; text-align: center; margin: 0 auto;">
