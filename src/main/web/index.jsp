@@ -11,7 +11,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta firstName="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
 
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
@@ -38,22 +38,27 @@
         <form class="col-lg-12" action="/app" method="post">
             <input type="hidden" name="command" value="login">
             <div class="input-group" style="width: 340px; text-align: center; margin: 0 auto;">
-                <input class="form-control input-lg" name="email" id="email" placeholder="Enter your email address"
+                <input class="form-control input-lg" firstName="email" id="email" placeholder="Enter your email address"
                        type="text"> <span id="loginValid"></span>
             </div>
             <br>
             <div class="input-group" style="width: 340px; text-align: center; margin: 0 auto;">
-                <input class="form-control input-lg" name="password" id="password" placeholder="Enter your password"
+                <input class="form-control input-lg" firstName="password" id="password"
+                       placeholder="Enter your password"
                        type="text">
 
             </div>
             <br>
 
             <div class="input-group" style="width: 340px; text-align: center; margin: 0 auto;">
-                <input type="submit" name="login-submit" id="login-submit" tabindex="4"
+                <input type="submit" firstName="login-submit" id="login-submit" tabindex="4"
                        class="btn btn-primary btn-lg btn-block" value="Log In/Войти"
                        disabled>
             </div>
+            <br>
+
+            <a href="/app?command=get_registration_page">Don't have an account? Sign up</a>
+
 
             <script src="/js/loginEmailValidation.js"></script>
         </form>

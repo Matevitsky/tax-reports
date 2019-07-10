@@ -5,13 +5,15 @@ import java.util.Objects;
 public abstract class User {
 
     private final Integer id;
-    private final String name;
+    private final String firstName;
+    private final String lastName;
     private final String email;
     private final String password;
 
-    public User(Integer id, String name, String email, String password) {
+    public User(Integer id, String firstName, String lastName, String email, String password) {
         this.id = id;
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
     }
@@ -20,8 +22,12 @@ public abstract class User {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     public String getEmail() {
@@ -41,14 +47,15 @@ public abstract class User {
             return false;
         }
         User user = (User) o;
-        return id == user.id &&
-            name.equals(user.name) &&
-            email.equals(user.email) &&
-            password.equals(user.password);
+        return id.equals(user.id) &&
+                firstName.equals(user.firstName) &&
+                lastName.equals(user.lastName) &&
+                email.equals(user.email) &&
+                password.equals(user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, password);
+        return Objects.hash(id, firstName, lastName, email, password);
     }
 }

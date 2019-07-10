@@ -3,11 +3,13 @@ package com.matevitsky.controller.command;
 
 public enum CommandList {
 
-    LOGIN(new LoginCommand());
+    LOGIN(new LoginCommand()),
 
-  /*  REGISTER(new RegisterCommand(Context.userService)),
+    GET_REGISTRATION_PAGE(new GetRegistrationPageCommand()),
 
-    USER_ACTIVITY_REMOVE_REQUEST(new UserActivityRemoveCommand(Context.activityService)),
+    REGISTER(new RegisterCommand());
+
+   /* USER_ACTIVITY_REMOVE_REQUEST(new UserActivityRemoveCommand(Context.activityService)),
 
     USER_REQUEST_ACTIVITY(new UserRequestActivityCommand(Context.activityService, Context.activityRequestService)),
 

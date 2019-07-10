@@ -6,7 +6,7 @@ public class Client extends User {
     private final String companyName;
 
     public Client(Builder builder) {
-        super(builder.id, builder.name, builder.email, builder.password);
+        super(builder.id, builder.firstName, builder.lastName, builder.email, builder.password);
         this.companyName = builder.companyName;
     }
 
@@ -40,7 +40,8 @@ public class Client extends User {
 
     public static class Builder {
         private Integer id;
-        private String name;
+        private String firstName;
+        private String lastName;
         private String email;
         private String password;
         private String companyName;
@@ -53,8 +54,13 @@ public class Client extends User {
             return this;
         }
 
-        public Builder withName(String name) {
-            this.name = name;
+        public Builder withFirstName(String name) {
+            this.firstName = name;
+            return this;
+        }
+
+        public Builder withLastName(String lastName) {
+            this.lastName = lastName;
             return this;
         }
 
