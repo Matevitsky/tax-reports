@@ -26,7 +26,7 @@ public interface GenericRepository<E> {
      * @param entity
      * @return
      */
-    E update(E entity);
+    E update(E entity, Connection connection);
 
     /**
      * Get an object from DB by Id
@@ -34,12 +34,12 @@ public interface GenericRepository<E> {
      * @param id
      * @return Optional
      */
-    Optional<E> getById(Integer id);
+    Optional<E> getById(Integer id, Connection connection);
 
     /**
      * Ger all objects from DB
      *
      * @return List of objects
      */
-    Optional<E> getAll();
+    Optional<E> getAll(Connection connection);
 }

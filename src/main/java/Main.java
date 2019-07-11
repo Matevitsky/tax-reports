@@ -1,3 +1,4 @@
+import com.matevitsky.entity.Client;
 import com.matevitsky.service.ClientService;
 import com.matevitsky.service.ClientServiceImpl;
 
@@ -15,7 +16,15 @@ public class Main {
 
         ClientService clientService = new ClientServiceImpl();
 
-        clientService.deleteById(1);
+        Client client = Client.newBuilder()
+                .withFirstName("Sergey")
+                .withLastName("test")
+                .withId(2)
+                .withPassword("test")
+                .withCompanyName("test")
+                .withEmail("test@test.test")
+                .build();
+        clientService.update(client);
 
         //TODO: create Header for client page
         //TODO: удалить все логгер дебаг

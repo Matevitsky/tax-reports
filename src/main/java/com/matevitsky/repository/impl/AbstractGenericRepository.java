@@ -19,6 +19,8 @@ public abstract class AbstractGenericRepository<E> implements GenericRepository<
 
     public abstract String getDeleteByIdQuery(Integer id);
 
+    public abstract String getUpdateQuery(E entity);
+
     @Override
     public boolean create(E entity, Connection connection) {
 
@@ -58,17 +60,30 @@ public abstract class AbstractGenericRepository<E> implements GenericRepository<
     }
 
     @Override
-    public E update(E entity) {
-        return null;
+    public E update(E entity, Connection connection) {
+        LOGGER.debug("method update started ");
+
+        String sqlQuery = getUpdateQuery(entity);
+        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            if (statement.executeUpdate() == 0) {
+                LOGGER.error("update entity failed , no rows affected.");
+            } else {
+                return entity;
+            }
+
+        } catch (SQLException e) {
+            LOGGER.error("Failed to update  entity " + e.getMessage());
+        }
+        return entity;
     }
 
     @Override
-    public Optional<E> getById(Integer id) {
+    public Optional<E> getById(Integer id, Connection connection) {
         return Optional.empty();
     }
 
     @Override
-    public Optional<E> getAll() {
+    public Optional<E> getAll(Connection connection) {
         return Optional.empty();
     }
 

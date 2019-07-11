@@ -10,4 +10,6 @@ public interface ClientService {
     Client register(Client client) throws WrongInputException, SQLException;
 
     boolean deleteById(Integer id);
+
+    Client update(Client client);
 }

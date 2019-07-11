@@ -40,4 +40,14 @@ public class ClientServiceImpl implements ClientService {
         }
         return false;
     }
+
+    @Override
+    public Client update(Client client) {
+        try (Connection connection = ConnectorDB.getConnection()) {
+            return clientRepository.update(client, connection);
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+        return client;
+    }
 }
