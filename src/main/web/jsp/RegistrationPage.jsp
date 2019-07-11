@@ -5,7 +5,7 @@
   Time: 20:40
   To change this template use File | Settings | File Templates.
 --%>
-<%@include file="header.jsp" %>
+<%@include file="../header.jsp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -15,9 +15,9 @@
 
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css"/>
-    <link rel="stylesheet" type="text/css" href="css/local.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/local.css"/>
 
-    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 
     <style>

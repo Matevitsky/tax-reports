@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.matevitsky.controller.constant.PageConstant.LOGIN_PAGE;
+import static com.matevitsky.controller.constant.PageConstant.CLIENT_PAGE;
 
 public class LoginCommand implements Command {
 
@@ -25,7 +25,7 @@ public class LoginCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
 
-        return LOGIN_PAGE;
+        return CLIENT_PAGE;
     }
 
 
