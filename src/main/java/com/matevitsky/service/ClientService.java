@@ -8,4 +8,6 @@ import java.sql.SQLException;
 public interface ClientService {
 
     Client register(Client client) throws WrongInputException, SQLException;
+
+    boolean deleteById(Integer id);
 }

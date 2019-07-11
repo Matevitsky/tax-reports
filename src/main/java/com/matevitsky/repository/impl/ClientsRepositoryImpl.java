@@ -12,21 +12,20 @@ import java.util.Optional;
 public class ClientsRepositoryImpl extends AbstractGenericRepository<Client> implements ClientRepository {
 
 
-    public static final String CREATE_QUERY = "INSERT INTO clients (FirstName, LastName, Email, Password, CompanyName) \n" +
+    private static final String CREATE_SQL = "INSERT INTO clients (FirstName, LastName, Email, Password, CompanyName) \n" +
             "VALUES ('%s', '%s', '%s', '%s','%s');";
+    private static final String DELETE_CLIENT_SQL = "DELETE FROM clients WHERE ID=%d";
 
-//    private static final String INSERT_USERS_SQL = "INSERT INTO users" + "  (Name, Email, Password, Role) VALUES  ('%s', '%s', '%s', '%s')";
 
 
     @Override
     public String getCreateQuery(Client client) {
-        return String.format(CREATE_QUERY, client.getFirstName(), client.getLastName(), client.getEmail(), client.getPassword(), client.getCompanyName());
+        return String.format(CREATE_SQL, client.getFirstName(), client.getLastName(), client.getEmail(), client.getPassword(), client.getCompanyName());
     }
 
-
     @Override
-    public boolean deleteById(Integer id) {
-        return false;
+    public String getDeleteByIdQuery(Integer id) {
+        return String.format(DELETE_CLIENT_SQL, id);
     }
 
     @Override

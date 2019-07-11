@@ -18,7 +18,7 @@ public interface GenericRepository<E> {
      * @param id
      * @return
      */
-    boolean deleteById(Integer id);
+    boolean deleteById(Integer id, Connection connection);
 
     /**
      * Update an object in DB and return updated object

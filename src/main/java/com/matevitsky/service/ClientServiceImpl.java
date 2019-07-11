@@ -5,6 +5,7 @@ import com.matevitsky.entity.Client;
 import com.matevitsky.exception.WrongInputException;
 import com.matevitsky.repository.impl.ClientsRepositoryImpl;
 import com.matevitsky.repository.interfaces.ClientRepository;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -17,10 +18,26 @@ public class ClientServiceImpl implements ClientService {
         clientRepository = new ClientsRepositoryImpl();
     }
 
+    private static final Logger LOGGER = Logger.getLogger(ClientServiceImpl.class);
+
     @Override
     public Client register(Client client) throws WrongInputException, SQLException {
-        Connection connection = ConnectorDB.getConnection();
-        clientRepository.create(client, connection);
-        return null;
+        try (Connection connection = ConnectorDB.getConnection()) {
+            clientRepository.create(client, connection);
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+        //TODO: что вернуть?
+        return client;
+    }
+
+    @Override
+    public boolean deleteById(Integer id) {
+        try (Connection connection = ConnectorDB.getConnection()) {
+            return clientRepository.deleteById(id, connection);
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+        return false;
     }
 }
