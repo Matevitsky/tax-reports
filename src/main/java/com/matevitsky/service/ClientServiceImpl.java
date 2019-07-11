@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class ClientServiceImpl implements ClientService {
 
@@ -49,5 +50,16 @@ public class ClientServiceImpl implements ClientService {
             LOGGER.error(e);
         }
         return client;
+    }
+
+    @Override
+    public Optional<Client> getById(Integer id) {
+        try (Connection connection = ConnectorDB.getConnection()) {
+            return clientRepository.getById(id, connection);
+
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+        return Optional.empty();
     }
 }

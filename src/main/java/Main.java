@@ -24,7 +24,7 @@ public class Main {
                 .withCompanyName("test")
                 .withEmail("test@test.test")
                 .build();
-        clientService.update(client);
+        System.out.println(clientService.getById(2));
 
         //TODO: create Header for client page
         //TODO: удалить все логгер дебаг

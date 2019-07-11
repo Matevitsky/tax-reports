@@ -4,6 +4,7 @@ import com.matevitsky.entity.Client;
 import com.matevitsky.exception.WrongInputException;
 
 import java.sql.SQLException;
+import java.util.Optional;
 
 public interface ClientService {
 
@@ -12,4 +13,6 @@ public interface ClientService {
     boolean deleteById(Integer id);
 
     Client update(Client client);
+
+    Optional<Client> getById(Integer id);
 }

@@ -19,6 +19,13 @@ public class Client extends User {
     }
 
     @Override
+    public String toString() {
+        return "Client{" +
+                "companyName='" + companyName + '\'' +
+                "} " + super.toString();
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
