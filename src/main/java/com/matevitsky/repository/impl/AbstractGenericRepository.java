@@ -15,13 +15,15 @@ public abstract class AbstractGenericRepository<E> implements GenericRepository<
 
     private static final Logger LOGGER = Logger.getLogger(AbstractGenericRepository.class);
 
-    public abstract String getCreateQuery(E entity);
+    protected abstract String getCreateQuery(E entity);
 
-    public abstract String getDeleteByIdQuery(Integer id);
+    protected abstract String getDeleteByIdQuery(Integer id);
 
-    public abstract String getUpdateQuery(E entity);
+    protected abstract String getUpdateQuery(E entity);
 
-    public abstract String getByIdQuery(Integer id);
+    protected abstract String getByIdQuery(Integer id);
+
+    protected abstract String getAllQuery();
 
     @Override
     public boolean create(E entity, Connection connection) {
@@ -96,7 +98,17 @@ public abstract class AbstractGenericRepository<E> implements GenericRepository<
     }
 
     @Override
-    public Optional<E> getAll(Connection connection) {
+    public Optional<List<E>> getAll(Connection connection) {
+        LOGGER.debug("method getAll started ");
+
+        String sqlQuery = getAllQuery();
+        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            ResultSet resultSet = statement.executeQuery();
+            return Optional.ofNullable(mapToList(resultSet));
+
+        } catch (SQLException e) {
+            LOGGER.error("Failed to get entity by ID " + e.getMessage());
+        }
         return Optional.empty();
     }
 

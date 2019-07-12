@@ -1,6 +1,7 @@
 package com.matevitsky.repository.interfaces;
 
 import java.sql.Connection;
+import java.util.List;
 import java.util.Optional;
 
 public interface GenericRepository<E> {
@@ -41,5 +42,5 @@ public interface GenericRepository<E> {
      *
      * @return List of objects
      */
-    Optional<E> getAll(Connection connection);
+    Optional<List<E>> getAll(Connection connection);
 }

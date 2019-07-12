@@ -4,11 +4,10 @@ import com.matevitsky.entity.Client;
 import com.matevitsky.repository.interfaces.ClientRepository;
 import org.apache.log4j.Logger;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 public class ClientsRepositoryImpl extends AbstractGenericRepository<Client> implements ClientRepository {
@@ -21,6 +20,7 @@ public class ClientsRepositoryImpl extends AbstractGenericRepository<Client> imp
     private static final String DELETE_CLIENT_SQL = "DELETE FROM clients WHERE ID=%d";
     private static final String UPDATE_CLIENT_SQL = "UPDATE clients set FirstName='%s', LastName='%s', Email='%s', Password='%s', CompanyName='%s' where ID=%d";
     private static final String SELECT_CLIENT_BY_ID_SQL = "SELECT  * FROM clients WHERE ID=%d";
+    private static final String SELECT_ALL_CLIENTS_SQL = "SELECT * FROM clients";
 
 
 
@@ -45,15 +45,26 @@ public class ClientsRepositoryImpl extends AbstractGenericRepository<Client> imp
         return String.format(SELECT_CLIENT_BY_ID_SQL, id);
     }
 
-
     @Override
-    public Optional<Client> getAll(Connection connection) {
-        return Optional.empty();
+    public String getAllQuery() {
+        return SELECT_ALL_CLIENTS_SQL;
     }
+    
 
     @Override
-    protected List<Client> mapToList(ResultSet rs) throws SQLException {
-        return null;
+    protected List<Client> mapToList(ResultSet resultSet) throws SQLException {
+        List<Client> allClientList = new ArrayList<>();
+        Client client;
+        try {
+            while (resultSet.next()) {
+                client = mapToObject(resultSet);
+                allClientList.add(client);
+            }
+        } catch (SQLException e) {
+            LOGGER.warn("GetAll method return empty RowSet");
+        }
+
+        return allClientList;
     }
 
     @Override
