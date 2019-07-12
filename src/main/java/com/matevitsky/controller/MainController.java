@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Objects;
 
 @WebServlet(urlPatterns = "/app/*")
 public class MainController extends HttpServlet {
@@ -34,7 +35,7 @@ public class MainController extends HttpServlet {
         Command command = client.defineCommand(request);
 
         String goTo = command.execute(request, response);
-        if (goTo != null) {
+        if (Objects.nonNull(goTo)) {//Objects
             request.getRequestDispatcher(goTo).forward(request, response);
         } else {
             // response.sendRedirect(PageConstant.ERROR_PAGE);

@@ -19,7 +19,7 @@ public final class ConnectorDB {
     private static final String DB_PASSWORD = "db.password";
     private static final String DB_DRIVER = "db.driver";
     private static final String DB_POOLSIZE = "db.poolsize";
-    private static final BasicDataSource ds = new BasicDataSource();
+    private static final BasicDataSource DS = new BasicDataSource();
     private static final Logger LOGGER = Logger.getLogger(ConnectorDB.class);
 
     /**
@@ -36,14 +36,14 @@ public final class ConnectorDB {
         String password = RESOURCE_BUNDLE.getString(DB_PASSWORD);
         String driver = RESOURCE_BUNDLE.getString(DB_DRIVER);
         int poolSize = Integer.parseInt(RESOURCE_BUNDLE.getString(DB_POOLSIZE));
-        ds.setDriverClassName(driver);
-        ds.setUrl(url);
-        ds.setUsername(user);
-        ds.setPassword(password);
-        ds.setMinIdle(5);
-        ds.setMaxIdle(10);
-        ds.setMaxOpenPreparedStatements(poolSize);
+        DS.setDriverClassName(driver);
+        DS.setUrl(url);
+        DS.setUsername(user);
+        DS.setPassword(password);
+        DS.setMinIdle(5);
+        DS.setMaxIdle(10);
+        DS.setMaxOpenPreparedStatements(poolSize);
 
-        return ds.getConnection();
+        return DS.getConnection();
     }
 }

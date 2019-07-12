@@ -46,7 +46,7 @@ public class Client extends User {
     }
 
     public static class Builder {
-        private Integer id;
+        private int id;
         private String firstName;
         private String lastName;
         private String email;
@@ -56,7 +56,7 @@ public class Client extends User {
         private Builder() {
         }
 
-        public Builder withId(Integer id) {
+        public Builder withId(int id) {
             this.id = id;
             return this;
         }

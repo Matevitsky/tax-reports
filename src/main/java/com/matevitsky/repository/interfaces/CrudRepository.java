@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.util.List;
 import java.util.Optional;
 
-public interface GenericRepository<E> {
+public interface CrudRepository<E> {
     /**
      * Create an object in DB and return true/false
      *
@@ -19,7 +19,7 @@ public interface GenericRepository<E> {
      * @param id
      * @return
      */
-    boolean deleteById(Integer id, Connection connection);
+    boolean deleteById(int id, Connection connection);
 
     /**
      * Update an object in DB and return updated object
@@ -35,7 +35,7 @@ public interface GenericRepository<E> {
      * @param id
      * @return Optional
      */
-    Optional<E> getById(Integer id, Connection connection);
+    Optional<E> getById(int id, Connection connection);
 
     /**
      * Ger all objects from DB
@@ -43,4 +43,6 @@ public interface GenericRepository<E> {
      * @return List of objects
      */
     Optional<List<E>> getAll(Connection connection);
+
+
 }

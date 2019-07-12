@@ -1,4 +1,4 @@
-package com.matevitsky.repository.impl;
+package com.matevitsky.repository.implementation;
 
 import com.matevitsky.entity.Client;
 import com.matevitsky.repository.interfaces.ClientRepository;
@@ -10,15 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ClientsRepositoryImpl extends AbstractGenericRepository<Client> implements ClientRepository {
+public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements ClientRepository {
 
-    private static final Logger LOGGER = Logger.getLogger(ClientsRepositoryImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(ClientRepositoryImpl.class);
 
     private static final String CREATE_SQL = "INSERT INTO clients (FirstName, LastName, Email, Password, CompanyName) \n" +
             "VALUES ('%s', '%s', '%s', '%s','%s');";
 
     private static final String DELETE_CLIENT_SQL = "DELETE FROM clients WHERE ID=%d";
-    private static final String UPDATE_CLIENT_SQL = "UPDATE clients set FirstName='%s', LastName='%s', Email='%s', Password='%s', CompanyName='%s' where ID=%d";
+    private static final String UPDATE_CLIENT_SQL =
+            "UPDATE clients SET FirstName='%s', LastName='%s', Email='%s', Password='%s', CompanyName='%s' where ID=%d";
     private static final String SELECT_CLIENT_BY_ID_SQL = "SELECT  * FROM clients WHERE ID=%d";
     private static final String SELECT_ALL_CLIENTS_SQL = "SELECT * FROM clients";
 
@@ -30,7 +31,7 @@ public class ClientsRepositoryImpl extends AbstractGenericRepository<Client> imp
     }
 
     @Override
-    public String getDeleteByIdQuery(Integer id) {
+    public String getDeleteByIdQuery(int id) {
         return String.format(DELETE_CLIENT_SQL, id);
     }
 
@@ -40,7 +41,7 @@ public class ClientsRepositoryImpl extends AbstractGenericRepository<Client> imp
     }
 
     @Override
-    public String getByIdQuery(Integer id) {
+    public String getByIdQuery(int id) {
 
         return String.format(SELECT_CLIENT_BY_ID_SQL, id);
     }
@@ -49,7 +50,7 @@ public class ClientsRepositoryImpl extends AbstractGenericRepository<Client> imp
     public String getAllQuery() {
         return SELECT_ALL_CLIENTS_SQL;
     }
-    
+
 
     @Override
     protected List<Client> mapToList(ResultSet resultSet) throws SQLException {
@@ -71,10 +72,14 @@ public class ClientsRepositoryImpl extends AbstractGenericRepository<Client> imp
     protected Client mapToObject(ResultSet resultSet) {
         Client client = null;
         try {
-            resultSet.next();
-            Integer id = resultSet.getInt("ID");
-            String firstName = resultSet.getString("FirstName");
-            String lastName = resultSet.getString("LastName");
+            if (!resultSet.first()) {
+                resultSet.next();
+            }
+            //TODO: replace column name
+
+            Integer id = resultSet.getInt("client_id");
+            String firstName = resultSet.getString("first_name");
+            String lastName = resultSet.getString("last_name");
             String email = resultSet.getString("Email");
             String password = resultSet.getString("Password");
             String companyName = resultSet.getString("CompanyName");

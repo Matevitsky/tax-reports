@@ -16,6 +16,7 @@ public class Main {
 
         ClientService clientService = new ClientServiceImpl();
 
+
         Client client = Client.newBuilder()
                 .withFirstName("Sergey")
                 .withLastName("test")

@@ -11,8 +11,6 @@ public class LoginCommand implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(LoginCommand.class);
 
-
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 

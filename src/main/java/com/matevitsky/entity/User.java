@@ -4,13 +4,13 @@ import java.util.Objects;
 
 public abstract class User {
 
-    private final Integer id;
+    private final int id;
     private final String firstName;
     private final String lastName;
     private final String email;
     private final String password;
 
-    public User(Integer id, String firstName, String lastName, String email, String password) {
+    public User(int id, String firstName, String lastName, String email, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -58,7 +58,7 @@ public abstract class User {
             return false;
         }
         User user = (User) o;
-        return id.equals(user.id) &&
+        return id == user.id &&
                 firstName.equals(user.firstName) &&
                 lastName.equals(user.lastName) &&
                 email.equals(user.email) &&

@@ -4,21 +4,30 @@ USE Tax;
 DROP TABLE IF EXISTS clients;
 
 
-create table clients
+CREATE TABLE clients
 (
-    ID          int auto_increment,
-    FirstName   varchar(64)  not null,
-    LastName    varchar(64)  not null,
-    Email       varchar(255) not null UNIQUE,
-    Password    varchar(32)  not null,
-    CompanyName varchar(64)  not null,
+    client_id    INT AUTO_INCREMENT,
+    first_name   varchar(64)  NOT NULL,
+    last_name    varchar(64)  NOT NULL,
+    email        varchar(255) NOT NULL UNIQUE,
+    password     varchar(32)  NOT NULL,
+    company_name varchar(64)  NOT NULL,
 
-    PRIMARY KEY (ID)
+    PRIMARY KEY (client_id)
 
 );
 
 
-INSERT INTO clients(FirstName, LastName, Email, Password, CompanyName)
+CREATE TABLE reports
+(
+    report_id           INT AUTO_INCREMENT,
+    tittle              VARCHAR(64)  NOT NULL,
+    content             VARCHAR(255) NOT NULL,
+    report_status       VARCHAR(64),
+    cancellation_reason VARCHAR(255)
+);
+
+INSERT INTO clients(first_name, last_name, email, password, company_name)
 VALUES ('client', 'surname', 'user@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 'company');
 
 

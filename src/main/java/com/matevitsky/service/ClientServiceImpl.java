@@ -3,12 +3,13 @@ package com.matevitsky.service;
 import com.matevitsky.db.ConnectorDB;
 import com.matevitsky.entity.Client;
 import com.matevitsky.exception.WrongInputException;
-import com.matevitsky.repository.impl.ClientsRepositoryImpl;
+import com.matevitsky.repository.implementation.ClientRepositoryImpl;
 import com.matevitsky.repository.interfaces.ClientRepository;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 public class ClientServiceImpl implements ClientService {
@@ -16,7 +17,7 @@ public class ClientServiceImpl implements ClientService {
     private ClientRepository clientRepository;
 
     public ClientServiceImpl() {
-        clientRepository = new ClientsRepositoryImpl();
+        clientRepository = new ClientRepositoryImpl();
     }
 
     private static final Logger LOGGER = Logger.getLogger(ClientServiceImpl.class);
@@ -57,6 +58,16 @@ public class ClientServiceImpl implements ClientService {
         try (Connection connection = ConnectorDB.getConnection()) {
             return clientRepository.getById(id, connection);
 
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<List<Client>> getAll() {
+        try (Connection connection = ConnectorDB.getConnection()) {
+            return clientRepository.getAll(connection);
         } catch (SQLException e) {
             LOGGER.error(e);
         }
