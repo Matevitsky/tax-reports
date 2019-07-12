@@ -3,25 +3,25 @@ package com.matevitsky.entity;
 import java.util.Objects;
 
 public class Client extends User {
-    private final String companyName;
+    private final int companyId;
 
     public Client(Builder builder) {
         super(builder.id, builder.firstName, builder.lastName, builder.email, builder.password);
-        this.companyName = builder.companyName;
+        this.companyId = builder.companyId;
     }
 
     public static Builder newBuilder() {
         return new Builder();
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public int getCompanyName() {
+        return companyId;
     }
 
     @Override
     public String toString() {
         return "Client{" +
-                "companyName='" + companyName + '\'' +
+                "companyId=" + companyId +
                 "} " + super.toString();
     }
 
@@ -37,12 +37,11 @@ public class Client extends User {
             return false;
         }
         Client client = (Client) o;
-        return companyName.equals(client.companyName);
+        return companyId == client.companyId;
     }
 
-    @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), companyName);
+        return Objects.hash(super.hashCode(), companyId);
     }
 
     public static class Builder {
@@ -51,7 +50,7 @@ public class Client extends User {
         private String lastName;
         private String email;
         private String password;
-        private String companyName;
+        private int companyId;
 
         private Builder() {
         }
@@ -81,8 +80,8 @@ public class Client extends User {
             return this;
         }
 
-        public Builder withCompanyName(String companyName) {
-            this.companyName = companyName;
+        public Builder withCompanyName(int companyId) {
+            this.companyId = companyId;
             return this;
         }
 
