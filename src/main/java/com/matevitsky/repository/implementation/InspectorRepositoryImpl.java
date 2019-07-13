@@ -41,7 +41,7 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Inspector> imple
     @Override
     protected String getUpdateQuery(Inspector inspector) {
         return String.format(UPDATE_INSPECTOR_SQL, inspector.getFirstName(), inspector.getLastName(),
-            inspector.getEmail(), inspector.getPassword(), inspector.getClientId());
+            inspector.getEmail(), inspector.getPassword(), inspector.getId());
 
     }
 
