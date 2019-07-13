@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS clients;
 CREATE TABLE companies
 (
     company_id   INT AUTO_INCREMENT,
-    company_name VARCHAR(255) NOT NULL,
+    company_name VARCHAR(255) UNIQUE NOT NULL,
 
     PRIMARY KEY (company_id)
 

@@ -36,7 +36,7 @@ public class RegisterCommand implements Command {
             .withLastName(lastName)
             .withEmail(emailAddress)
             .withPassword(password)
-            .withCompanyName(companyName)
+            .withCompanyId(1)
             .build();
 
         try {

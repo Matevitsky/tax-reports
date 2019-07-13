@@ -1,4 +1,3 @@
-import com.matevitsky.entity.Client;
 import com.matevitsky.service.ClientService;
 import com.matevitsky.service.ClientServiceImpl;
 
@@ -17,14 +16,14 @@ public class Main {
         ClientService clientService = new ClientServiceImpl();
 
 
-        Client client = Client.newBuilder()
+       /* Client client = Client.newBuilder()
                 .withFirstName("Sergey")
                 .withLastName("test")
                 .withId(2)
                 .withPassword("test")
                 .withCompanyName(1)
                 .withEmail("test@test.test")
-                .build();
+                .build();*/
         System.out.println(clientService.getById(2));
 
         //TODO: create Header for client page

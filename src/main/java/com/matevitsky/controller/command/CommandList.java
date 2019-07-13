@@ -6,6 +6,7 @@ public enum CommandList {
     LOGIN(new LoginCommand()),
 
     GET_REGISTRATION_PAGE(new GetRegistrationPageCommand()),
+    GET_CREATE_REPORT_PAGE(new GetCreateReportPageCommand()),
 
     REGISTER(new RegisterCommand());
 
