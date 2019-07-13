@@ -149,8 +149,8 @@ public abstract class CrudRepositoryImpl<E> implements CrudRepository<E> {
         return Optional.empty();
     }
 
-    protected abstract List<E> mapToList(ResultSet rs) throws SQLException;
+    protected abstract List<E> mapToList(ResultSet resultSet);
 
-    protected abstract E mapToObject(ResultSet rs) throws SQLException;
+    protected abstract E mapToObject(ResultSet resultSet);
 
 }

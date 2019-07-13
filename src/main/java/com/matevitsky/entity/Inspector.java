@@ -55,29 +55,33 @@ public class Inspector extends User {
             return this;
         }
 
-        public Builder withFirstName(int id) {
-            this.id = id;
+        public Builder withFirstName(String firstName) {
+            this.firstName = firstName;
             return this;
         }
 
-        public Builder withLastName(int id) {
-            this.id = id;
+        public Builder withLastName(String lastName) {
+            this.lastName = lastName;
             return this;
         }
 
-        public Builder withEmail(int id) {
-            this.id = id;
+        public Builder withEmail(String email) {
+            this.email = email;
             return this;
         }
 
-        public Builder withPassword(int id) {
-            this.id = id;
+        public Builder withPassword(String password) {
+            this.password = password;
             return this;
         }
 
-        public Builder withClientId(int id) {
-            this.id = id;
+        public Builder withClientId(int clientId) {
+            this.clientId = clientId;
             return this;
+        }
+
+        public Inspector build() {
+            return new Inspector(this);
         }
     }
 }

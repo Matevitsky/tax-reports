@@ -14,20 +14,20 @@ public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements 
 
     private static final Logger LOGGER = Logger.getLogger(ClientRepositoryImpl.class);
 
-    private static final String CREATE_SQL = "INSERT INTO clients (FirstName, LastName, Email, Password, CompanyName) \n" +
-            "VALUES ('%s', '%s', '%s', '%s','%s');";
+    private static final String CREATE_CLIENT_SQL = "INSERT INTO clients (first_name, last_name, email, password, company_id, inspector_id) \n" +
+            "VALUES ('%s', '%s', '%s', '%s','%d','%d');";
 
-    private static final String DELETE_CLIENT_SQL = "DELETE FROM clients WHERE ID=%d";
+    private static final String DELETE_CLIENT_SQL = "DELETE FROM clients WHERE client_id=%d";
     private static final String UPDATE_CLIENT_SQL =
-            "UPDATE clients SET FirstName='%s', LastName='%s', Email='%s', Password='%s', CompanyName='%s' where ID=%d";
-    private static final String SELECT_CLIENT_BY_ID_SQL = "SELECT  * FROM clients WHERE ID=%d";
+            "UPDATE clients SET first_name='%s', last_name='%s', email='%s', password='%s', company_id='%d'," +
+                    " inspector_id='%d' where client_id=%d";
+    private static final String SELECT_CLIENT_BY_ID_SQL = "SELECT  * FROM clients WHERE client_id=%d";
     private static final String SELECT_ALL_CLIENTS_SQL = "SELECT * FROM clients";
-
 
 
     @Override
     public String getCreateQuery(Client client) {
-        return String.format(CREATE_SQL, client.getFirstName(), client.getLastName(), client.getEmail(), client.getPassword(), client.getCompanyName());
+        return String.format(CREATE_CLIENT_SQL, client.getFirstName(), client.getLastName(), client.getEmail(), client.getPassword(), client.getCompanyName());
     }
 
     @Override
@@ -53,7 +53,7 @@ public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements 
 
 
     @Override
-    protected List<Client> mapToList(ResultSet resultSet) throws SQLException {
+    protected List<Client> mapToList(ResultSet resultSet) {
         List<Client> allClientList = new ArrayList<>();
         Client client;
         try {
@@ -75,21 +75,23 @@ public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements 
             if (!resultSet.first()) {
                 resultSet.next();
             }
-            //TODO: replace column name
+
 
             Integer id = resultSet.getInt("client_id");
             String firstName = resultSet.getString("first_name");
             String lastName = resultSet.getString("last_name");
-            String email = resultSet.getString("Email");
-            String password = resultSet.getString("Password");
-            String companyName = resultSet.getString("CompanyName");
+            String email = resultSet.getString("email");
+            String password = resultSet.getString("password");
+            int companyName = resultSet.getInt("company_id");
+            int inspectorId = resultSet.getInt("inspector_id");
             client = Client.newBuilder()
                     .withId(id)
                     .withFirstName(firstName)
                     .withLastName(lastName)
                     .withEmail(email)
                     .withPassword(password)
-                    .withCompanyName(companyName)
+                    .withCompanyId(companyName)
+                    .withInspectorId(inspectorId)
                     .build();
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());

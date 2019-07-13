@@ -82,12 +82,12 @@ public class Client extends User {
             return this;
         }
 
-        public Builder withCompanyName(int companyId) {
+        public Builder withCompanyId(int companyId) {
             this.companyId = companyId;
             return this;
         }
 
-        public Builder withinspectorId(int inspectorId) {
+        public Builder withInspectorId(int inspectorId) {
             this.inspectorId = inspectorId;
             return this;
         }
