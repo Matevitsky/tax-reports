@@ -10,7 +10,7 @@ public class Report {
     private final ReportStatus status;
     private final String cancellationReason;
     private final int clientId;
-    private final int inspectorId;
+
 
     public Report(Builder builder) {
         this.id = builder.id;
@@ -19,7 +19,7 @@ public class Report {
         this.status = builder.status;
         this.cancellationReason = builder.cancellationReason;
         this.clientId = builder.clientId;
-        this.inspectorId = builder.inspectorId;
+
     }
 
     public static Builder newBuilder() {
@@ -50,9 +50,6 @@ public class Report {
         return clientId;
     }
 
-    public int getInspectorId() {
-        return inspectorId;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -65,7 +62,7 @@ public class Report {
         Report report = (Report) o;
         return id == report.id &&
             clientId == report.clientId &&
-            inspectorId == report.inspectorId &&
+
             tittle.equals(report.tittle) &&
             content.equals(report.content) &&
             status == report.status &&
@@ -74,7 +71,7 @@ public class Report {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, tittle, content, status, cancellationReason, clientId, inspectorId);
+        return Objects.hash(id, tittle, content, status, cancellationReason, clientId);
     }
 
     public static class Builder {
@@ -84,7 +81,7 @@ public class Report {
         private ReportStatus status;
         private String cancellationReason;
         private int clientId;
-        private int inspectorId;
+
 
         private Builder() {
         }
@@ -116,11 +113,6 @@ public class Report {
 
         public Builder withClientId(int clientId) {
             this.clientId = clientId;
-            return this;
-        }
-
-        public Builder withInspectorId(int inspectorId) {
-            this.inspectorId = inspectorId;
             return this;
         }
 

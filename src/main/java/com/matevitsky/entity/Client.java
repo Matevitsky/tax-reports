@@ -4,10 +4,12 @@ import java.util.Objects;
 
 public class Client extends User {
     private final int companyId;
+    private final int inspectorId;
 
     public Client(Builder builder) {
         super(builder.id, builder.firstName, builder.lastName, builder.email, builder.password);
         this.companyId = builder.companyId;
+        this.inspectorId = builder.inspectorId;
     }
 
     public static Builder newBuilder() {
@@ -18,11 +20,8 @@ public class Client extends User {
         return companyId;
     }
 
-    @Override
-    public String toString() {
-        return "Client{" +
-                "companyId=" + companyId +
-                "} " + super.toString();
+    public int getInspectorId() {
+        return inspectorId;
     }
 
     @Override
@@ -37,11 +36,13 @@ public class Client extends User {
             return false;
         }
         Client client = (Client) o;
-        return companyId == client.companyId;
+        return companyId == client.companyId &&
+                inspectorId == client.inspectorId;
     }
 
+    @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), companyId);
+        return Objects.hash(super.hashCode(), companyId, inspectorId);
     }
 
     public static class Builder {
@@ -51,6 +52,7 @@ public class Client extends User {
         private String email;
         private String password;
         private int companyId;
+        private int inspectorId;
 
         private Builder() {
         }
@@ -82,6 +84,11 @@ public class Client extends User {
 
         public Builder withCompanyName(int companyId) {
             this.companyId = companyId;
+            return this;
+        }
+
+        public Builder withinspectorId(int inspectorId) {
+            this.inspectorId = inspectorId;
             return this;
         }
 

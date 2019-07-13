@@ -22,12 +22,13 @@ public class Main {
                 .withLastName("test")
                 .withId(2)
                 .withPassword("test")
-                .withCompanyName("test")
+                .withCompanyName(1)
                 .withEmail("test@test.test")
                 .build();
         System.out.println(clientService.getById(2));
 
         //TODO: create Header for client page
+
         //TODO: удалить все логгер дебаг
     }
 }
