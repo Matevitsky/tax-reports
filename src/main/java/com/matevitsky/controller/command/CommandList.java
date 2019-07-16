@@ -6,8 +6,12 @@ public enum CommandList {
     LOGIN(new LoginCommand()),
 
     GET_REGISTRATION_PAGE(new GetRegistrationPageCommand()),
+
     GET_CREATE_REPORT_PAGE(new GetCreateReportPageCommand()),
+
     CREATE_REPORT(new CreateReportCommand()),
+
+    LOG_OUT(new LogOutCommand()),
 
     REGISTER(new RegisterCommand());
 
@@ -45,12 +49,5 @@ public enum CommandList {
 
     }
 
-    static class Context {
-        //    private static final UserService userService = new UserServiceImpl(new UserRepositoryImpl());
-        //  private static final ActivityRequestService activityRequestService = new ActivityRequestServiceImpl(new ActivityRequestRepositoryImpl());
-        // private static final ActivityService activityService = new ActivityServiceImpl(new ActivityRepositoryImpl());
 
-        private Context() {
-        }
-    }
 }

@@ -2,7 +2,7 @@ package com.matevitsky.controller.constant;
 
 public interface PageConstant {
 
-    String LOGIN_PAGE = "jsp/index.jsp";
+    String LOGIN_PAGE = "index.jsp";
     String REGISTRATION_PAGE = "jsp/RegistrationPage.jsp";
     String CLIENT_PAGE = "jsp/ClientPage.jsp";
     String INSPECTOR_PAGE = "jsp/InspectorPage.jsp";
