@@ -5,6 +5,8 @@ import java.util.Optional;
 
 public interface CrudService<S> {
 
+    boolean create(S entity);
+
     boolean deleteById(Integer id);
 
     S update(S entity);

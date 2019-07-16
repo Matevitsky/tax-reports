@@ -27,7 +27,7 @@ public class ReportRepositoryImpl extends CrudRepositoryImpl<Report> implements 
 
     @Override
     protected String getCreateQuery(Report report) {
-        return String.format(CREATE_REPORT_SQL, report.getTittle(), report.getContent(), report.getCancellationReason(),
+        return String.format(CREATE_REPORT_SQL, report.getTittle(), report.getContent(), report.getStatus(), report.getCancellationReason(),
             report.getClientId());
 
     }

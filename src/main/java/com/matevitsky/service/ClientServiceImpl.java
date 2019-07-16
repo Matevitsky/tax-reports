@@ -14,7 +14,7 @@ import java.util.Optional;
 
 public class ClientServiceImpl implements ClientService {
 
-    private ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
 
     public ClientServiceImpl() {
         clientRepository = new ClientRepositoryImpl();
@@ -42,6 +42,16 @@ public class ClientServiceImpl implements ClientService {
         }
         return Optional.empty();
 
+    }
+
+    @Override
+    public boolean create(Client client) {
+        try (Connection connection = ConnectorDB.getConnection()) {
+            return clientRepository.create(client, connection);
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+        return false;
     }
 
     @Override

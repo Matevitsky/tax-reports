@@ -21,6 +21,16 @@ public class InspectorServiceImpl implements InspectorService {
     }
 
     @Override
+    public boolean create(Inspector inspector) {
+        try (Connection connection = ConnectorDB.getConnection()) {
+            return inspectorRepository.create(inspector, connection);
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+        return false;
+    }
+
+    @Override
     public boolean deleteById(Integer id) {
         try (Connection connection = ConnectorDB.getConnection()) {
             return inspectorRepository.deleteById(id, connection);

@@ -27,7 +27,7 @@ public abstract class CrudRepositoryImpl<E> implements CrudRepository<E> {
 
     @Override
     public boolean create(E entity, Connection connection) {
-        LOGGER.debug("method create started for id ");
+        LOGGER.debug("method create started for entity " + entity.toString());
 
         String sqlQuery = getCreateQuery(entity);
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {

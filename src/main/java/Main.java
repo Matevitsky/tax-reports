@@ -30,5 +30,7 @@ public class Main {
         //TODO: create Header for client page
 
         //TODO: удалить все логгер дебаг
+
+        //TODO: inspector logout
     }
 }
