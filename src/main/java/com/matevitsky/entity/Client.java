@@ -7,7 +7,7 @@ public class Client extends User {
     private final int inspectorId;
 
     public Client(Builder builder) {
-        super(builder.id, builder.firstName, builder.lastName, builder.email, builder.password);
+        super(builder.id, builder.firstName, builder.lastName, builder.email, builder.password, builder.role);
         this.companyId = builder.companyId;
         this.inspectorId = builder.inspectorId;
     }
@@ -51,6 +51,7 @@ public class Client extends User {
         private String lastName;
         private String email;
         private String password;
+        private Role role;
         private int companyId;
         private int inspectorId;
 
@@ -79,6 +80,11 @@ public class Client extends User {
 
         public Builder withPassword(String password) {
             this.password = password;
+            return this;
+        }
+
+        public Builder withRole(Role role) {
+            this.role = role;
             return this;
         }
 

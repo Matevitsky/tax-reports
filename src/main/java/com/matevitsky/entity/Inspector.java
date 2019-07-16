@@ -7,7 +7,7 @@ public class Inspector extends User {
     private final int clientId;
 
     public Inspector(Builder builder) {
-        super(builder.id, builder.firstName, builder.lastName, builder.email, builder.password);
+        super(builder.id, builder.firstName, builder.lastName, builder.email, builder.password, builder.role);
         this.clientId = builder.clientId;
     }
 
@@ -45,6 +45,7 @@ public class Inspector extends User {
         private String lastName;
         private String email;
         private String password;
+        private Role role;
         private int clientId;
 
         private Builder() {
@@ -77,6 +78,11 @@ public class Inspector extends User {
 
         public Builder withClientId(int clientId) {
             this.clientId = clientId;
+            return this;
+        }
+
+        public Builder withRole(Role role) {
+            this.role = role;
             return this;
         }
 

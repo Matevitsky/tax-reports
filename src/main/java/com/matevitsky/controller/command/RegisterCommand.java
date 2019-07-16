@@ -1,6 +1,5 @@
 package com.matevitsky.controller.command;
 
-import com.matevitsky.db.ConnectorDB;
 import com.matevitsky.entity.Client;
 import com.matevitsky.exception.WrongInputException;
 import com.matevitsky.service.ClientService;
@@ -15,7 +14,7 @@ public class RegisterCommand implements Command {
 
 
     private static final Logger LOGGER = Logger.getLogger(RegisterCommand.class);
-    private ConnectorDB pool;
+
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

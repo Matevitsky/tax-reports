@@ -34,6 +34,11 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    public Optional<Client> findByEmail(String email) {
+        return clientRepository.findByEmail(email);
+    }
+
+    @Override
     public boolean deleteById(Integer id) {
         try (Connection connection = ConnectorDB.getConnection()) {
             return clientRepository.deleteById(id, connection);

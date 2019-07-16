@@ -92,30 +92,11 @@ public abstract class CrudRepositoryImpl<E> implements CrudRepository<E> {
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             if (statement.executeUpdate() == 0) {
                 LOGGER.error("update entity failed , no rows affected.");
-            } else {
-                return entity;
             }
 
         } catch (SQLException e) {
             LOGGER.error("Failed to update  entity " + e.getMessage());
         }
-        return entity;
-    }
-
-    public E update1(E entity, Connection connection) {
-        LOGGER.debug("method update started ");
-
-        String sqlQuery = getUpdateQuery(entity);
-
-        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
-            if (statement.executeUpdate() == 0) {
-                LOGGER.error("update entity failed , no rows affected.");
-            }
-
-        } catch (SQLException e) {
-            LOGGER.error("Failed to update  entity " + e.getMessage());
-        }
-
         return entity;
     }
 

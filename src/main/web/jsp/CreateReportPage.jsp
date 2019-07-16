@@ -82,16 +82,17 @@
         <div class="row">
             <div class="col-lg-6">
 
-                <form role="form">
+                <form role="form" action="/app" method="get">
+                    <input type="hidden" name="command" value="create_report">
                     <div class="form-group">
                         <label>Tittle</label>
-                        <input class="form-control" placeholder="Enter tittle">
+                        <input class="form-control" name="tittle" placeholder="Enter tittle">
                     </div>
 
 
                     <div class="form-group">
                         <label>Report content</label>
-                        <textarea class="form-control" rows="3"></textarea>
+                        <textarea class="form-control" rows="3" name="content"></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-default">Save</button>

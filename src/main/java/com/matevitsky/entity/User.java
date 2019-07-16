@@ -9,13 +9,15 @@ public abstract class User {
     private final String lastName;
     private final String email;
     private final String password;
+    private final Role role;
 
-    public User(int id, String firstName, String lastName, String email, String password) {
+    public User(int id, String firstName, String lastName, String email, String password, Role role) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     public Integer getId() {
@@ -38,15 +40,8 @@ public abstract class User {
         return password;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+    public Role getRole() {
+        return role;
     }
 
     @Override
@@ -62,11 +57,24 @@ public abstract class User {
                 firstName.equals(user.firstName) &&
                 lastName.equals(user.lastName) &&
                 email.equals(user.email) &&
-                password.equals(user.password);
+                password.equals(user.password) &&
+                role == user.role;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, password);
+        return Objects.hash(id, firstName, lastName, email, password, role);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                '}';
     }
 }
