@@ -27,9 +27,9 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Inspector> imple
             "UPDATE inspectors SET first_name='%s', last_name='%s', email='%s', password='%s', role='%s" +
             " client_id='%d' where inspector_id=%d";
 
-    private static final String SELECT_INSPECTOR_BY_ID_SQL = "SELECT * FROM inspectors WHERE inspector_id=%d";
+    private static final String SELECT_INSPECTOR_BY_ID_SQL = "SELECT * FROM inspectors WHERE inspector_id='%d'";
     private static final String SELECT_ALL_INSPECTORS_SQL = "SELECT * FROM inspectors";
-    private static final String SELECT_INSPECTOR_BY_EMAIL_SQL = "SELECT * FROM inspectors WHERE email=%s";
+    private static final String SELECT_INSPECTOR_BY_EMAIL_SQL = "SELECT * FROM inspectors WHERE email='%s'";
 
 
     @Override
@@ -84,7 +84,7 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Inspector> imple
             if (!resultSet.first()) {
                 resultSet.next();
             }
-            Integer id = resultSet.getInt("inspector_id");
+            int id = resultSet.getInt("inspector_id");
             String firstName = resultSet.getString("first_name");
             String lastName = resultSet.getString("last_name");
             String email = resultSet.getString("email");

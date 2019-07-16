@@ -5,10 +5,13 @@ import com.matevitsky.entity.Role;
 import com.matevitsky.repository.interfaces.ClientRepository;
 import org.apache.log4j.Logger;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements ClientRepository {
@@ -20,11 +23,11 @@ public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements 
 
     private static final String DELETE_CLIENT_SQL = "DELETE FROM clients WHERE client_id=%d";
     private static final String UPDATE_CLIENT_SQL =
-            "UPDATE clients SET first_name='%s', last_name='%s', email='%s', password='%s', role, company_id='%d'," +
+            "UPDATE clients SET first_name='%s', last_name='%s', email='%s', password='%s', role='%s', company_id='%d'," +
                     " inspector_id='%d' where client_id=%d";
     private static final String SELECT_CLIENT_BY_ID_SQL = "SELECT  * FROM clients WHERE client_id=%d";
     private static final String SELECT_ALL_CLIENTS_SQL = "SELECT * FROM clients";
-    private static final String SELECT_CLIENT_BY_EMAIL = "SELECT * FROM clients  where email='%s'";
+    private static final String SELECT_CLIENT_BY_EMAIL_SQL = "SELECT * FROM clients  where email='%s'";
 
 
     @Override
@@ -79,9 +82,7 @@ public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements 
             if (!resultSet.first()) {
                 resultSet.next();
             }
-
-
-            Integer id = resultSet.getInt("client_id");
+            int id = resultSet.getInt("client_id");
             String firstName = resultSet.getString("first_name");
             String lastName = resultSet.getString("last_name");
             String email = resultSet.getString("email");
@@ -108,9 +109,15 @@ public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements 
     }
 
     @Override
-    public Client findByEmail(String email) {
+    public Optional<Client> findByEmail(String email, Connection connection) {
+        String sqlQuery = String.format(SELECT_CLIENT_BY_EMAIL_SQL, email);
+        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            ResultSet resultSet = statement.executeQuery();
+            return Optional.ofNullable(mapToObject(resultSet));
+        } catch (SQLException e) {
+            LOGGER.error("Failed to get entity by ID " + e.getMessage());
+        }
+        return Optional.empty();
 
-
-        return null;
     }
 }

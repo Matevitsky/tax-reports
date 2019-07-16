@@ -12,7 +12,7 @@
     <div class="col-lg-6" align="center">
 
 
-        <h1>Form Validation</h1>
+        <h1>THIS IS INSPECTOR PAGE</h1>
 
         <form role="form">
 

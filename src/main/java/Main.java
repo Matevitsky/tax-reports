@@ -1,5 +1,6 @@
 import com.matevitsky.service.ClientService;
 import com.matevitsky.service.ClientServiceImpl;
+import com.matevitsky.util.MD5Util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,7 +25,7 @@ public class Main {
                 .withCompanyName(1)
                 .withEmail("test@test.test")
                 .build();*/
-        System.out.println(clientService.getById(2));
+        System.out.println(MD5Util.encryptPassword("inspector"));
 
         //TODO: create Header for client page
 

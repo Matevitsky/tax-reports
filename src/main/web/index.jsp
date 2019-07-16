@@ -11,7 +11,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta firstName="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Login Page</title>
 
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
@@ -39,12 +39,12 @@
         <form class="col-lg-12" action="/app" method="post">
             <input type="hidden" name="command" value="login">
             <div class="input-group" style="width: 340px; text-align: center; margin: 0 auto;">
-                <input class="form-control input-lg" firstName="email" id="email" placeholder="Enter your email address"
+                <input class="form-control input-lg" name="email" id="email" placeholder="Enter your email address"
                        type="text"> <span id="loginValid"></span>
             </div>
             <br>
             <div class="input-group" style="width: 340px; text-align: center; margin: 0 auto;">
-                <input class="form-control input-lg" firstName="password" id="password"
+                <input class="form-control input-lg" name="password" id="password"
                        placeholder="Enter your password"
                        type="text">
 

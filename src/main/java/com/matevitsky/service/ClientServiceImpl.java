@@ -35,7 +35,13 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Optional<Client> findByEmail(String email) {
-        return clientRepository.findByEmail(email);
+        try (Connection connection = ConnectorDB.getConnection()) {
+            return clientRepository.findByEmail(email, connection);
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+        return Optional.empty();
+
     }
 
     @Override
