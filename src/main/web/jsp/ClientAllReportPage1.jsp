@@ -26,12 +26,12 @@
 
     </thead>
     <tbody>
-    <c:forEach items="${activityList}" var="activity">
+    <c:forEach items="${activityList}" var="report">
 
         <tr>
             <form action="/app" method="get">
-                <td>${activity.tittle}</td>
-                <td>${activity.status}</td>
+                <td>${report.tittle}</td>
+                <td>${report.status}</td>
                     <%--<td>${activity.description}</td>
                     <td>${activity.duration}
 

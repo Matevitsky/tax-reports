@@ -33,17 +33,33 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public boolean deleteById(Integer id) {
-        throw new UnsupportedOperationException();
+        try (Connection connection = ConnectorDB.getConnection()) {
+            return reportRepository.deleteById(id, connection);
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+        return false;
     }
 
     @Override
-    public Report update(Report entity) {
-        throw new UnsupportedOperationException();
+    public Report update(Report report) {
+        try (Connection connection = ConnectorDB.getConnection()) {
+            return reportRepository.update(report, connection);
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+        return report;
     }
 
     @Override
     public Optional<Report> getById(Integer id) {
-        throw new UnsupportedOperationException();
+
+        try (Connection connection = ConnectorDB.getConnection()) {
+            return reportRepository.getById(id, connection);
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+        return Optional.empty();
     }
 
     @Override

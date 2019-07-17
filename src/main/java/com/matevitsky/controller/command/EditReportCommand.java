@@ -6,20 +6,20 @@ import com.matevitsky.service.interfaces.ReportService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
+import java.util.Optional;
 
-import static com.matevitsky.controller.constant.PageConstant.CLIENT_ALL_REPORT_PAGE;
+import static com.matevitsky.controller.constant.PageConstant.CREATE_REPORT_PAGE;
 
-public class AllReportsCommand implements Command {
+public class EditReportCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
+        int reportId = Integer.parseInt(request.getParameter("reportId"));
         ReportService reportService = new ReportServiceImpl();
-        int clientId = (int) request.getSession().getAttribute("userId");
-
-        List<Report> reportList = reportService.getByClientId(clientId).get();
-
-        request.setAttribute("reports", reportList);
-        return CLIENT_ALL_REPORT_PAGE;
+        Optional<Report> report = reportService.getById(reportId);
+        if (report.isPresent()) {
+            request.setAttribute("report", report.get());
+        }
+        return CREATE_REPORT_PAGE;
     }
 }

@@ -93,27 +93,23 @@
 
             </thead>
             <tbody>
-            <c:forEach items="${activityList}" var="activity">
+            <c:forEach items="${reports}" var="report">
 
                 <tr>
                     <form action="/app" method="get">
-                        <td>${activity.tittle}</td>
-                        <td>${activity.status}</td>
-
+                        <td>${report.tittle}</td>
+                        <td>${report.status}</td>
                         <td>
-                            <c:if test="${(activity.status == 'NEW')|| activity.status == 'DECLINED' }">
-                            <a href="/app?command=edit">
-                                <div class="text-primary">
-                                    Edit
-                                </div>
+                            <c:if test="${(report.status == 'NEW')|| report.status == 'DECLINED' }">
+
+                            <button type="submit" class="btn-link">EDIT</button>
+                            <input type="hidden" name="reportId" value="${report.id}"/>
+                            <input type="hidden" name="command" value="edit_report"/>
+
                             </a>
                         </td>
                         </c:if>
-
-
                     </form>
-
-
                 </tr>
 
             </c:forEach>
