@@ -5,6 +5,7 @@ import com.matevitsky.entity.Client;
 import com.matevitsky.exception.WrongInputException;
 import com.matevitsky.repository.implementation.ClientRepositoryImpl;
 import com.matevitsky.repository.interfaces.ClientRepository;
+import com.matevitsky.service.interfaces.ClientService;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;

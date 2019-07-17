@@ -4,6 +4,7 @@ import com.matevitsky.db.ConnectorDB;
 import com.matevitsky.entity.Report;
 import com.matevitsky.repository.implementation.ReportRepositoryImpl;
 import com.matevitsky.repository.interfaces.ReportRepository;
+import com.matevitsky.service.interfaces.ReportService;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -48,5 +49,16 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public Optional<List<Report>> getAll() {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<List<Report>> getByClientId(int clientId) {
+        try (Connection connection = ConnectorDB.getConnection()) {
+            return reportRepository.getByClientId(clientId, connection);
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+
+        return Optional.empty();
     }
 }

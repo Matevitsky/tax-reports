@@ -11,6 +11,8 @@ public enum CommandList {
 
     CREATE_REPORT(new CreateReportCommand()),
 
+    ALL_REPORTS(new AllReportsCommand()),
+
     LOG_OUT(new LogOutCommand()),
 
     REGISTER(new RegisterCommand());

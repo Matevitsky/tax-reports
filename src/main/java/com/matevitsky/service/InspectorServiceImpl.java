@@ -4,6 +4,7 @@ import com.matevitsky.db.ConnectorDB;
 import com.matevitsky.entity.Inspector;
 import com.matevitsky.repository.implementation.InspectorRepositoryImpl;
 import com.matevitsky.repository.interfaces.InspectorRepository;
+import com.matevitsky.service.interfaces.InspectorService;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;

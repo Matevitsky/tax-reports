@@ -2,8 +2,8 @@ package com.matevitsky.controller.command;
 
 import com.matevitsky.entity.Client;
 import com.matevitsky.exception.WrongInputException;
-import com.matevitsky.service.ClientService;
 import com.matevitsky.service.ClientServiceImpl;
+import com.matevitsky.service.interfaces.ClientService;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;

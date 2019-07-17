@@ -41,7 +41,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html">Client Panel</a>
+        <a class="navbar-brand" href="command=client_page">Main Page</a>
     </div>
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul id="active" class="nav navbar-nav side-nav">
@@ -49,7 +49,7 @@
 
             <li><a href="/app?command=get_create_report_page"><i class="fa fa-plus"></i> Add new report</a></li>
 
-            <li><a href="bootstrap-elements.html"><i class="fa fa-bars"></i> All Reports</a></li>
+            <li><a href="/app?command=all_reports"><i class="fa fa-bars"></i> All Reports</a></li>
 
         </ul>
         <ul class="nav navbar-nav navbar-right navbar-user">

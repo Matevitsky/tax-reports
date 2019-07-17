@@ -3,6 +3,8 @@ package com.matevitsky.service;
 import com.matevitsky.entity.Client;
 import com.matevitsky.entity.Inspector;
 import com.matevitsky.entity.User;
+import com.matevitsky.service.interfaces.ClientService;
+import com.matevitsky.service.interfaces.InspectorService;
 import com.matevitsky.util.Validation;
 import org.apache.log4j.Logger;
 

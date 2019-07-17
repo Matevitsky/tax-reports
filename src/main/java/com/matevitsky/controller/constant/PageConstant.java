@@ -8,5 +8,6 @@ public interface PageConstant {
     String INSPECTOR_PAGE = "jsp/InspectorPage.jsp";
     String ADMIN_PAGE = "jsp/AdminPage.jsp";
     String CREATE_REPORT_PAGE = "jsp/CreateReportPage.jsp";
+    String CLIENT_ALL_REPORT_PAGE = "jsp/ClientAllReportPage.jsp";
 
 }

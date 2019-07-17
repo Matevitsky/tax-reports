@@ -1,4 +1,4 @@
-package com.matevitsky.service;
+package com.matevitsky.service.interfaces;
 
 import com.matevitsky.entity.Inspector;
 

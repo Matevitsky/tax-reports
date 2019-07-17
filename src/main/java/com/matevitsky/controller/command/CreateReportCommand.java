@@ -2,8 +2,8 @@ package com.matevitsky.controller.command;
 
 import com.matevitsky.entity.Report;
 import com.matevitsky.entity.ReportStatus;
-import com.matevitsky.service.ReportService;
 import com.matevitsky.service.ReportServiceImpl;
+import com.matevitsky.service.interfaces.ReportService;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;

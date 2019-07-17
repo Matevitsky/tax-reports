@@ -1,5 +1,5 @@
-import com.matevitsky.service.ClientService;
 import com.matevitsky.service.ClientServiceImpl;
+import com.matevitsky.service.interfaces.ClientService;
 import com.matevitsky.util.MD5Util;
 
 import java.io.File;
