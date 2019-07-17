@@ -79,7 +79,7 @@ public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements 
     protected Client mapToObject(ResultSet resultSet) {
         Client client = null;
         try {
-            if (!resultSet.first()) {
+            if (resultSet.isBeforeFirst()) {
                 resultSet.next();
             }
             int id = resultSet.getInt("client_id");

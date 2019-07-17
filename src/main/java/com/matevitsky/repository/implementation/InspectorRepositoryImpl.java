@@ -81,7 +81,7 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Inspector> imple
     protected Inspector mapToObject(ResultSet resultSet) {
         Inspector inspector = null;
         try {
-            if (!resultSet.first()) {
+            if (resultSet.isBeforeFirst()) {
                 resultSet.next();
             }
             int id = resultSet.getInt("inspector_id");

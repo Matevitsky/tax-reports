@@ -99,14 +99,18 @@
                     <form action="/app" method="get">
                         <td>${activity.tittle}</td>
                         <td>${activity.status}</td>
-                            <%--<td>${activity.description}</td>
-                            <td>${activity.duration}
 
-                                <input type="hidden" name="command" value="admin_remove_activity">
-                                <input type="hidden" name="id" value="${activity.id}"/>
+                        <td>
+                            <c:if test="${(activity.status == 'NEW')|| activity.status == 'DECLINED' }">
+                            <a href="/app?command=edit">
+                                <div class="text-primary">
+                                    Edit
+                                </div>
+                            </a>
+                        </td>
+                        </c:if>
 
 
-                            </td>--%>
                     </form>
 
 
