@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c-rt" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html lang="en">
@@ -96,20 +97,26 @@
             <c:forEach items="${reports}" var="report">
 
                 <tr>
-                    <form action="/app" method="get">
-                        <td>${report.tittle}</td>
-                        <td>${report.status}</td>
-                        <td>
-                            <c:if test="${(report.status == 'NEW')|| report.status == 'DECLINED' }">
 
-                            <button type="submit" class="btn-link">EDIT</button>
-                            <input type="hidden" name="reportId" value="${report.id}"/>
-                            <input type="hidden" name="command" value="edit_report"/>
 
-                            </a>
-                        </td>
-                        </c:if>
-                    </form>
+                    <td>${report.tittle}</td>
+                    <td>${report.status}</td>
+                    <td>
+
+                        <c:if test="${(report.status == 'NEW')|| report.status == 'DECLINED' }">
+
+                        <c-rt:set var="reportId" value="${report.id}" scope="page"/>
+
+                        <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal"
+                                data-target="#centralModalLGInfoDemo">EDIT
+
+                        </button>
+
+                        </a>
+
+                    </td>
+                    </c:if>
+
                 </tr>
 
             </c:forEach>
@@ -128,6 +135,56 @@
         </table>
     </div>
 </div>
+</div>
+
+<div class="modal fade" id="centralModalLGInfoDemo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-notify modal-info" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <form role="form" action="/app" method="get">
+                <input type="hidden" name="command" value="edit_report">
+                <input type="hidden" name="reportId" value=${reportId}>
+
+
+                <!--Header-->
+                <div class="modal-header">
+                    <p class="heading lead">Edit Report</p>
+                </div>
+
+                <!--Body-->
+                <div class="modal-body">
+                    <div class="text-left">
+
+                        <div class="row">
+
+                            <div class="form-group">
+                                <label>Tittle</label>
+                                <input class="form-control" name="tittle" placeholder="${report.tittle}">
+
+                            </div>
+
+                            <div class="form-group">
+                                <label>Report content</label>
+                                <textarea class="form-control" rows="3" name="content">${report.content}
+                                </textarea>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--Footer-->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info waves-effect waves-light">Save</button>
+
+                    <a type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">Cancel</a>
+                </div>
+                <%--  </form>--%>
+
+        </div>
+        <!--/.Content-->
+    </div>
 </div>
 </body>
 </html>

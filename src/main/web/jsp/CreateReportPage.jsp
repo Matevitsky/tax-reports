@@ -87,7 +87,7 @@
                     <c:set var="report" value="${report}"/>
 
                     <input type="hidden" name="command" value="create_report">
-                    <input type="hidden" name="reportId" value=${report.id}>
+                    <%--   <input type="hidden" name="reportId" value=${report.id}>--%>
                     <div class="form-group">
 
                         <label>Tittle</label>
@@ -99,8 +99,7 @@
 
                     <div class="form-group">
                         <label>Report content</label>
-                        <textarea class="form-control" rows="3" name="content">${report.content}
-                        </textarea>
+                        <textarea class="form-control" rows="3" name="content"> ${report.content} </textarea>
                     </div>
 
                     <button type="submit" class="btn btn-default">Save</button>
