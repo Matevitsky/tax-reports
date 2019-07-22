@@ -9,6 +9,8 @@ public enum CommandList {
 
     GET_CREATE_REPORT_PAGE(new GetCreateReportPageCommand()),
 
+    GET_EDIT_VIEW_REPORT_PAGE(new GetEditViewPageCommand()),
+
     CREATE_REPORT(new CreateReportCommand()),
 
     EDIT_REPORT(new EditReportCommand()),

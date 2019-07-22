@@ -48,6 +48,7 @@
                 <li><a href="/app?command=get_create_report_page"><i class="fa fa-plus"></i> Add new report</a></li>
 
                 <li><a href="/app?command=all_reports"><i class="fa fa-bars"></i> All Reports</a></li>
+
             </ul>
             <ul class="nav navbar-nav navbar-right navbar-user">
 
@@ -63,7 +64,7 @@
 
                 <li class="dropdown user-dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Steve Miller<b
-                            class="caret"></b></a>
+                        class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
                         <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
@@ -86,8 +87,9 @@
                 <form role="form" action="/app" method="get">
                     <c:set var="report" value="${report}"/>
 
-                    <input type="hidden" name="command" value="create_report">
-                    <%--   <input type="hidden" name="reportId" value=${report.id}>--%>
+                    <input type="hidden" name="command" value="edit_report">
+                    <input type="hidden" name="reportId" value=${report.id}>
+
                     <div class="form-group">
 
                         <label>Tittle</label>

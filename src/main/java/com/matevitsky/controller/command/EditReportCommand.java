@@ -27,6 +27,7 @@ public class EditReportCommand implements Command {
             .withStatus(ReportStatus.NEW)
             .withClientId(clientId)
             .build();
+
         reportService.update(report);
 
         List<Report> reportList = reportService.getByClientId(clientId).get();

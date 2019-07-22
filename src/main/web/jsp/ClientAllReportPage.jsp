@@ -12,11 +12,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="fonts/glyphicons-halflings-regular.woff"/>
     <link rel="stylesheet" type="text/css" href="css/local.css"/>
+    <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.min.css"/>
+
 
     <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/fa9ccce587.js"></script>
+
+
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 
 
     <!-- you need to include the shieldui css and js assets in order for the charts to work -->
@@ -81,7 +88,7 @@
 
     <div id="page-wrapper">
 
-        <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+        <table id="allReports" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
             <thead>
 
             <tr>
@@ -97,25 +104,23 @@
             <c:forEach items="${reports}" var="report">
 
                 <tr>
-
-
                     <td>${report.tittle}</td>
                     <td>${report.status}</td>
-                    <td>
+                    <form action="/app" method="get">
+                        <td>
 
-                        <c:if test="${(report.status == 'NEW')|| report.status == 'DECLINED' }">
 
-                        <c-rt:set var="reportId" value="${report.id}" scope="page"/>
+                            <c:if test="${(report.status == 'NEW')|| report.status == 'DECLINED' }">
 
-                        <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal"
-                                data-target="#centralModalLGInfoDemo">EDIT
+                            <button type="submit" class="btn btn-primary">
+                                EDIT
+                            </button>
+                            <input type="hidden" name="command" value="get_edit_view_report_page">
+                            <input type="hidden" name="reportId" value=${report.id}>
 
-                        </button>
-
-                        </a>
-
-                    </td>
-                    </c:if>
+                        </td>
+                        </c:if>
+                    </form>
 
                 </tr>
 
@@ -137,7 +142,7 @@
 </div>
 </div>
 
-<div class="modal fade" id="centralModalLGInfoDemo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<%--<div class="modal fade" id="centralModalLGInfoDemo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-notify modal-info" role="document">
         <!--Content-->
@@ -145,8 +150,6 @@
             <form role="form" action="/app" method="get">
                 <input type="hidden" name="command" value="edit_report">
                 <input type="hidden" name="reportId" value=${reportId}>
-
-
                 <!--Header-->
                 <div class="modal-header">
                     <p class="heading lead">Edit Report</p>
@@ -160,13 +163,13 @@
 
                             <div class="form-group">
                                 <label>Tittle</label>
-                                <input class="form-control" name="tittle" placeholder="${report.tittle}">
+                                <input class="form-control" name="tittle" placeholder="${reportTittle}">
 
                             </div>
 
                             <div class="form-group">
                                 <label>Report content</label>
-                                <textarea class="form-control" rows="3" name="content">${report.content}
+                                <textarea class="form-control" rows="3" name="content">${reportContent}
                                 </textarea>
                             </div>
 
@@ -180,11 +183,19 @@
 
                     <a type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">Cancel</a>
                 </div>
-                <%--  </form>--%>
+                &lt;%&ndash;  </form>&ndash;%&gt;
 
         </div>
         <!--/.Content-->
     </div>
-</div>
+</div>--%>
+
+
 </body>
+<script>
+    $(document).ready(function () {
+        $('#allReports').DataTable();
+    });
+</script>
+
 </html>
