@@ -32,5 +32,6 @@ public class Main {
         //TODO: удалить все логгер дебаг
 
         //TODO: inspector logout
+        //TODO: убрать button  колонку из таблиц
     }
 }

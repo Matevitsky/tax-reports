@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ReportServiceImpl implements ReportService {
 
@@ -92,5 +93,18 @@ public class ReportServiceImpl implements ReportService {
         return Optional.empty();
     }
 
+    @Override
+    public Optional<List<Report>> getInspectorNewReports(int clientId) {
+        Optional<List<Report>> byClientId = getByClientId(clientId);
+        List<Report> reports;
+        if (byClientId.isPresent()) {
+            reports = byClientId.get();
+            return Optional.ofNullable
+                    (reports.stream().filter(report -> report.getStatus().equals(ReportStatus.NEW))
+                            .collect(Collectors.toList()));
 
+        }
+        return Optional.empty();
+
+    }
 }

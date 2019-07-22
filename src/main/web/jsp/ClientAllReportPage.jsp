@@ -140,7 +140,6 @@
         </table>
     </div>
 </div>
-</div>
 
 <%--<div class="modal fade" id="centralModalLGInfoDemo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      style="display: none;" aria-hidden="true">

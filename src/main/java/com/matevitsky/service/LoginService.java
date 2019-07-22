@@ -25,27 +25,34 @@ public class LoginService {
             return null;
         }
 
-        User user = null;
+
         ClientService clientService = new ClientServiceImpl();
         InspectorService inspectorService = new InspectorServiceImpl();
-        Optional<Inspector> inspector = inspectorService.findByEmail(email);
+        ReportService reportService = new ReportServiceImpl();
+        Optional<Inspector> inspectorByEmail = inspectorService.findByEmail(email);
 
-        if (inspector.isPresent()) {
-            user = inspector.get();
+        if (inspectorByEmail.isPresent()) {
+            Inspector inspector = inspectorByEmail.get();
+
+            Optional<List<Report>> reportsByClientId = reportService.getInspectorNewReports(inspector.getClientId());
+            if (reportsByClientId.isPresent()) {
+                request.setAttribute("reports", reportsByClientId.get());
+            }
+            return inspector;
 
         } else {
-            Optional<Client> client = clientService.findByEmail(email);
-            if (client.isPresent()) {
-                user = client.get();
-                ReportService reportService = new ReportServiceImpl();
-                Optional<List<Report>> clientActiveReports = reportService.getClientActiveReports(user.getId());
+            Optional<Client> clientByEmail = clientService.findByEmail(email);
+            if (clientByEmail.isPresent()) {
+                Client client = clientByEmail.get();
+                Optional<List<Report>> clientActiveReports = reportService.getClientActiveReports(client.getId());
                 if (clientActiveReports.isPresent()) {
                     request.setAttribute("reports", clientActiveReports.get());
                 }
+                return client;
             }
         }
         //TODO: поменять имена в базе на единственное число
 
-        return user;
+        return null;
     }
 }
