@@ -2,6 +2,7 @@ package com.matevitsky.service;
 
 import com.matevitsky.db.ConnectorDB;
 import com.matevitsky.entity.Report;
+import com.matevitsky.entity.ReportStatus;
 import com.matevitsky.repository.implementation.ReportRepositoryImpl;
 import com.matevitsky.repository.interfaces.ReportRepository;
 import com.matevitsky.service.interfaces.ReportService;
@@ -77,4 +78,19 @@ public class ReportServiceImpl implements ReportService {
 
         return Optional.empty();
     }
+
+    @Override
+    public Optional<List<Report>> getClientActiveReports(int clientId) {
+        Optional<List<Report>> byClientId = getByClientId(clientId);
+        List<Report> reports;
+        if (byClientId.isPresent()) {
+            reports = byClientId.get();
+            reports.removeIf(report -> report.getStatus().equals(ReportStatus.ACCEPTED));
+            return Optional.ofNullable(reports);
+        }
+
+        return Optional.empty();
+    }
+
+
 }

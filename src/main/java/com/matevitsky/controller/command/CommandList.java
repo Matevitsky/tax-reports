@@ -17,6 +17,8 @@ public enum CommandList {
 
     ALL_REPORTS(new AllReportsCommand()),
 
+    GET_CLIENT_PAGE(new GetClientPageCommand()),
+
     LOG_OUT(new LogOutCommand()),
 
 

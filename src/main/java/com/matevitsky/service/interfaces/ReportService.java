@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface ReportService extends CrudService<Report> {
 
     Optional<List<Report>> getByClientId(int clientId);
+
+    Optional<List<Report>> getClientActiveReports(int clientId);
 }

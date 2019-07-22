@@ -21,11 +21,10 @@ public class LoginCommand implements Command {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         LoginService loginService = new LoginService();
-        User user = loginService.login(email, password);
+        User user = loginService.login(email, password, request);
 
         if (user != null && user.getPassword().equals(MD5Util.encryptPassword(password))) {
             request.getSession().setAttribute("userId", user.getId());
-
             switch (user.getRole()) {
                 case CLIENT:
                     return CLIENT_PAGE;
