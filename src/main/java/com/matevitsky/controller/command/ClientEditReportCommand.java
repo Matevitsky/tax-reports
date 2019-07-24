@@ -11,7 +11,7 @@ import java.util.List;
 
 import static com.matevitsky.controller.constant.PageConstant.CLIENT_ALL_REPORT_PAGE;
 
-public class EditReportCommand implements Command {
+public class ClientEditReportCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 

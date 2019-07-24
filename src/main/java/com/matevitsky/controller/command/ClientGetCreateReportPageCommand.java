@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import static com.matevitsky.controller.constant.PageConstant.CREATE_REPORT_PAGE;
 
-public class GetCreateReportPageCommand implements Command {
+public class ClientGetCreateReportPageCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         return CREATE_REPORT_PAGE;

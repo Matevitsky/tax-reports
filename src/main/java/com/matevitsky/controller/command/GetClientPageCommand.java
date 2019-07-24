@@ -14,9 +14,14 @@ import static com.matevitsky.controller.constant.PageConstant.CLIENT_PAGE;
 public class GetClientPageCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+
+        //TODO: создать сервис для создания страниц клиента и испектора
+
+
         int clientId = (int) request.getSession().getAttribute("userId");
         ReportService reportService = new ReportServiceImpl();
         Optional<List<Report>> clientActiveReports = reportService.getClientActiveReports(clientId);
+
         if (clientActiveReports.isPresent()) {
             request.setAttribute("reports", clientActiveReports.get());
         }

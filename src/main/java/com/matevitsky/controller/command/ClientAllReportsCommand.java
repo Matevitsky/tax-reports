@@ -10,7 +10,7 @@ import java.util.List;
 
 import static com.matevitsky.controller.constant.PageConstant.CLIENT_ALL_REPORT_PAGE;
 
-public class AllReportsCommand implements Command {
+public class ClientAllReportsCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 

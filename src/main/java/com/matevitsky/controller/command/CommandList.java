@@ -7,17 +7,19 @@ public enum CommandList {
 
     GET_REGISTRATION_PAGE(new GetRegistrationPageCommand()),
 
-    GET_CREATE_REPORT_PAGE(new GetCreateReportPageCommand()),
+    GET_CREATE_REPORT_PAGE(new ClientGetCreateReportPageCommand()),
 
-    GET_EDIT_VIEW_REPORT_PAGE(new GetEditViewPageCommand()),
+    GET_EDIT_VIEW_REPORT_PAGE(new ClientGetEditViewPageCommand()),
 
-    CREATE_REPORT(new CreateReportCommand()),
+    CREATE_REPORT(new ClientCreateReportCommand()),
 
-    EDIT_REPORT(new EditReportCommand()),
+    EDIT_REPORT(new ClientEditReportCommand()),
 
-    ALL_REPORTS(new AllReportsCommand()),
+    ALL_REPORTS(new ClientAllReportsCommand()),
 
     GET_CLIENT_PAGE(new GetClientPageCommand()),
+
+    INSPECTOR_NEW_REPORTS(new InspectorGetNewReportsPage()),
 
     LOG_OUT(new LogOutCommand()),
 

@@ -10,7 +10,7 @@ import java.util.Optional;
 
 import static com.matevitsky.controller.constant.PageConstant.EDIT_VIEW_REPORT_PAGE;
 
-public class GetEditViewPageCommand implements Command {
+public class ClientGetEditViewPageCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         int reportId = Integer.parseInt(request.getParameter("reportId"));

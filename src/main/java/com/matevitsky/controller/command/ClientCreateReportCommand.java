@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import static com.matevitsky.controller.constant.PageConstant.CLIENT_PAGE;
 import static com.matevitsky.controller.constant.PageConstant.CREATE_REPORT_PAGE;
 
-public class CreateReportCommand implements Command {
+public class ClientCreateReportCommand implements Command {
 
-    private static final Logger LOGGER = Logger.getLogger(CreateReportCommand.class);
+    private static final Logger LOGGER = Logger.getLogger(ClientCreateReportCommand.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

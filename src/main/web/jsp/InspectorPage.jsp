@@ -36,11 +36,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/app?command=get_client_page">Main Page</a>
+            <a class="navbar-brand" href="/app?command=get_inspector_page">Main Page</a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
-                <li><a href="/app?command=get_create_report_page"><i class="fa fa-plus"></i> New reports</a></li>
+                <li><a href="/app?command=inspector_new_reports"><i class="fa fa-plus"></i> New reports</a></li>
 
                 <li><a href="/app?command=all_reports"><i class="fa fa-bars"></i> All Reports</a></li>
             </ul>
