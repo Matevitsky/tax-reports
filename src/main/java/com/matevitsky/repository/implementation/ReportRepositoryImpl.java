@@ -17,12 +17,12 @@ public class ReportRepositoryImpl extends CrudRepositoryImpl<Report> implements 
 
     private static final Logger LOGGER = Logger.getLogger(ReportRepositoryImpl.class);
 
-    private static final String CREATE_REPORT = "INSERT INTO reports (tittle, content, report_status, cancellation_reason, client_id) \n" +
+    private static final String CREATE_REPORT = "INSERT INTO reports (tittle, content, report_status, reason_to_reject, client_id) \n" +
             "VALUES ('%s', '%s', '%s', '%s','%d');";
     private static final String DELETE_REPORT = "DELETE FROM reports WHERE report_id='%d'";
 
     private static final String UPDATE_REPORT =
-            "UPDATE reports SET tittle='%s', content='%s', report_status='%s', cancellation_reason='%s'," +
+            "UPDATE reports SET tittle='%s', content='%s', report_status='%s', reason_to_reject='%s'," +
                     " client_id='%d' where report_id=%d";
 
     private static final String SELECT_REPORT_BY_ID = "SELECT * FROM reports WHERE report_id='%d'";
@@ -31,7 +31,7 @@ public class ReportRepositoryImpl extends CrudRepositoryImpl<Report> implements 
 
     @Override
     protected String getCreateQuery(Report report) {
-        return String.format(CREATE_REPORT, report.getTittle(), report.getContent(), report.getStatus(), report.getCancellationReason(),
+        return String.format(CREATE_REPORT, report.getTittle(), report.getContent(), report.getStatus(), report.getReasonToReject(),
                 report.getClientId());
 
     }
@@ -44,7 +44,7 @@ public class ReportRepositoryImpl extends CrudRepositoryImpl<Report> implements 
     @Override
     protected String getUpdateQuery(Report report) {
         return String.format(UPDATE_REPORT, report.getTittle(), report.getContent(), report.getStatus(),
-                report.getCancellationReason(), report.getClientId(), report.getId());
+                report.getReasonToReject(), report.getClientId(), report.getId());
     }
 
     @Override
@@ -85,7 +85,7 @@ public class ReportRepositoryImpl extends CrudRepositoryImpl<Report> implements 
             String tittle = resultSet.getString("tittle");
             String content = resultSet.getString("content");
             String reportStatus = resultSet.getString("report_status");
-            String cancellationReason = resultSet.getString("cancellation_reason");
+            String cancellationReason = resultSet.getString("reason_to_reject");
             int clientId = resultSet.getInt("client_id");
 
             report = Report.newBuilder()
@@ -93,7 +93,7 @@ public class ReportRepositoryImpl extends CrudRepositoryImpl<Report> implements 
                     .withTittle(tittle)
                     .withContent(content)
                     .withStatus(ReportStatus.valueOf(reportStatus))
-                    .withCancellationReason(cancellationReason)
+                    .withreasonToReject(cancellationReason)
                     .withClientId(clientId)
                     .build();
         } catch (SQLException e) {

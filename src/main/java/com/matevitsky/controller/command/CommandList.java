@@ -23,6 +23,8 @@ public enum CommandList {
 
     INSPECTOR_GET_ALL_REPORTS(new InspectorGetAllReportsPage()),
 
+    GET_INSPECTOR_REPORT_PAGE(new getInspectorReportPage()),
+
     LOG_OUT(new LogOutCommand()),
 
 

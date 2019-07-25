@@ -8,7 +8,7 @@ public class Report {
     private final String tittle;
     private final String content;
     private final ReportStatus status;
-    private final String cancellationReason;
+    private final String reasonToReject;
     private final int clientId;
 
 
@@ -17,7 +17,7 @@ public class Report {
         this.tittle = builder.tittle;
         this.content = builder.content;
         this.status = builder.status;
-        this.cancellationReason = builder.cancellationReason;
+        this.reasonToReject = builder.reasonToReject;
         this.clientId = builder.clientId;
 
     }
@@ -42,8 +42,8 @@ public class Report {
         return status;
     }
 
-    public String getCancellationReason() {
-        return cancellationReason;
+    public String getReasonToReject() {
+        return reasonToReject;
     }
 
     public int getClientId() {
@@ -66,12 +66,12 @@ public class Report {
             tittle.equals(report.tittle) &&
             content.equals(report.content) &&
             status == report.status &&
-            cancellationReason.equals(report.cancellationReason);
+                reasonToReject.equals(report.reasonToReject);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, tittle, content, status, cancellationReason, clientId);
+        return Objects.hash(id, tittle, content, status, reasonToReject, clientId);
     }
 
     public static class Builder {
@@ -79,8 +79,9 @@ public class Report {
         private String tittle;
         private String content;
         private ReportStatus status;
-        private String cancellationReason;
+        private String reasonToReject;
         private int clientId;
+
 
 
         private Builder() {
@@ -106,8 +107,8 @@ public class Report {
             return this;
         }
 
-        public Builder withCancellationReason(String cancellationReason) {
-            this.cancellationReason = cancellationReason;
+        public Builder withreasonToReject(String reasonToReject) {
+            this.reasonToReject = reasonToReject;
             return this;
         }
 

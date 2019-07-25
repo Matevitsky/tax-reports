@@ -52,12 +52,12 @@ CREATE TABLE clients
 
 CREATE TABLE reports
 (
-    report_id           INT AUTO_INCREMENT,
-    tittle              VARCHAR(64)  NOT NULL,
-    content             VARCHAR(255) NOT NULL,
-    report_status       ENUM ( 'NEW','IN_PROGRESS', 'DECLINED','ACCEPTED'),
-    cancellation_reason VARCHAR(255),
-    client_id           INT,
+    report_id        INT AUTO_INCREMENT,
+    tittle           VARCHAR(64)  NOT NULL,
+    content          VARCHAR(255) NOT NULL,
+    report_status    ENUM ( 'NEW','IN_PROGRESS', 'DECLINED','ACCEPTED'),
+    reason_to_reject VARCHAR(255),
+    client_id        INT,
 
     PRIMARY KEY (report_id),
     FOREIGN KEY (client_id) REFERENCES clients (client_id)

@@ -1,11 +1,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<html lang="en">
+
 <html>
 <head>
+    <title>Inspector Report Page</title>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inspector Page</title>
-
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/local.css"/>
@@ -25,7 +28,10 @@
             src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
     <script type="text/javascript" src="http://www.prepbootstrap.com/Content/js/gridData.js"></script>
 </head>
-<body>
+
+
+<body data-gr-c-s-loaded="true" style="">
+
 <div id="wrapper">
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="navbar-header">
@@ -49,7 +55,7 @@
 
                 <li class="dropdown messages-dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-user-graduate"></i> Client Name <b class="caret"></b></a>
+                        <i class="fas fa-user-graduate"></i> Inspector Name </span> <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li class="divider"></li>
 
@@ -59,7 +65,7 @@
 
                 <li class="dropdown user-dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Steve Miller<b
-                            class="caret"></b></a>
+                        class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
                         <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
@@ -76,57 +82,45 @@
 
     <div id="page-wrapper">
 
-        <table id="allReports" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
-            <thead>
+        <div class="row">
+            <div class="col-lg-6">
 
-            <tr>
-                <th class="th-sm">Tittle</th>
-                <th class="th-sm">Client Name</th>
-                <th class="th-sm">Report Status</th>
-                <th class="th-sm">Button</th>
-            </tr>
+                <form role="form" action="/app" method="get">
+                    <c:set var="report" value="${report}"/>
 
+                    <input type="hidden" name="command" value="create_report">
+                    <%--   <input type="hidden" name="reportId" value=${report.id}>--%>
+                    <div class="form-group">
 
-            </thead>
-            <tbody>
-            <c:forEach items="${reports}" var="report">
-
-                <tr>
-                    <td>${report.tittle}</td>
-                    <td>${report.clientFullName}</td>
-                    <td>${report.reportStatus}</td>
-                    <form action="/app" method="get">
-                        <td>
-                            <c:if test="${(report.reportStatus == 'NEW')|| report.reportStatus == 'DECLINED' }">
-
-                            <button type="submit" class="btn btn-primary">
-                                View
-                            </button>
-                            <input type="hidden" name="command" value="get_inspector_report_page">
-                            <input type="hidden" name="reportId" value=${report.id}>
-
-                        </td>
-                        </c:if>
-                    </form>
-
-                </tr>
-
-            </c:forEach>
-
-            </tbody>
+                        <label>Tittle</label>
 
 
-            <tfoot>
-            <tr>
-                <th class="th-sm">Tittle</th>
-                <th class="th-sm">Client Name</th>
-                <th class="th-sm">Report Status</th>
-                <th class="th-sm">Button</th>
-            </tr>
-            </tfoot>
-        </table>
+                        <input class="form-control" name="tittle" placeholder="${report.tittle}">
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Report content</label>
+                        <textarea class="form-control" rows="3" name="content"> ${report.content} </textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Reason To Reject</label>
+                        <textarea class="form-control" rows="3" name="content">   </textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-default">Accept</button>
+                    <button type="submit" class="btn btn-default">Decline</button>
+                    <button type="reset" class="btn btn-default">Cancel</button>
+
+                </form>
+
+            </div>
+
+        </div>
     </div>
 </div>
+
 
 </body>
 </html>
