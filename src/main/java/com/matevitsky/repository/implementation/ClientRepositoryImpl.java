@@ -21,13 +21,18 @@ public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements 
     private static final String CREATE_CLIENT_SQL = "INSERT INTO clients (first_name, last_name, email, password," +
             " role, company_id, inspector_id) VALUES ('%s', '%s', '%s', '%s', '%s','%d','%d');";
 
-    private static final String DELETE_CLIENT_SQL = "DELETE FROM clients WHERE client_id=%d";
+    private static final String DELETE_CLIENT_SQL = "DELETE FROM clients WHERE client_id='%d'";
     private static final String UPDATE_CLIENT_SQL =
             "UPDATE clients SET first_name='%s', last_name='%s', email='%s', password='%s', role='%s', company_id='%d'," +
                     " inspector_id='%d' where client_id=%d";
-    private static final String SELECT_CLIENT_BY_ID_SQL = "SELECT  * FROM clients WHERE client_id=%d";
+    private static final String SELECT_CLIENT_BY_ID_SQL = "SELECT  * FROM clients WHERE client_id='%d'";
     private static final String SELECT_ALL_CLIENTS_SQL = "SELECT * FROM clients";
     private static final String SELECT_CLIENT_BY_EMAIL_SQL = "SELECT * FROM clients  where email='%s'";
+    private static final String SELECT_CLIENT_BY_INSPECTOR_ID_SQL = "SELECT * FROM clients  where inspector_id='%d'";
+    private static final String SELECT_CLIENT_REPORTS_SQL = "SELECT first_name,last_name,company_id,inspector_id,report_id\n" +
+            "FROM clients\n" +
+            "INNER JOIN reports r ON clients.client_id = r.client_id\n" +
+            "WHERE r.client_id = '%d'";
 
 
     @Override
@@ -120,4 +125,18 @@ public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements 
         return Optional.empty();
 
     }
+
+    @Override
+    public Optional<List<Client>> findClientsByInspectorId(int inspectorId, Connection connection) {
+
+        String sqlQuery = String.format(SELECT_CLIENT_BY_INSPECTOR_ID_SQL, inspectorId);
+        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            ResultSet resultSet = statement.executeQuery();
+            return Optional.ofNullable(mapToList(resultSet));
+        } catch (SQLException e) {
+            LOGGER.error("Failed to get entity by ID " + e.getMessage());
+        }
+        return Optional.empty();
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.matevitsky.service;
 
+import com.matevitsky.dto.ReportWithClientName;
 import com.matevitsky.entity.Client;
 import com.matevitsky.entity.Inspector;
 import com.matevitsky.entity.Report;
@@ -33,10 +34,9 @@ public class LoginService {
 
         if (inspectorByEmail.isPresent()) {
             Inspector inspector = inspectorByEmail.get();
-
-            Optional<List<Report>> reportsByClientId = reportService.getInspectorNewReports(inspector.getClientId());
-            if (reportsByClientId.isPresent()) {
-                request.setAttribute("reports", reportsByClientId.get());
+            Optional<List<ReportWithClientName>> reports = inspectorService.getNewReports(inspector.getId());
+            if (reports.isPresent()) {
+                request.setAttribute("reports", reports.get());
             }
             return inspector;
 

@@ -1,6 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -27,6 +25,7 @@
             src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
     <script type="text/javascript" src="http://www.prepbootstrap.com/Content/js/gridData.js"></script>
 </head>
+<body>
 <div id="wrapper">
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="navbar-header">
@@ -36,19 +35,21 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/app?command=get_inspector_page">Main Page</a>
+            <a class="navbar-brand" href="<c:url value="/app?command=get_inspector_page"/>">Main Page</a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
-                <li><a href="/app?command=inspector_new_reports"><i class="fa fa-plus"></i> New reports</a></li>
+                <li><a href="<c:url value="/app?command=inspector_new_reports"/>"><i class="fa fa-plus"></i> New reports</a>
+                </li>
 
-                <li><a href="/app?command=all_reports"><i class="fa fa-bars"></i> All Reports</a></li>
+                <li><a href="<c:url value="/app?command=inspector_get_all_reports"/>"><i class="fa fa-bars"></i> All
+                    Reports</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right navbar-user">
 
                 <li class="dropdown messages-dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-user-graduate"></i> Client Name </span> <b class="caret"></b></a>
+                        <i class="fas fa-user-graduate"></i> Client Name <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li class="divider"></li>
 
@@ -81,6 +82,7 @@
             <tr>
                 <th class="th-sm">Tittle</th>
                 <th class="th-sm">Client Name</th>
+                <th class="th-sm">Report Status</th>
                 <th class="th-sm">Button</th>
             </tr>
 
@@ -91,10 +93,11 @@
 
                 <tr>
                     <td>${report.tittle}</td>
-                    <td>${report.status}</td>
+                    <td>${report.clientFullName}</td>
+                    <td>${report.reportStatus}</td>
                     <form action="/app" method="get">
                         <td>
-                            <c:if test="${(report.status == 'NEW')|| report.status == 'DECLINED' }">
+                            <c:if test="${(report.reportStatus == 'NEW')|| report.reportStatus == 'DECLINED' }">
 
                             <button type="submit" class="btn btn-primary">
                                 EDIT
@@ -117,6 +120,7 @@
             <tr>
                 <th class="th-sm">Tittle</th>
                 <th class="th-sm">Client Name</th>
+                <th class="th-sm">Report Status</th>
                 <th class="th-sm">Button</th>
             </tr>
             </tfoot>

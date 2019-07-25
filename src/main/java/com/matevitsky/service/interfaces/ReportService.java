@@ -11,5 +11,7 @@ public interface ReportService extends CrudService<Report> {
 
     Optional<List<Report>> getClientActiveReports(int clientId);
 
-    Optional<List<Report>> getInspectorNewReports(int clientId);
+    //TODO: перенести в другие сервисы
+
+    Optional<List<Report>> getInspectorNewReports(int inspectorId);
 }

@@ -1,24 +1,34 @@
 package com.matevitsky.service;
 
 import com.matevitsky.db.ConnectorDB;
+import com.matevitsky.dto.ReportWithClientName;
 import com.matevitsky.entity.Inspector;
+import com.matevitsky.entity.ReportStatus;
+import com.matevitsky.repository.implementation.ClientRepositoryImpl;
 import com.matevitsky.repository.implementation.InspectorRepositoryImpl;
+import com.matevitsky.repository.interfaces.ClientRepository;
 import com.matevitsky.repository.interfaces.InspectorRepository;
 import com.matevitsky.service.interfaces.InspectorService;
+import com.matevitsky.service.interfaces.ReportService;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class InspectorServiceImpl implements InspectorService {
 
     private static final Logger LOGGER = Logger.getLogger(InspectorServiceImpl.class);
     private InspectorRepository inspectorRepository;
+    private ClientRepository clientRepository;
+    private ReportService reportService;
 
     public InspectorServiceImpl() {
         inspectorRepository = new InspectorRepositoryImpl();
+        clientRepository = new ClientRepositoryImpl();
+        reportService = new ReportServiceImpl();
     }
 
     @Override
@@ -81,4 +91,28 @@ public class InspectorServiceImpl implements InspectorService {
         }
         return Optional.empty();
     }
+
+    @Override
+    public Optional<List<ReportWithClientName>> getReports(int inspectorId) {
+        try (Connection connection = ConnectorDB.getConnection()) {
+            return inspectorRepository.getAllClientReports(inspectorId, connection);
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<List<ReportWithClientName>> getNewReports(int inspectorId) {
+        List<ReportWithClientName> reportList;
+        Optional<List<ReportWithClientName>> allReports = getReports(inspectorId);
+        if (allReports.isPresent()) {
+            reportList = allReports.get();
+            return Optional.of(reportList.stream()
+                    .filter(reportWithClientName -> reportWithClientName.getReportStatus().equals(ReportStatus.NEW))
+                    .collect(Collectors.toList()));
+        }
+        return Optional.empty();
+    }
+
 }

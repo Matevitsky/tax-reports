@@ -1,42 +1,15 @@
 package com.matevitsky.entity;
 
-import java.util.Objects;
-
 public class Inspector extends User {
 
-    private final int clientId;
 
     public Inspector(Builder builder) {
         super(builder.id, builder.firstName, builder.lastName, builder.email, builder.password, builder.role);
-        this.clientId = builder.clientId;
+
     }
 
     public static Builder newBuilder() {
         return new Builder();
-    }
-
-    public int getClientId() {
-        return clientId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Inspector)) {
-            return false;
-        }
-        if (!super.equals(o)) {
-            return false;
-        }
-        Inspector inspector = (Inspector) o;
-        return clientId == inspector.clientId;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), clientId);
     }
 
     public static class Builder {
@@ -46,7 +19,7 @@ public class Inspector extends User {
         private String email;
         private String password;
         private Role role;
-        private int clientId;
+
 
         private Builder() {
         }
@@ -76,10 +49,6 @@ public class Inspector extends User {
             return this;
         }
 
-        public Builder withClientId(int clientId) {
-            this.clientId = clientId;
-            return this;
-        }
 
         public Builder withRole(Role role) {
             this.role = role;
