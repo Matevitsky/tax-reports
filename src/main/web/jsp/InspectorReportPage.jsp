@@ -102,7 +102,7 @@
 
                 <div class="form-group">
                     <label>Reason To Reject</label>
-                    <textarea class="form-control" rows="3" name="content">   </textarea>
+                    <textarea class="form-control" rows="3" name="reasonToReject">   </textarea>
                 </div>
 
 
@@ -115,6 +115,7 @@
                 <form action="/app" method="get" style="display: inline">
                     <button type="submit" class="btn btn-default">Decline</button>
                     <input type="hidden" name="command" value="inspector_decline_report">
+                    <input type="hidden" name="reportId" value=${report.id}>
                 </form>
 
                 <form action="/app" method="get" style="display: inline">

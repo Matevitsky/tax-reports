@@ -20,6 +20,8 @@ public class ClientAllReportsCommand implements Command {
         List<Report> reportList = reportService.getByClientId(clientId).get();
         request.setAttribute("reports", reportList);
 
+        //TODO: вынести в сервис добавление списка в request
+
         return CLIENT_ALL_REPORT_PAGE;
     }
 }

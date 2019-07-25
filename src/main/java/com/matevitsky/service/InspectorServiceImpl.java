@@ -150,4 +150,24 @@ public class InspectorServiceImpl implements InspectorService {
         }
     }
 
+    @Override
+    public boolean declineReport(int reportId, String reasonToReject) {
+        Report update = null;
+        ReportService reportService = new ReportServiceImpl();
+        Optional<Report> optionalReport = reportService.getById(reportId);
+        if (optionalReport.isPresent()) {
+            Report report = optionalReport.get();
+            Report acceptedReport = Report.newBuilder()
+                    .withClientId(report.getClientId())
+                    .withContent(report.getContent())
+                    .withStatus(ReportStatus.DECLINED)
+                    .withId(reportId)
+                    .withreasonToReject(reasonToReject)
+                    .withTittle(report.getTittle())
+                    .build();
+            update = reportService.update(acceptedReport);
+        }
+        return update != null;
+    }
+
 }
