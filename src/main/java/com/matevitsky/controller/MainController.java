@@ -31,8 +31,8 @@ public class MainController extends HttpServlet {
             throws ServletException, IOException {
 
         LOGGER.debug("Method processRequest " + request.getRequestURI());
-        ActionFactory client = new ActionFactory();
-        Command command = client.defineCommand(request);
+        ActionFactory factory = new ActionFactory();
+        Command command = factory.defineCommand(request);
 
         String goTo = command.execute(request, response);
         if (Objects.nonNull(goTo)) {//Objects

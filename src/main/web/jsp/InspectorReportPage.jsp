@@ -85,42 +85,47 @@
         <div class="row">
             <div class="col-lg-6">
 
-                <form role="form" action="/app" method="get">
-                    <c:set var="report" value="${report}"/>
+                <c:set var="report" value="${report}"/>
 
-                    <input type="hidden" name="command" value="create_report">
-                    <%--   <input type="hidden" name="reportId" value=${report.id}>--%>
-                    <div class="form-group">
+                <div class="form-group">
 
-                        <label>Tittle</label>
+                    <label>Tittle</label>
+
+                    <input class="form-control" name="tittle" placeholder="${report.tittle}">
+
+                </div>
+
+                <div class="form-group">
+                    <label>Report content</label>
+                    <textarea class="form-control" rows="3" name="content"> ${report.content} </textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Reason To Reject</label>
+                    <textarea class="form-control" rows="3" name="content">   </textarea>
+                </div>
 
 
-                        <input class="form-control" name="tittle" placeholder="${report.tittle}">
-
-                    </div>
-
-                    <div class="form-group">
-                        <label>Report content</label>
-                        <textarea class="form-control" rows="3" name="content"> ${report.content} </textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Reason To Reject</label>
-                        <textarea class="form-control" rows="3" name="content">   </textarea>
-                    </div>
-
+                <form action="/app" method="get" style="display: inline">
                     <button type="submit" class="btn btn-default">Accept</button>
-                    <button type="submit" class="btn btn-default">Decline</button>
-                    <button type="reset" class="btn btn-default">Cancel</button>
+                    <input type="hidden" name="command" value="inspector_accept_report">
+                    <input type="hidden" name="reportId" value=${report.id}>
+                </form>
 
+                <form action="/app" method="get" style="display: inline">
+                    <button type="submit" class="btn btn-default">Decline</button>
+                    <input type="hidden" name="command" value="inspector_decline_report">
+                </form>
+
+                <form action="/app" method="get" style="display: inline">
+                    <button type="submit" class="btn btn-default">Cancel</button>
+                    <input type="hidden" name="command" value="inspector_new_reports">
                 </form>
 
             </div>
-
         </div>
+
     </div>
 </div>
-
-
 </body>
 </html>

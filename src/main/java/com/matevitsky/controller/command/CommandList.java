@@ -25,6 +25,8 @@ public enum CommandList {
 
     GET_INSPECTOR_REPORT_PAGE(new getInspectorReportPage()),
 
+    INSPECTOR_ACCEPT_REPORT(new InspectorAcceptReport()),
+
     LOG_OUT(new LogOutCommand()),
 
 

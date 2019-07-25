@@ -97,7 +97,7 @@
                     <td>${report.reportStatus}</td>
                     <form action="/app" method="get">
                         <td>
-                            <c:if test="${(report.reportStatus == 'NEW')|| report.reportStatus == 'DECLINED' }">
+
 
                             <button type="submit" class="btn btn-primary">
                                 View
@@ -106,7 +106,7 @@
                             <input type="hidden" name="reportId" value=${report.id}>
 
                         </td>
-                        </c:if>
+
                     </form>
 
                 </tr>
