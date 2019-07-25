@@ -35,7 +35,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<c:url value="/app?command=get_inspector_page"/>">Main Page</a>
+            <a class="navbar-brand" href="<c:url value="/app?command=inspector_new_reports"/>">Main Page</a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
