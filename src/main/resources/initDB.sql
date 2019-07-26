@@ -26,7 +26,6 @@ CREATE TABLE inspectors
     email        VARCHAR(255)                        NOT NULL UNIQUE,
     password     VARCHAR(32)                         NOT NULL,
     role         ENUM ('CLIENT','INSPECTOR','ADMIN') NOT NULL,
-    client_id    INT,
 
     PRIMARY KEY (inspector_id)
 );
@@ -63,6 +62,9 @@ CREATE TABLE reports
     FOREIGN KEY (client_id) REFERENCES clients (client_id)
 
 );
+
+CREATE TABLE admins
+
 
 
 

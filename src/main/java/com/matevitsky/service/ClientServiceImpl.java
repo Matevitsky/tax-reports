@@ -2,11 +2,13 @@ package com.matevitsky.service;
 
 import com.matevitsky.db.ConnectorDB;
 import com.matevitsky.entity.Client;
+import com.matevitsky.entity.Inspector;
 import com.matevitsky.entity.Report;
 import com.matevitsky.exception.WrongInputException;
 import com.matevitsky.repository.implementation.ClientRepositoryImpl;
 import com.matevitsky.repository.interfaces.ClientRepository;
 import com.matevitsky.service.interfaces.ClientService;
+import com.matevitsky.service.interfaces.InspectorService;
 import com.matevitsky.service.interfaces.ReportService;
 import org.apache.log4j.Logger;
 
@@ -50,7 +52,6 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public boolean addReportToRequest(HttpServletRequest request, int reportId) {
-
         ReportService reportService = new ReportServiceImpl();
         Optional<Report> reportById = reportService.getById(reportId);
         if (reportById.isPresent()) {
@@ -58,6 +59,33 @@ public class ClientServiceImpl implements ClientService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean addReportsListToRequest(HttpServletRequest request, int clientId) {
+        ReportService reportService = new ReportServiceImpl();
+        Optional<List<Report>> clientReportList = reportService.getByClientId(clientId);
+        if (clientReportList.isPresent()) {
+            request.setAttribute("reports", clientReportList.get());
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Optional<Inspector> getInspector(int clientId) {
+        try (Connection connection = ConnectorDB.getConnection()) {
+            Optional<Client> clientOptional = clientRepository.getById(clientId, connection);
+            if (clientOptional.isPresent()) {
+                Client client = clientOptional.get();
+                InspectorService inspectorService = new InspectorServiceImpl();
+                return inspectorService.getById(client.getInspectorId());
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+        return Optional.empty();
+
     }
 
     @Override

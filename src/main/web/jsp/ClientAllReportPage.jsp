@@ -102,24 +102,22 @@
             </thead>
             <tbody>
             <c:forEach items="${reports}" var="report">
-
                 <tr>
                     <td>${report.tittle}</td>
                     <td>${report.status}</td>
                     <form action="/app" method="get">
                         <td>
-
-
                             <c:if test="${(report.status == 'NEW')|| report.status == 'DECLINED' }">
 
                                 <button type="submit" class="btn btn-primary">
                                     EDIT
                                 </button>
+
                                 <input type="hidden" name="command" value="get_edit_report_page">
                                 <input type="hidden" name="reportId" value=${report.id}>
 
                             </c:if>
-                            <c:if test="${ report.status == 'ACCEPTED' }">
+                            <c:if test="${report.status == 'ACCEPTED' }">
 
                                 <button type="submit" class="btn btn-primary">
                                     VIEW
@@ -138,7 +136,6 @@
             </c:forEach>
 
             </tbody>
-
 
             <tfoot>
             <tr>

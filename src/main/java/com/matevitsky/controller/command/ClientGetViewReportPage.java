@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import static com.matevitsky.controller.constant.PageConstant.CLIENT_REPORT_PAGE;
 
-public class GetViewReportPage implements Command {
+public class ClientGetViewReportPage implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 

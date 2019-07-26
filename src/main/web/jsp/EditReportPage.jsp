@@ -99,6 +99,12 @@
                     </div>
 
                     <button type="submit" class="btn btn-default" name="command" value="edit_report">Save</button>
+                    <c:if test="${(report.status != 'ACCEPTED')}">
+                        <button type="submit" class="btn btn-danger" name="command" value="delete_report">Delete
+                        </button>
+                        <input type="hidden" name="reportId" value=${report.id}>
+                    </c:if>
+
                     <button type="submit" class="btn btn-default" name="command" value="all_reports">Cancel</button>
 
                 </form>

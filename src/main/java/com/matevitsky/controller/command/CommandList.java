@@ -13,6 +13,8 @@ public enum CommandList {
 
     CREATE_REPORT(new ClientCreateReportCommand()),
 
+    DELETE_REPORT(new ClientDeleteReport()),
+
     EDIT_REPORT(new ClientEditReportCommand()),
 
     ALL_REPORTS(new ClientAllReportsCommand()),
@@ -23,13 +25,13 @@ public enum CommandList {
 
     INSPECTOR_GET_ALL_REPORTS(new InspectorGetAllReportsPage()),
 
-    GET_INSPECTOR_REPORT_PAGE(new getInspectorReportPage()),
+    GET_INSPECTOR_REPORT_PAGE(new GetInspectorReportPage()),
 
     INSPECTOR_ACCEPT_REPORT(new InspectorAcceptReport()),
 
     INSPECTOR_DECLINE_REPORT(new InspectorDeclineCommand()),
 
-    GET_VIEW_REPORT_PAGE(new GetViewReportPage()),
+    GET_VIEW_REPORT_PAGE(new ClientGetViewReportPage()),
 
     LOG_OUT(new LogOutCommand()),
 

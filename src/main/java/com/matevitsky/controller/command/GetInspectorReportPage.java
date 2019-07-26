@@ -11,7 +11,7 @@ import java.util.Optional;
 import static com.matevitsky.controller.constant.PageConstant.INSPECTOR_REPORT_PAGE;
 
 
-public class getInspectorReportPage implements Command {
+public class GetInspectorReportPage implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 

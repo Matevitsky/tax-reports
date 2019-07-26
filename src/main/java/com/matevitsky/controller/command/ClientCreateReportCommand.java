@@ -9,7 +9,6 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.matevitsky.controller.constant.PageConstant.CLIENT_PAGE;
 import static com.matevitsky.controller.constant.PageConstant.CREATE_REPORT_PAGE;
 
 public class ClientCreateReportCommand implements Command {
@@ -25,7 +24,6 @@ public class ClientCreateReportCommand implements Command {
             LOGGER.info("tittle or content is empty");
             return CREATE_REPORT_PAGE;
         }
-
         int clientId = (int) request.getSession().getAttribute("userId");
 
         Report report = Report.newBuilder()
@@ -38,6 +36,6 @@ public class ClientCreateReportCommand implements Command {
         ReportService reportService = new ReportServiceImpl();
         reportService.create(report);
 
-        return CLIENT_PAGE;
+        return new GetClientPageCommand().execute(request, response);
     }
 }

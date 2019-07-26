@@ -56,7 +56,9 @@
 
             <li class="dropdown messages-dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-user-graduate"></i> Inspector Name </span> <b class="caret"></b></a>
+                    <c:set var="inspector" value="${inspector}"/>
+                    <i class="fas fa-user-graduate"></i> ${inspector.firstName}  ${inspector.lastName}</span> <b
+                        class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li class="divider"></li>
 
