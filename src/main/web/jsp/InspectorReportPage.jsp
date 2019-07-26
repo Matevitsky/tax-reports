@@ -85,44 +85,45 @@
         <div class="row">
             <div class="col-lg-6">
 
-                <c:set var="report" value="${report}"/>
+                <form action="/app" method="get">
+                    <c:set var="report" value="${report}"/>
 
-                <div class="form-group">
+                    <div class="form-group">
 
-                    <label>Tittle</label>
+                        <label>Tittle</label>
 
-                    <input class="form-control" name="tittle" placeholder="${report.tittle}">
+                        <input class="form-control" name="tittle" placeholder="${report.tittle}">
 
-                </div>
+                    </div>
 
-                <div class="form-group">
-                    <label>Report content</label>
-                    <textarea class="form-control" rows="3" name="content"> ${report.content} </textarea>
-                </div>
+                    <div class="form-group">
+                        <label>Report content</label>
+                        <textarea class="form-control" rows="3" name="content"> ${report.content} </textarea>
+                    </div>
 
-                <div class="form-group">
-                    <label>Reason To Reject</label>
-                    <textarea class="form-control" rows="3" name="reasonToReject">   </textarea>
-                </div>
+                    <div class="form-group">
+                        <label>Reason To Reject</label>
+                        <textarea class="form-control" rows="3"
+                                  name="reasonToReject">${report.reasonToReject} </textarea>
+                    </div>
 
 
-                <form action="/app" method="get" style="display: inline">
-                    <button type="submit" class="btn btn-default">Accept</button>
-                    <input type="hidden" name="command" value="inspector_accept_report">
-                    <input type="hidden" name="reportId" value=${report.id}>
-                </form>
+                    <form action="/app" method="get" style="display: inline">
+                        <button type="submit" class="btn btn-default" name="command" value="inspector_accept_report">
+                            Accept
+                        </button>
 
-                <form action="/app" method="get" style="display: inline">
-                    <button type="submit" class="btn btn-default">Decline</button>
-                    <input type="hidden" name="command" value="inspector_decline_report">
-                    <input type="hidden" name="reportId" value=${report.id}>
-                </form>
+                        <input type="hidden" name="reportId" value=${report.id}>
 
-                <form action="/app" method="get" style="display: inline">
-                    <button type="submit" class="btn btn-default">Cancel</button>
-                    <input type="hidden" name="command" value="inspector_new_reports">
-                </form>
+                        <button type="submit" class="btn btn-default" name="command" value="inspector_decline_report">
+                            Decline
+                        </button>
 
+                        <button type="submit" class="btn btn-default" name="command" value="inspector_new_reports">
+                            Cancel
+                        </button>
+
+                    </form>
             </div>
         </div>
 

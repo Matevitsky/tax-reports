@@ -157,15 +157,19 @@ public class InspectorServiceImpl implements InspectorService {
         Optional<Report> optionalReport = reportService.getById(reportId);
         if (optionalReport.isPresent()) {
             Report report = optionalReport.get();
-            Report acceptedReport = Report.newBuilder()
-                    .withClientId(report.getClientId())
-                    .withContent(report.getContent())
-                    .withStatus(ReportStatus.DECLINED)
-                    .withId(reportId)
-                    .withreasonToReject(reasonToReject)
-                    .withTittle(report.getTittle())
-                    .build();
-            update = reportService.update(acceptedReport);
+            if (report.getStatus().equals(ReportStatus.ACCEPTED)) {
+                return false;
+            } else {
+                Report acceptedReport = Report.newBuilder()
+                        .withClientId(report.getClientId())
+                        .withContent(report.getContent())
+                        .withStatus(ReportStatus.DECLINED)
+                        .withId(reportId)
+                        .withreasonToReject(reasonToReject)
+                        .withTittle(report.getTittle())
+                        .build();
+                update = reportService.update(acceptedReport);
+            }
         }
         return update != null;
     }
