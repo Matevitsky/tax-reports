@@ -56,7 +56,7 @@ CREATE TABLE reports
     tittle           VARCHAR(64)  NOT NULL,
     content          VARCHAR(255) NOT NULL,
     report_status    ENUM ( 'NEW','IN_PROGRESS', 'DECLINED','ACCEPTED'),
-    reason_to_reject VARCHAR(255),
+    reason_to_reject VARCHAR(255) NOT NULL,
     client_id        INT,
 
     PRIMARY KEY (report_id),

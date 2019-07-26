@@ -32,6 +32,7 @@ public class ClientCreateReportCommand implements Command {
                 .withTittle(tittle)
                 .withContent(content)
                 .withStatus(ReportStatus.NEW)
+                .withreasonToReject("")
                 .withClientId(clientId)
                 .build();
         ReportService reportService = new ReportServiceImpl();
