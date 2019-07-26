@@ -4,9 +4,12 @@ USE Tax;
 
 DROP TABLE IF EXISTS reports;
 
+DROP TABLE IF EXISTS change_inspector_requests;
 DROP TABLE IF EXISTS clients;
+
 DROP TABLE IF EXISTS inspectors;
 DROP TABLE IF EXISTS companies;
+
 
 
 CREATE TABLE companies
@@ -31,6 +34,7 @@ CREATE TABLE inspectors
 );
 
 
+
 CREATE TABLE clients
 (
     client_id    INT AUTO_INCREMENT,
@@ -42,10 +46,20 @@ CREATE TABLE clients
     company_id   INT                                 NOT NULL,
     inspector_id INT,
 
+
     PRIMARY KEY (client_id),
     FOREIGN KEY (company_id) REFERENCES companies (company_id),
     FOREIGN KEY (inspector_id) REFERENCES inspectors (inspector_id)
 
+
+);
+CREATE TABLE change_inspector_requests
+(
+    request_id INT AUTO_INCREMENT,
+    client_id  INT NOT NULL,
+
+    PRIMARY KEY (request_id),
+    FOREIGN KEY (client_id) REFERENCES clients (client_id)
 );
 
 
@@ -58,12 +72,13 @@ CREATE TABLE reports
     reason_to_reject VARCHAR(255) NOT NULL,
     client_id        INT,
 
+
     PRIMARY KEY (report_id),
     FOREIGN KEY (client_id) REFERENCES clients (client_id)
 
+
 );
 
-CREATE TABLE admins
 
 
 
