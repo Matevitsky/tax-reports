@@ -85,16 +85,11 @@
 
                 <form role="form" action="/app" method="get">
                     <c:set var="report" value="${report}"/>
-
                     <input type="hidden" name="command" value="create_report">
-                    <%--   <input type="hidden" name="reportId" value=${report.id}>--%>
+
                     <div class="form-group">
-
                         <label>Tittle</label>
-
-
                         <input class="form-control" name="tittle" placeholder="${report.tittle}">
-
                     </div>
 
                     <div class="form-group">

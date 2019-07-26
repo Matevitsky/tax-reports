@@ -2,12 +2,15 @@ package com.matevitsky.service;
 
 import com.matevitsky.db.ConnectorDB;
 import com.matevitsky.entity.Client;
+import com.matevitsky.entity.Report;
 import com.matevitsky.exception.WrongInputException;
 import com.matevitsky.repository.implementation.ClientRepositoryImpl;
 import com.matevitsky.repository.interfaces.ClientRepository;
 import com.matevitsky.service.interfaces.ClientService;
+import com.matevitsky.service.interfaces.ReportService;
 import org.apache.log4j.Logger;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -43,6 +46,18 @@ public class ClientServiceImpl implements ClientService {
         }
         return Optional.empty();
 
+    }
+
+    @Override
+    public boolean addReportToRequest(HttpServletRequest request, int reportId) {
+
+        ReportService reportService = new ReportServiceImpl();
+        Optional<Report> reportById = reportService.getById(reportId);
+        if (reportById.isPresent()) {
+            request.setAttribute("report", reportById.get());
+            return true;
+        }
+        return false;
     }
 
     @Override

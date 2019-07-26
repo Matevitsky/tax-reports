@@ -5,6 +5,7 @@ public interface PageConstant {
     String LOGIN_PAGE = "index.jsp";
     String REGISTRATION_PAGE = "jsp/RegistrationPage.jsp";
     String CLIENT_PAGE = "jsp/ClientPage.jsp";
+    String CLIENT_REPORT_PAGE = "jsp/ViewReportPage.jsp";
     String INSPECTOR_PAGE = "jsp/InspectorPage.jsp";
     String INSPECTOR_REPORT_PAGE = "jsp/InspectorReportPage.jsp";
     String ADMIN_PAGE = "jsp/AdminPage.jsp";

@@ -5,7 +5,7 @@
 
 <html>
 <head>
-    <title>Create Report</title>
+    <title>View Report</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,7 +48,6 @@
                 <li><a href="/app?command=get_create_report_page"><i class="fa fa-plus"></i> Add new report</a></li>
 
                 <li><a href="/app?command=all_reports"><i class="fa fa-bars"></i> All Reports</a></li>
-
             </ul>
             <ul class="nav navbar-nav navbar-right navbar-user">
 
@@ -86,19 +85,21 @@
 
                 <form role="form" action="/app" method="get">
                     <c:set var="report" value="${report}"/>
-                    <input type="hidden" name="reportId" value=${report.id}>
 
                     <div class="form-group">
+
                         <label>Tittle</label>
+
+
                         <input class="form-control" name="tittle" placeholder="${report.tittle}">
+
                     </div>
 
                     <div class="form-group">
                         <label>Report content</label>
-                        <textarea class="form-control" rows="3" name="content">${report.content} </textarea>
+                        <textarea class="form-control" rows="3" name="content"> ${report.content} </textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-default" name="command" value="edit_report">Save</button>
                     <button type="submit" class="btn btn-default" name="command" value="all_reports">Cancel</button>
 
                 </form>
