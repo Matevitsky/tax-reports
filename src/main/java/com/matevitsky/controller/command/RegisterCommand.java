@@ -1,6 +1,8 @@
 package com.matevitsky.controller.command;
 
+
 import com.matevitsky.entity.Client;
+import com.matevitsky.entity.Role;
 import com.matevitsky.exception.WrongInputException;
 import com.matevitsky.service.ClientServiceImpl;
 import com.matevitsky.service.interfaces.ClientService;
@@ -8,7 +10,6 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.SQLException;
 
 public class RegisterCommand implements Command {
 
@@ -30,24 +31,24 @@ public class RegisterCommand implements Command {
         String password = request.getParameter("password");
         String companyName = request.getParameter("companyName");
 
-        Client client = Client.newBuilder()
-            .withFirstName(firstName)
-            .withLastName(lastName)
-            .withEmail(emailAddress)
-            .withPassword(password)
-            .withCompanyId(1)
-            .build();
+        Client client = Client.newClientBuilder()
+                .withFirstName(firstName)
+                .withLastName(lastName)
+                .withEmail(emailAddress)
+                .withPassword(password)
+                .withCompanyName(companyName)
+                .withRole(Role.CLIENT)
+                .build();
+
 
         try {
+
+            //TODO: подумать какого инспектора присвоить
             clientService.register(client);
         } catch (WrongInputException e) {
             request.setAttribute("error", e.getMessage());
             LOGGER.error(e.getMessage());
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            LOGGER.error(e);
-            //  return ERROR;
         }
         //TODO: Create Client Page
         return null;

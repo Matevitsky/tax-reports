@@ -18,18 +18,19 @@ public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements 
 
     private static final Logger LOGGER = Logger.getLogger(ClientRepositoryImpl.class);
 
-    private static final String CREATE_CLIENT_SQL = "INSERT INTO clients (first_name, last_name, email, password," +
-            " role, company_id, inspector_id) VALUES ('%s', '%s', '%s', '%s', '%s','%d','%d');";
+    private static final String CREATE_CLIENT_SQL = "INSERT INTO companies(company_name) VALUES ('%s') ON DUPLICATE KEY UPDATE company_id = company_id + 0;" +
+            "INSERT IGNORE INTO clients (first_name, last_name, email, password, company_name, inspector_id)" +
+            " VALUES ('%s', '%s', '%s', '%s', '%s','%d');";
 
     private static final String DELETE_CLIENT_SQL = "DELETE FROM clients WHERE client_id='%d'";
     private static final String UPDATE_CLIENT_SQL =
-            "UPDATE clients SET first_name='%s', last_name='%s', email='%s', password='%s', role='%s', company_id='%d'," +
+            "UPDATE clients SET first_name='%s', last_name='%s', email='%s', password='%s', company_name='%s'," +
                     " inspector_id='%d' where client_id=%d";
     private static final String SELECT_CLIENT_BY_ID_SQL = "SELECT  * FROM clients WHERE client_id='%d'";
     private static final String SELECT_ALL_CLIENTS_SQL = "SELECT * FROM clients";
     private static final String SELECT_CLIENT_BY_EMAIL_SQL = "SELECT * FROM clients  where email='%s'";
     private static final String SELECT_CLIENT_BY_INSPECTOR_ID_SQL = "SELECT * FROM clients  where inspector_id='%d'";
-    private static final String SELECT_CLIENT_REPORTS_SQL = "SELECT first_name,last_name,company_id,inspector_id,report_id\n" +
+    private static final String SELECT_CLIENT_REPORTS_SQL = "SELECT first_name,last_name,company_name,inspector_id,report_id\n" +
             "FROM clients\n" +
             "INNER JOIN reports r ON clients.client_id = r.client_id\n" +
             "WHERE r.client_id = '%d'";
@@ -37,8 +38,8 @@ public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements 
 
     @Override
     public String getCreateQuery(Client client) {
-        return String.format(CREATE_CLIENT_SQL, client.getFirstName(), client.getLastName(), client.getEmail(),
-                client.getPassword(), client.getRole(), client.getCompanyName());
+        return String.format(CREATE_CLIENT_SQL, client.getCompanyName(), client.getFirstName(), client.getLastName(), client.getEmail(),
+                client.getPassword(), client.getRole(), client.getCompanyName(), client.getInspectorId());
     }
 
     @Override
@@ -93,16 +94,17 @@ public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements 
             String email = resultSet.getString("email");
             String password = resultSet.getString("password");
             String role = resultSet.getString("role");
-            int companyName = resultSet.getInt("company_id");
+            String companyName = resultSet.getString("company_name");
+
             int inspectorId = resultSet.getInt("inspector_id");
-            client = Client.newBuilder()
+            client = Client.newClientBuilder()
                     .withId(id)
                     .withFirstName(firstName)
                     .withLastName(lastName)
                     .withEmail(email)
                     .withPassword(password)
-                    .withRole(Role.valueOf(role))
-                    .withCompanyId(companyName)
+                    .withRole(Role.CLIENT)
+                    .withCompanyName(companyName)
                     .withInspectorId(inspectorId)
                     .build();
         } catch (SQLException e) {

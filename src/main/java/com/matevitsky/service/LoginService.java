@@ -2,8 +2,8 @@ package com.matevitsky.service;
 
 import com.matevitsky.dto.ReportWithClientName;
 import com.matevitsky.entity.Client;
-import com.matevitsky.entity.Inspector;
 import com.matevitsky.entity.Report;
+import com.matevitsky.entity.Role;
 import com.matevitsky.entity.User;
 import com.matevitsky.service.interfaces.ClientService;
 import com.matevitsky.service.interfaces.InspectorService;
@@ -26,17 +26,18 @@ public class LoginService {
             return null;
         }
 
-
         ClientService clientService = new ClientServiceImpl();
         InspectorService inspectorService = new InspectorServiceImpl();
         ReportService reportService = new ReportServiceImpl();
-        Optional<Inspector> inspectorByEmail = inspectorService.findByEmail(email);
+        Optional<User> inspectorByEmail = inspectorService.findByEmail(email);
 
         if (inspectorByEmail.isPresent()) {
-            Inspector inspector = inspectorByEmail.get();
-            Optional<List<ReportWithClientName>> reports = inspectorService.getNewReports(inspector.getId());
-            if (reports.isPresent()) {
-                request.setAttribute("reports", reports.get());
+            User inspector = inspectorByEmail.get();
+            if (inspector.getRole().equals(Role.INSPECTOR)) {
+                Optional<List<ReportWithClientName>> reports = inspectorService.getNewReports(inspector.getId());
+                if (reports.isPresent()) {
+                    request.setAttribute("reports", reports.get());
+                }
             }
             return inspector;
 

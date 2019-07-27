@@ -2,7 +2,7 @@ package com.matevitsky.entity;
 
 import java.util.Objects;
 
-public abstract class User {
+public class User {
 
     private final int id;
     private final String firstName;
@@ -11,16 +11,21 @@ public abstract class User {
     private final String password;
     private final Role role;
 
-    public User(int id, String firstName, String lastName, String email, String password, Role role) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.role = role;
+    public User(Builder builder) {
+        this.id = builder.id;
+        this.firstName = builder.firstName;
+        this.lastName = builder.lastName;
+        this.email = builder.email;
+        this.password = builder.password;
+        this.role = builder.role;
+
     }
 
-    public Integer getId() {
+    public static Builder newBuilder() {
+        return new Builder();
+    }
+
+    public int getId() {
         return id;
     }
 
@@ -54,16 +59,12 @@ public abstract class User {
         }
         User user = (User) o;
         return id == user.id &&
-                firstName.equals(user.firstName) &&
-                lastName.equals(user.lastName) &&
-                email.equals(user.email) &&
-                password.equals(user.password) &&
-                role == user.role;
+                email.equals(user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, password, role);
+        return Objects.hash(id, email);
     }
 
     @Override
@@ -76,5 +77,51 @@ public abstract class User {
                 ", password='" + password + '\'' +
                 ", role=" + role +
                 '}';
+    }
+
+    public static class Builder {
+        private int id;
+        private String firstName;
+        private String lastName;
+        private String email;
+        private String password;
+        private Role role;
+
+        private Builder() {
+        }
+
+        public Builder withId(int id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder withFirstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public Builder withLastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public Builder withEmail(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder withPassword(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public Builder withRole(Role role) {
+            this.role = role;
+            return this;
+        }
+
+        public User build() {
+            return new User(this);
+        }
     }
 }

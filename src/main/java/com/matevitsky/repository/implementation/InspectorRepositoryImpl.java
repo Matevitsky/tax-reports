@@ -1,9 +1,9 @@
 package com.matevitsky.repository.implementation;
 
 import com.matevitsky.dto.ReportWithClientName;
-import com.matevitsky.entity.Inspector;
 import com.matevitsky.entity.ReportStatus;
 import com.matevitsky.entity.Role;
+import com.matevitsky.entity.User;
 import com.matevitsky.repository.interfaces.InspectorRepository;
 import org.apache.log4j.Logger;
 
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class InspectorRepositoryImpl extends CrudRepositoryImpl<Inspector> implements InspectorRepository {
+public class InspectorRepositoryImpl extends CrudRepositoryImpl<User> implements InspectorRepository {
 
     private static final Logger LOGGER = Logger.getLogger(InspectorRepositoryImpl.class);
 
@@ -40,7 +40,7 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Inspector> imple
 
 
     @Override
-    protected String getCreateQuery(Inspector inspector) {
+    protected String getCreateQuery(User inspector) {
         return String.format(CREATE_INSPECTOR_SQL, inspector.getFirstName(), inspector.getLastName(), inspector.getEmail(),
                 inspector.getPassword(), inspector.getRole());
 
@@ -52,7 +52,7 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Inspector> imple
     }
 
     @Override
-    protected String getUpdateQuery(Inspector inspector) {
+    protected String getUpdateQuery(User inspector) {
         return String.format(UPDATE_INSPECTOR_SQL, inspector.getFirstName(), inspector.getLastName(),
                 inspector.getEmail(), inspector.getPassword(), inspector.getRole(), inspector.getId());
 
@@ -69,9 +69,9 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Inspector> imple
     }
 
     @Override
-    protected List<Inspector> mapToList(ResultSet resultSet) {
-        List<Inspector> allInspectorList = new ArrayList<>();
-        Inspector inspector;
+    protected List<User> mapToList(ResultSet resultSet) {
+        List<User> allInspectorList = new ArrayList<>();
+        User inspector;
         try {
             while (resultSet.next()) {
                 inspector = mapToObject(resultSet);
@@ -85,8 +85,8 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Inspector> imple
     }
 
     @Override
-    protected Inspector mapToObject(ResultSet resultSet) {
-        Inspector inspector = null;
+    protected User mapToObject(ResultSet resultSet) {
+        User inspector = null;
         try {
             if (resultSet.isBeforeFirst()) {
                 resultSet.next();
@@ -98,7 +98,7 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Inspector> imple
             String password = resultSet.getString("password");
             String role = resultSet.getString("role");
 
-            inspector = Inspector.newBuilder()
+            inspector = User.newBuilder()
                     .withId(id)
                     .withFirstName(firstName)
                     .withLastName(lastName)
@@ -113,7 +113,7 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Inspector> imple
     }
 
     @Override
-    public Optional<Inspector> findByEmail(String email, Connection connection) {
+    public Optional<User> findByEmail(String email, Connection connection) {
         String sqlQuery = String.format(SELECT_INSPECTOR_BY_EMAIL_SQL, email);
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             ResultSet resultSet = statement.executeQuery();

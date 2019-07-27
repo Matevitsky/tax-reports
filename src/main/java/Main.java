@@ -17,15 +17,20 @@ public class Main {
         ClientService clientService = new ClientServiceImpl();
 
 
-       /* Client client = Client.newBuilder()
-                .withFirstName("Sergey")
-                .withLastName("test")
-                .withId(2)
-                .withPassword("test")
-                .withCompanyName(1)
+       /* Client client = Client.newClientBuilder()
+                .withFirstName("test1")
+                .withLastName("test1")
+                .withPassword("test1")
                 .withEmail("test@test.test")
-                .build();*/
-        System.out.println(MD5Util.encryptPassword("inspector"));
+                .withCompanyName("Sony")
+
+                .withInspectorId(1)
+                .build();
+        ClientServiceImpl clientService1 = new ClientServiceImpl();
+        boolean b = clientService1.create(client);*/
+
+        System.out.println(MD5Util.encryptPassword("admin"));
+
 
         //TODO: create Header for client page
 

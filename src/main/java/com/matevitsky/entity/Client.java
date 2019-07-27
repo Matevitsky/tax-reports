@@ -3,21 +3,31 @@ package com.matevitsky.entity;
 import java.util.Objects;
 
 public class Client extends User {
-    private final int companyId;
+    private final String companyName;
     private final int inspectorId;
 
-    public Client(Builder builder) {
-        super(builder.id, builder.firstName, builder.lastName, builder.email, builder.password, builder.role);
-        this.companyId = builder.companyId;
+
+    public Client(ClientBuilder builder) {
+
+        super(newBuilder().withId(builder.id)
+                .withFirstName(builder.firstName)
+                .withLastName(builder.lastName)
+                .withEmail(builder.email)
+                .withPassword(builder.password)
+                .withRole(builder.role));
+        this.companyName = builder.companyName;
+
         this.inspectorId = builder.inspectorId;
+
     }
 
-    public static Builder newBuilder() {
-        return new Builder();
+    public static ClientBuilder newClientBuilder() {
+        return new ClientBuilder();
     }
 
-    public int getCompanyName() {
-        return companyId;
+
+    public String getCompanyName() {
+        return companyName;
     }
 
     public int getInspectorId() {
@@ -36,64 +46,70 @@ public class Client extends User {
             return false;
         }
         Client client = (Client) o;
-        return companyId == client.companyId &&
+        return companyName == client.companyName &&
                 inspectorId == client.inspectorId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), companyId, inspectorId);
+        return Objects.hash(super.hashCode(), companyName, inspectorId);
     }
 
-    public static class Builder {
+    public static class ClientBuilder {
         private int id;
         private String firstName;
         private String lastName;
         private String email;
         private String password;
         private Role role;
-        private int companyId;
+        private String companyName;
+
         private int inspectorId;
 
-        private Builder() {
+
+        private ClientBuilder() {
         }
 
-        public Builder withId(int id) {
+        public static ClientBuilder newClientBuilder() {
+            return new ClientBuilder();
+        }
+
+        public ClientBuilder withId(int id) {
             this.id = id;
             return this;
         }
 
-        public Builder withFirstName(String name) {
+        public ClientBuilder withFirstName(String name) {
             this.firstName = name;
             return this;
         }
 
-        public Builder withLastName(String lastName) {
+        public ClientBuilder withLastName(String lastName) {
             this.lastName = lastName;
             return this;
         }
 
-        public Builder withEmail(String email) {
+        public ClientBuilder withEmail(String email) {
             this.email = email;
             return this;
         }
 
-        public Builder withPassword(String password) {
+        public ClientBuilder withPassword(String password) {
             this.password = password;
             return this;
         }
 
-        public Builder withRole(Role role) {
+        public ClientBuilder withRole(Role role) {
             this.role = role;
             return this;
         }
 
-        public Builder withCompanyId(int companyId) {
-            this.companyId = companyId;
+        public ClientBuilder withCompanyName(String companyName) {
+            this.companyName = companyName;
             return this;
         }
 
-        public Builder withInspectorId(int inspectorId) {
+        public ClientBuilder withInspectorId(int inspectorId) {
             this.inspectorId = inspectorId;
             return this;
         }

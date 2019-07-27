@@ -1,7 +1,7 @@
 package com.matevitsky.controller.command;
 
-import com.matevitsky.entity.Inspector;
 import com.matevitsky.entity.Report;
+import com.matevitsky.entity.User;
 import com.matevitsky.service.ClientServiceImpl;
 import com.matevitsky.service.ReportServiceImpl;
 import com.matevitsky.service.interfaces.ClientService;
@@ -25,7 +25,7 @@ public class GetClientPageCommand implements Command {
         ReportService reportService = new ReportServiceImpl();
         Optional<List<Report>> clientActiveReports = reportService.getClientActiveReports(clientId);
         ClientService clientService = new ClientServiceImpl();
-        Optional<Inspector> optionalInspector = clientService.getInspector(clientId);
+        Optional<User> optionalInspector = clientService.getInspector(clientId);
         if (optionalInspector.isPresent()) {
             request.setAttribute("inspector", optionalInspector.get());
         }

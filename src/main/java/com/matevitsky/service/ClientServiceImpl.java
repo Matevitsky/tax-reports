@@ -2,8 +2,8 @@ package com.matevitsky.service;
 
 import com.matevitsky.db.ConnectorDB;
 import com.matevitsky.entity.Client;
-import com.matevitsky.entity.Inspector;
 import com.matevitsky.entity.Report;
+import com.matevitsky.entity.User;
 import com.matevitsky.exception.WrongInputException;
 import com.matevitsky.repository.implementation.ClientRepositoryImpl;
 import com.matevitsky.repository.interfaces.ClientRepository;
@@ -29,9 +29,10 @@ public class ClientServiceImpl implements ClientService {
     private static final Logger LOGGER = Logger.getLogger(ClientServiceImpl.class);
 
     @Override
-    public Client register(Client client) throws WrongInputException, SQLException {
+    public Client register(Client client) throws WrongInputException {
         try (Connection connection = ConnectorDB.getConnection()) {
             clientRepository.create(client, connection);
+
         } catch (SQLException e) {
             LOGGER.error(e);
         }
@@ -73,7 +74,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Optional<Inspector> getInspector(int clientId) {
+    public Optional<User> getInspector(int clientId) {
         try (Connection connection = ConnectorDB.getConnection()) {
             Optional<Client> clientOptional = clientRepository.getById(clientId, connection);
             if (clientOptional.isPresent()) {
