@@ -19,23 +19,23 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Employee> implem
 
     private static final Logger LOGGER = Logger.getLogger(InspectorRepositoryImpl.class);
 
-    private static final String CREATE_INSPECTOR_SQL = "INSERT INTO inspectors (first_name, last_name, email, password," +
+    private static final String CREATE_INSPECTOR_SQL = "INSERT INTO employees (first_name, last_name, email, password," +
             " role) VALUES ('%s', '%s', '%s', '%s','%s');";
 
 
-    private static final String DELETE_INSPECTOR_SQL = "DELETE FROM inspectors WHERE inspector_id=%d";
+    private static final String DELETE_INSPECTOR_SQL = "DELETE FROM employees WHERE inspector_id=%d";
 
     private static final String UPDATE_INSPECTOR_SQL =
-            "UPDATE inspectors SET first_name='%s', last_name='%s', email='%s', password='%s', role='%s" +
+            "UPDATE employees SET first_name='%s', last_name='%s', email='%s', password='%s', role='%s" +
                     "where inspector_id=%d";
 
-    private static final String SELECT_INSPECTOR_BY_ID_SQL = "SELECT * FROM inspectors WHERE inspector_id='%d'";
-    private static final String SELECT_ALL_INSPECTORS_SQL = "SELECT * FROM inspectors";
-    private static final String SELECT_INSPECTOR_BY_EMAIL_SQL = "SELECT * FROM inspectors WHERE email='%s'";
+    private static final String SELECT_INSPECTOR_BY_ID_SQL = "SELECT * FROM employees WHERE inspector_id='%d'";
+    private static final String SELECT_ALL_INSPECTORS_SQL = "SELECT * FROM employees";
+    private static final String SELECT_INSPECTOR_BY_EMAIL_SQL = "SELECT * FROM employees WHERE email='%s'";
     private static final String SELECT_INSPECTOR_REPORTS_SQL =
             "SELECT report_id,tittle,clients.first_name,clients.last_name,clients.client_id," +
                     "clients.inspector_id,report_status\n" +
-                    "FROM clients,reports,inspectors\n" +
+                    "FROM clients,reports,employees\n" +
                     "WHERE reports.client_id=clients.client_id AND clients.inspector_id='%d'";
 
 
@@ -91,12 +91,12 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Employee> implem
             if (resultSet.isBeforeFirst()) {
                 resultSet.next();
             }
-            int id = resultSet.getInt("inspector_id");
+            int id = resultSet.getInt("id");
             String firstName = resultSet.getString("first_name");
             String lastName = resultSet.getString("last_name");
             String email = resultSet.getString("email");
             String password = resultSet.getString("password");
-            String role = resultSet.getString("role");
+            String role = resultSet.getString("employee_role");
 
             inspector = Employee.newBuilder()
                     .withId(id)

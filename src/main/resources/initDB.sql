@@ -7,8 +7,7 @@ USE Tax;
 DROP TABLE IF EXISTS reports;
 DROP TABLE IF EXISTS change_inspector_requests;
 DROP TABLE IF EXISTS clients;
-
-DROP TABLE IF EXISTS inspectors;
+DROP TABLE IF EXISTS employees;
 DROP TABLE IF EXISTS companies;
 
 
@@ -22,16 +21,16 @@ CREATE TABLE companies
 
 );
 
-CREATE TABLE inspectors
+CREATE TABLE employees
 (
-    inspector_id INT AUTO_INCREMENT,
-    first_name   VARCHAR(64)                NOT NULL,
-    last_name    VARCHAR(64)                NOT NULL,
-    email        VARCHAR(255)               NOT NULL UNIQUE,
-    password     VARCHAR(32)                NOT NULL,
-    employeeRole ENUM ('INSPECTOR','ADMIN') NOT NULL,
+    id            INT AUTO_INCREMENT,
+    first_name    VARCHAR(64)                NOT NULL,
+    last_name     VARCHAR(64)                NOT NULL,
+    email         VARCHAR(255)               NOT NULL UNIQUE,
+    password      VARCHAR(32)                NOT NULL,
+    employee_role ENUM ('INSPECTOR','ADMIN') NOT NULL,
 
-    PRIMARY KEY (inspector_id)
+    PRIMARY KEY (id)
 );
 
 
@@ -49,15 +48,16 @@ CREATE TABLE clients
 
     PRIMARY KEY (client_id),
     FOREIGN KEY (company_name) REFERENCES companies (company_name),
-    FOREIGN KEY (inspector_id) REFERENCES inspectors (inspector_id)
+    FOREIGN KEY (inspector_id) REFERENCES employees (id)
 );
+
 CREATE TABLE change_inspector_requests
 (
     request_id INT AUTO_INCREMENT,
     client_id  INT NOT NULL,
 
     PRIMARY KEY (request_id),
-    FOREIGN KEY (client_id) REFERENCES clients (client_id)
+    FOREIGN KEY (client_id) REFERENCES employees (id)
 );
 
 
@@ -72,17 +72,17 @@ CREATE TABLE reports
 
 
     PRIMARY KEY (report_id),
-    FOREIGN KEY (client_id) REFERENCES clients (client_id)
+    FOREIGN KEY (client_id) REFERENCES employees (id)
 
 
 );
 
 
 
-INSERT INTO inspectors (first_name, last_name, email, password, employeeRole)
+INSERT INTO employees (first_name, last_name, email, password, employee_role)
     VALUE ('inspector', 'inspector', 'inspector@test.tes', '8e96c1fb87ac069c2a39f1ed61b10428', 'INSPECTOR');
 
-INSERT INTO inspectors (first_name, last_name, email, password, employeeRole)
+INSERT INTO employees (first_name, last_name, email, password, employee_role)
     VALUE ('admin', 'admin', 'admin@test.tes', '8e96c1fb87ac069c2a39f1ed61b10428', 'ADMIN');
 
 INSERT INTO companies(company_name)
@@ -90,5 +90,5 @@ INSERT INTO companies(company_name)
     ON DUPLICATE KEY UPDATE company_id = company_id + 0;
 
 INSERT INTO clients(first_name, last_name, email, password, company_name, inspector_id)
-    value ('client', 'client', 'test@test.tes', '098f6bcd4621d373cade4e832627b4f6', 'Samsung', '1');
+    value ('client', 'client', 'test@test.tes', '098f6bcd4621d373cade4e832627b4f6', 'Samsung', 1);
 

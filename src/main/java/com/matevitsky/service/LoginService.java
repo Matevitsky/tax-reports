@@ -1,6 +1,5 @@
 package com.matevitsky.service;
 
-import com.matevitsky.dto.ReportWithClientName;
 import com.matevitsky.dto.UserForLogin;
 import com.matevitsky.entity.Client;
 import com.matevitsky.entity.Employee;
@@ -38,14 +37,9 @@ public class LoginService {
             switch (employee.getEmployeeRole()) {
                 case INSPECTOR:
                     user = new UserForLogin(employee.getId(), employee.getEmail(), employee.getPassword(), UserForLogin.Role.INSPECTOR);
-                    Optional<List<ReportWithClientName>> optionalReports = inspectorService.getNewReports(employee.getId());
-                    if (optionalReports.isPresent()) {
-                        request.setAttribute("reports", optionalReports.get());
-                    }
-
+                    inspectorService.addNewReportsToRequest(request, employee.getId());
                 case ADMIN:
                     user = new UserForLogin(employee.getId(), employee.getEmail(), employee.getPassword(), UserForLogin.Role.ADMIN);
-
             }
 
         } else {
