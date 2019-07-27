@@ -2,7 +2,6 @@ package com.matevitsky.controller.command;
 
 
 import com.matevitsky.entity.Client;
-import com.matevitsky.entity.Role;
 import com.matevitsky.exception.WrongInputException;
 import com.matevitsky.service.ClientServiceImpl;
 import com.matevitsky.service.interfaces.ClientService;
@@ -37,7 +36,6 @@ public class RegisterCommand implements Command {
                 .withEmail(emailAddress)
                 .withPassword(password)
                 .withCompanyName(companyName)
-                .withRole(Role.CLIENT)
                 .build();
 
 

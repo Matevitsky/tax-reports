@@ -1,7 +1,7 @@
 package com.matevitsky.service.interfaces;
 
 import com.matevitsky.entity.Client;
-import com.matevitsky.entity.User;
+import com.matevitsky.entity.Employee;
 import com.matevitsky.exception.WrongInputException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,5 +17,5 @@ public interface ClientService extends CrudService<Client> {
 
     boolean addReportsListToRequest(HttpServletRequest request, int clientId);
 
-    Optional<User> getInspector(int clientId);
+    Optional<Employee> getInspector(int clientId);
 }

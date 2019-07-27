@@ -2,28 +2,24 @@ package com.matevitsky.entity;
 
 import java.util.Objects;
 
-public class User {
+public abstract class User {
 
     private final int id;
     private final String firstName;
     private final String lastName;
     private final String email;
     private final String password;
-    private final Role role;
 
-    public User(Builder builder) {
-        this.id = builder.id;
-        this.firstName = builder.firstName;
-        this.lastName = builder.lastName;
-        this.email = builder.email;
-        this.password = builder.password;
-        this.role = builder.role;
+
+    public User(int id, String firstName, String lastName, String email, String password, EmployeeRole employeeRole) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
 
     }
 
-    public static Builder newBuilder() {
-        return new Builder();
-    }
 
     public int getId() {
         return id;
@@ -45,9 +41,6 @@ public class User {
         return password;
     }
 
-    public Role getRole() {
-        return role;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -74,54 +67,7 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role=" + role +
+                ", password='" + password +
                 '}';
-    }
-
-    public static class Builder {
-        private int id;
-        private String firstName;
-        private String lastName;
-        private String email;
-        private String password;
-        private Role role;
-
-        private Builder() {
-        }
-
-        public Builder withId(int id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder withFirstName(String firstName) {
-            this.firstName = firstName;
-            return this;
-        }
-
-        public Builder withLastName(String lastName) {
-            this.lastName = lastName;
-            return this;
-        }
-
-        public Builder withEmail(String email) {
-            this.email = email;
-            return this;
-        }
-
-        public Builder withPassword(String password) {
-            this.password = password;
-            return this;
-        }
-
-        public Builder withRole(Role role) {
-            this.role = role;
-            return this;
-        }
-
-        public User build() {
-            return new User(this);
-        }
     }
 }

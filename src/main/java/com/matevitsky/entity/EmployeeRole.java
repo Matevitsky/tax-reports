@@ -1,7 +1,6 @@
 package com.matevitsky.entity;
 
-public enum Role {
-    CLIENT,
+public enum EmployeeRole {
     INSPECTOR,
     ADMIN;
 }

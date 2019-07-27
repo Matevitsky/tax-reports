@@ -29,7 +29,7 @@ public class Main {
         ClientServiceImpl clientService1 = new ClientServiceImpl();
         boolean b = clientService1.create(client);*/
 
-        System.out.println(MD5Util.encryptPassword("admin"));
+        System.out.println(MD5Util.encryptPassword("test"));
 
 
         //TODO: create Header for client page

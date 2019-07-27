@@ -29,7 +29,7 @@ CREATE TABLE inspectors
     last_name    VARCHAR(64)                NOT NULL,
     email        VARCHAR(255)               NOT NULL UNIQUE,
     password     VARCHAR(32)                NOT NULL,
-    role         ENUM ('INSPECTOR','ADMIN') NOT NULL,
+    employeeRole ENUM ('INSPECTOR','ADMIN') NOT NULL,
 
     PRIMARY KEY (inspector_id)
 );
@@ -79,10 +79,10 @@ CREATE TABLE reports
 
 
 
-INSERT INTO inspectors (first_name, last_name, email, password, role)
+INSERT INTO inspectors (first_name, last_name, email, password, employeeRole)
     VALUE ('inspector', 'inspector', 'inspector@test.tes', '8e96c1fb87ac069c2a39f1ed61b10428', 'INSPECTOR');
 
-INSERT INTO inspectors (first_name, last_name, email, password, role)
+INSERT INTO inspectors (first_name, last_name, email, password, employeeRole)
     VALUE ('admin', 'admin', 'admin@test.tes', '8e96c1fb87ac069c2a39f1ed61b10428', 'ADMIN');
 
 INSERT INTO companies(company_name)
@@ -90,5 +90,5 @@ INSERT INTO companies(company_name)
     ON DUPLICATE KEY UPDATE company_id = company_id + 0;
 
 INSERT INTO clients(first_name, last_name, email, password, company_name, inspector_id)
-    value ('client', 'client', 'test@test.tes', '62608e08adc29a8d6dbc9754e659f125', 'Samsung', '1');
+    value ('client', 'client', 'test@test.tes', '098f6bcd4621d373cade4e832627b4f6', 'Samsung', '1');
 

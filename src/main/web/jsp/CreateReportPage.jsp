@@ -33,7 +33,7 @@
 <body data-gr-c-s-loaded="true" style="">
 
 <div id="wrapper">
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top" employeeRole="navigation">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -83,7 +83,7 @@
         <div class="row">
             <div class="col-lg-6">
 
-                <form role="form" action="/app" method="get">
+                <form employeeRole="form" action="/app" method="get">
                     <c:set var="report" value="${report}"/>
                     <input type="hidden" name="command" value="create_report">
 

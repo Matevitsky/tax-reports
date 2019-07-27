@@ -2,6 +2,7 @@ package com.matevitsky.service;
 
 import com.matevitsky.db.ConnectorDB;
 import com.matevitsky.dto.ReportWithClientName;
+import com.matevitsky.entity.Employee;
 import com.matevitsky.entity.Report;
 import com.matevitsky.entity.ReportStatus;
 import com.matevitsky.entity.User;
@@ -34,7 +35,7 @@ public class InspectorServiceImpl implements InspectorService {
     }
 
     @Override
-    public boolean create(User inspector) {
+    public boolean create(Employee inspector) {
         try (Connection connection = ConnectorDB.getConnection()) {
             return inspectorRepository.create(inspector, connection);
         } catch (SQLException e) {
@@ -54,7 +55,7 @@ public class InspectorServiceImpl implements InspectorService {
     }
 
     @Override
-    public User update(User inspector) {
+    public Employee update(Employee inspector) {
         try (Connection connection = ConnectorDB.getConnection()) {
             return inspectorRepository.update(inspector, connection);
         } catch (SQLException e) {
@@ -64,7 +65,7 @@ public class InspectorServiceImpl implements InspectorService {
     }
 
     @Override
-    public Optional<User> getById(Integer id) {
+    public Optional<Employee> getById(Integer id) {
         try (Connection connection = ConnectorDB.getConnection()) {
             return inspectorRepository.getById(id, connection);
         } catch (SQLException e) {
@@ -74,7 +75,7 @@ public class InspectorServiceImpl implements InspectorService {
     }
 
     @Override
-    public Optional<List<User>> getAll() {
+    public Optional<List<Employee>> getAll() {
 
         try (Connection connection = ConnectorDB.getConnection()) {
             return inspectorRepository.getAll(connection);
@@ -85,7 +86,7 @@ public class InspectorServiceImpl implements InspectorService {
     }
 
     @Override
-    public Optional<User> findByEmail(String email) {
+    public Optional<Employee> findByEmail(String email) {
         try (Connection connection = ConnectorDB.getConnection()) {
             return inspectorRepository.findByEmail(email, connection);
         } catch (SQLException e) {
@@ -140,7 +141,7 @@ public class InspectorServiceImpl implements InspectorService {
 
     @Override
     public void addNewReportsToRequest(HttpServletRequest request, int inspectorId) {
-        Optional<User> inspectorById = getById(inspectorId);
+        Optional<Employee> inspectorById = getById(inspectorId);
         if (inspectorById.isPresent()) {
             User inspector = inspectorById.get();
             Optional<List<ReportWithClientName>> reports = getNewReports(inspector.getId());

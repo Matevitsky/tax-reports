@@ -1,7 +1,6 @@
 package com.matevitsky.repository.implementation;
 
 import com.matevitsky.entity.Client;
-import com.matevitsky.entity.Role;
 import com.matevitsky.repository.interfaces.ClientRepository;
 import org.apache.log4j.Logger;
 
@@ -39,7 +38,7 @@ public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements 
     @Override
     public String getCreateQuery(Client client) {
         return String.format(CREATE_CLIENT_SQL, client.getCompanyName(), client.getFirstName(), client.getLastName(), client.getEmail(),
-                client.getPassword(), client.getRole(), client.getCompanyName(), client.getInspectorId());
+                client.getPassword(), client.getCompanyName(), client.getInspectorId());
     }
 
     @Override
@@ -50,7 +49,7 @@ public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements 
     @Override
     public String getUpdateQuery(Client client) {
         return String.format(UPDATE_CLIENT_SQL, client.getFirstName(), client.getLastName(), client.getEmail(),
-                client.getPassword(), client.getRole(), client.getCompanyName(), client.getId());
+                client.getPassword(), client.getCompanyName(), client.getId());
     }
 
     @Override
@@ -93,7 +92,6 @@ public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements 
             String lastName = resultSet.getString("last_name");
             String email = resultSet.getString("email");
             String password = resultSet.getString("password");
-            String role = resultSet.getString("role");
             String companyName = resultSet.getString("company_name");
 
             int inspectorId = resultSet.getInt("inspector_id");
@@ -103,7 +101,6 @@ public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements 
                     .withLastName(lastName)
                     .withEmail(email)
                     .withPassword(password)
-                    .withRole(Role.CLIENT)
                     .withCompanyName(companyName)
                     .withInspectorId(inspectorId)
                     .build();

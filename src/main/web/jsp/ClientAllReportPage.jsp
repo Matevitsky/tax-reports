@@ -41,7 +41,7 @@
 <body data-gr-c-s-loaded="true" style="">
 
 <div id="wrapper">
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top" employeeRole="navigation">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -149,9 +149,9 @@
     </div>
 </div>
 
-<%--<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<%--<div class="modal fade" id="Modal" tabindex="-1" employeeRole="dialog" aria-labelledby="myModalLabel"
      style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-notify modal-info" role="document">
+    <div class="modal-dialog modal-lg modal-notify modal-info" employeeRole="document">
         <!--Content-->
         <div class="modal-content">
 

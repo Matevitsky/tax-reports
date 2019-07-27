@@ -8,15 +8,8 @@ public class Client extends User {
 
 
     public Client(ClientBuilder builder) {
-
-        super(newBuilder().withId(builder.id)
-                .withFirstName(builder.firstName)
-                .withLastName(builder.lastName)
-                .withEmail(builder.email)
-                .withPassword(builder.password)
-                .withRole(builder.role));
+        super(builder.id, builder.firstName, builder.lastName, builder.email, builder.password, builder.employeeRole);
         this.companyName = builder.companyName;
-
         this.inspectorId = builder.inspectorId;
 
     }
@@ -61,9 +54,8 @@ public class Client extends User {
         private String lastName;
         private String email;
         private String password;
-        private Role role;
+        private EmployeeRole employeeRole;
         private String companyName;
-
         private int inspectorId;
 
 
@@ -99,10 +91,6 @@ public class Client extends User {
             return this;
         }
 
-        public ClientBuilder withRole(Role role) {
-            this.role = role;
-            return this;
-        }
 
         public ClientBuilder withCompanyName(String companyName) {
             this.companyName = companyName;
@@ -111,6 +99,11 @@ public class Client extends User {
 
         public ClientBuilder withInspectorId(int inspectorId) {
             this.inspectorId = inspectorId;
+            return this;
+        }
+
+        public ClientBuilder withRole(EmployeeRole employeeRole) {
+            this.employeeRole = employeeRole;
             return this;
         }
 
