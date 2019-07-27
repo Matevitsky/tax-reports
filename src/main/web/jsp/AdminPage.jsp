@@ -39,11 +39,17 @@
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
-                <li><a href="<c:url value="/app?command=inspector_new_reports"/>"><i class="fa fa-plus"></i> New reports</a>
+
+                <li>
+                    <a href="#"/><i class="fa fa-inbox"></i> Requests<span class="badge"> 3 </span></a></a>
+                    </a>
                 </li>
 
-                <li><a href="<c:url value="/app?command=inspector_get_all_reports"/>"><i class="fa fa-bars"></i> All
-                    Reports</a></li>
+
+                <li><a href="<c:url value="/app?command=inspector_get_all_reports"/>"><i
+                    class="fas fa-user-graduate"></i> Inspectors </a></li>
+                <li><a href="<c:url value="/app?command=inspector_get_all_reports"/>"><i class="fa fa-users"></i>
+                    Clients </a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right navbar-user">
 
