@@ -62,7 +62,8 @@
                 <ul class="dropdown-menu">
                     <li class="divider"></li>
 
-                    <li><a href="#"><i class="fas fa-exchange-alt"></i> Change Inspector</a></li>
+                    <li><a href="/app?command=client_change_inspector"><i class="fas fa-exchange-alt"></i> Change
+                        Inspector</a></li>
                 </ul>
             </li>
 

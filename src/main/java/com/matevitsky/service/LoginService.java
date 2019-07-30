@@ -25,11 +25,11 @@ public class LoginService {
 
     private static final Logger LOGGER = Logger.getLogger(LoginService.class);
 
-    public LoginService(ClientService clientService, InspectorService inspectorService, ReportService reportService, AdminService adminService) {
-        this.clientService = clientService;
-        this.inspectorService = inspectorService;
-        this.reportService = reportService;
-        this.adminService = adminService;
+    public LoginService() {
+        this.clientService = new ClientServiceImpl();
+        this.inspectorService = new InspectorServiceImpl();
+        this.reportService = new ReportServiceImpl();
+        this.adminService = new AdminServiceImpl();
     }
 
     public UserForLogin login(String email, String password, HttpServletRequest request) {

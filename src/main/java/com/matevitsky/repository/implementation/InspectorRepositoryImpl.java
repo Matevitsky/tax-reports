@@ -30,7 +30,8 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Employee> implem
                     "where inspector_id=%d";
 
     private static final String SELECT_INSPECTOR_BY_ID_SQL = "SELECT * FROM employees WHERE inspector_id='%d'";
-    private static final String SELECT_ALL_INSPECTORS_SQL = "SELECT * FROM employees";
+    private static final String SELECT_ALL_INSPECTORS_SQL = "SELECT * FROM employees WHERE employee_role ='INSPECTOR'";
+
     private static final String SELECT_INSPECTOR_BY_EMAIL_SQL = "SELECT * FROM employees WHERE email='%s'";
     private static final String SELECT_INSPECTOR_REPORTS_SQL =
             "SELECT report_id,tittle,clients.first_name,clients.last_name,clients.client_id," +

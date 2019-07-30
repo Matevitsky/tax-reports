@@ -66,7 +66,7 @@
 
                 <li class="dropdown user-dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Steve Miller<b
-                        class="caret"></b></a>
+                            class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
                         <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
@@ -96,41 +96,53 @@
 
             </thead>
             <tbody>
-            <c:forEach items="${reports}" var="report">
+            <c:forEach items="${clientList}" var="client">
 
                 <tr>
-                    <td>${report.tittle}</td>
-                    <td>${report.clientFullName}</td>
-                    <td>${report.reportStatus}</td>
-                    <form action="/app" method="get">
-                        <td>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default">Default</button>
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                                        aria-expanded="false"><span class="caret"></span></button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Separated link</a></li>
-                                </ul>
-                            </div>
+                    <td>${client.firstName}</td>
+                    <td>
+                        <form action="/app" method="get">
+
+                            <fmt:message bundle="${common}" key="select.activity"/>
 
 
-                            <select id="requestList" name="selectedRecord">
+                            <select id="unAssignedActivityList" name="selectedRecord">
 
-                                <c:forEach var="inspector" items="${inspectorList}">
+                                <c:forEach var="unAssignedActivityList" items="${unAssignedActivityList}">
 
-                                    <option value="${inspector}">${inspectors.name}</option>
+                                    <option value="${unAssignedActivityList}">${unAssignedActivityList.title}</option>
 
                                 </c:forEach>
 
                             </select>
+                            <input type="hidden" name="userId" value= ${user.id}>
+                                <%--  <input type="submit" value="Submit" align="middle">--%>
 
-                        </td>
 
-                    </form>
+                            <form action="/app" method="get">
+                                <input type="submit" value="<fmt:message bundle="${common}" key="assign.task"/>">
+                                <input type="hidden" name="command" value="admin_assign_activity_command">
+
+                            </form>
+
+
+                        </form>
+                    </td>
+
+                    <td>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default">Default</button>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                    aria-expanded="false"><span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                            </ul>
+                        </div>
+                    </td>
 
                 </tr>
 

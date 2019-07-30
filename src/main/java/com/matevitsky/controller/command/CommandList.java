@@ -33,6 +33,8 @@ public enum CommandList {
 
     GET_VIEW_REPORT_PAGE(new ClientGetViewReportPage()),
 
+    CLIENT_CHANGE_INSPECTOR(new ClientChangeInspectorCommand()),
+
     LOG_OUT(new LogOutCommand()),
 
 
