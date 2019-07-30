@@ -6,9 +6,7 @@ import com.matevitsky.entity.Employee;
 import com.matevitsky.entity.Report;
 import com.matevitsky.entity.ReportStatus;
 import com.matevitsky.entity.User;
-import com.matevitsky.repository.implementation.ClientRepositoryImpl;
 import com.matevitsky.repository.implementation.InspectorRepositoryImpl;
-import com.matevitsky.repository.interfaces.ClientRepository;
 import com.matevitsky.repository.interfaces.InspectorRepository;
 import com.matevitsky.service.interfaces.InspectorService;
 import com.matevitsky.service.interfaces.ReportService;
@@ -25,13 +23,10 @@ public class InspectorServiceImpl implements InspectorService {
 
     private static final Logger LOGGER = Logger.getLogger(InspectorServiceImpl.class);
     private InspectorRepository inspectorRepository;
-    private ClientRepository clientRepository;
-    private ReportService reportService;
+
 
     public InspectorServiceImpl() {
         inspectorRepository = new InspectorRepositoryImpl();
-        clientRepository = new ClientRepositoryImpl();
-        reportService = new ReportServiceImpl();
     }
 
     @Override

@@ -1,8 +1,8 @@
 package com.matevitsky.service.interfaces;
 
-import java.net.http.HttpRequest;
+import javax.servlet.http.HttpServletRequest;
 
 public interface AdminService {
 
-    void prepareAdminPage(HttpRequest request);
+    void prepareAdminPage(HttpServletRequest request);
 }

@@ -4,6 +4,7 @@ import com.matevitsky.dto.UserForLogin;
 import com.matevitsky.entity.Client;
 import com.matevitsky.entity.Employee;
 import com.matevitsky.entity.Report;
+import com.matevitsky.service.interfaces.AdminService;
 import com.matevitsky.service.interfaces.ClientService;
 import com.matevitsky.service.interfaces.InspectorService;
 import com.matevitsky.service.interfaces.ReportService;
@@ -16,7 +17,20 @@ import java.util.Optional;
 
 public class LoginService {
 
+
+    private ClientService clientService;
+    private InspectorService inspectorService;
+    private ReportService reportService;
+    private AdminService adminService;
+
     private static final Logger LOGGER = Logger.getLogger(LoginService.class);
+
+    public LoginService(ClientService clientService, InspectorService inspectorService, ReportService reportService, AdminService adminService) {
+        this.clientService = clientService;
+        this.inspectorService = inspectorService;
+        this.reportService = reportService;
+        this.adminService = adminService;
+    }
 
     public UserForLogin login(String email, String password, HttpServletRequest request) {
 
