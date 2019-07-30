@@ -5,7 +5,7 @@ USE Tax;
 
 
 DROP TABLE IF EXISTS reports;
-DROP TABLE IF EXISTS change_inspector_requests;
+DROP TABLE IF EXISTS requests;
 DROP TABLE IF EXISTS clients;
 DROP TABLE IF EXISTS employees;
 DROP TABLE IF EXISTS companies;
@@ -51,7 +51,7 @@ CREATE TABLE clients
     FOREIGN KEY (inspector_id) REFERENCES employees (id)
 );
 
-CREATE TABLE change_inspector_requests
+CREATE TABLE requests
 (
     request_id INT AUTO_INCREMENT,
     client_id  INT NOT NULL,

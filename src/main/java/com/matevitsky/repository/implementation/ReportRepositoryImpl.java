@@ -81,7 +81,7 @@ public class ReportRepositoryImpl extends CrudRepositoryImpl<Report> implements 
             if (resultSet.isBeforeFirst()) {
                 resultSet.next();
             }
-            Integer id = resultSet.getInt("report_id");
+            int id = resultSet.getInt("report_id");
             String tittle = resultSet.getString("tittle");
             String content = resultSet.getString("content");
             String reportStatus = resultSet.getString("report_status");

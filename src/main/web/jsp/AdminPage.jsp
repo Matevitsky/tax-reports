@@ -46,8 +46,9 @@
                 </li>
 
 
-                <li><a href="<c:url value="/app?command=inspector_get_all_reports"/>"><i
-                    class="fas fa-user-graduate"></i> Inspectors </a></li>
+                <li><a href="<c:url value="/app?command=inspector_get_all_reports"/>">
+                    <i class="fas fa-user-graduate"></i> Inspectors </a></li>
+
                 <li><a href="<c:url value="/app?command=inspector_get_all_reports"/>"><i class="fa fa-users"></i>
                     Clients </a></li>
             </ul>
@@ -86,9 +87,9 @@
             <thead>
 
             <tr>
-                <th class="th-sm">Tittle</th>
+
                 <th class="th-sm">Client Name</th>
-                <th class="th-sm">Report Status</th>
+                <th class="th-sm">Inspectors</th>
                 <th class="th-sm">Button</th>
             </tr>
 
@@ -103,13 +104,29 @@
                     <td>${report.reportStatus}</td>
                     <form action="/app" method="get">
                         <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default">Default</button>
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                        aria-expanded="false"><span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                </ul>
+                            </div>
 
 
-                            <button type="submit" class="btn btn-primary">
-                                View
-                            </button>
-                            <input type="hidden" name="command" value="get_inspector_report_page">
-                            <input type="hidden" name="reportId" value=${report.id}>
+                            <select id="requestList" name="selectedRecord">
+
+                                <c:forEach var="inspector" items="${inspectorList}">
+
+                                    <option value="${inspector}">${inspectors.name}</option>
+
+                                </c:forEach>
+
+                            </select>
 
                         </td>
 
@@ -124,11 +141,12 @@
 
             <tfoot>
             <tr>
-                <th class="th-sm">Tittle</th>
+
                 <th class="th-sm">Client Name</th>
-                <th class="th-sm">Report Status</th>
+                <th class="th-sm">Inspectors</th>
                 <th class="th-sm">Button</th>
             </tr>
+
             </tfoot>
         </table>
     </div>
