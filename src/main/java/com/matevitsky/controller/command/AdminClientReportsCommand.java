@@ -16,6 +16,11 @@ public class AdminClientReportsCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         int clientId = Integer.parseInt(request.getParameter("clientId"));
         String clientName = request.getParameter("clientName");
+
+        request.getSession().setAttribute("clientId", clientId);
+        request.getSession().setAttribute("clientName", clientName);
+
+
         ReportService reportService = new ReportServiceImpl();
         Optional<List<Report>> optionalReportList = reportService.getByClientId(clientId);
         if (optionalReportList.isPresent()) {

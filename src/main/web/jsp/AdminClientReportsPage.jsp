@@ -108,6 +108,7 @@
                 <c:forEach items="${reports}" var="report">
                     <form action="/app" method="get">
                         <input type="hidden" name="reportId" value="${report.id}"/>
+                        <input type="hidden" name="clientName" value="${clientName}"/>
                         <tr>
                             <td>${report.tittle}</td>
 

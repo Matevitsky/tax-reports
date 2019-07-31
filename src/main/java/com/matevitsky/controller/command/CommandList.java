@@ -49,6 +49,10 @@ public enum CommandList {
 
     ADMIN_EDIT_REPORT(new AdminEditReportCommand()),
 
+    ADMIN_DELETE_REPORT(new AdminDeleteReport()),
+
+    ADMIN_SAVE_REPORT(new AdminSaveReport()),
+
     LOG_OUT(new LogOutCommand()),
 
     ADMIN_CANCEL(new AdminCancelCommand()),

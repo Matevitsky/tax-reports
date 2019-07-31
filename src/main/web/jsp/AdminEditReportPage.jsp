@@ -103,9 +103,9 @@
                         <textarea class="form-control" rows="3" name="content">${report.content} </textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-default" name="command" value="edit_report">Save</button>
+                    <button type="submit" class="btn btn-default" name="command" value="admin_save_report">Save</button>
                     <c:if test="${(report.status != 'ACCEPTED')}">
-                        <button type="submit" class="btn btn-danger" name="command" value="delete_report">Delete
+                        <button type="submit" class="btn btn-danger" name="command" value="admin_delete_report">Delete
                         </button>
                         <input type="hidden" name="reportId" value=${report.id}>
                     </c:if>
