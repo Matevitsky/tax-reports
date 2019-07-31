@@ -24,7 +24,7 @@ public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements 
     private static final String DELETE_CLIENT_SQL = "DELETE FROM clients WHERE client_id='%d'";
     private static final String UPDATE_CLIENT_SQL =
             "UPDATE clients SET first_name='%s', last_name='%s', email='%s', password='%s', company_name='%s'," +
-                    " inspector_id='%d' where client_id=%d";
+                    " inspector_id='%d' where client_id='%d'";
     private static final String SELECT_CLIENT_BY_ID_SQL = "SELECT  * FROM clients WHERE client_id='%d'";
     private static final String SELECT_ALL_CLIENTS_SQL = "SELECT * FROM clients";
     private static final String SELECT_CLIENT_BY_EMAIL_SQL = "SELECT * FROM clients  where email='%s'";
@@ -49,7 +49,7 @@ public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements 
     @Override
     public String getUpdateQuery(Client client) {
         return String.format(UPDATE_CLIENT_SQL, client.getFirstName(), client.getLastName(), client.getEmail(),
-                client.getPassword(), client.getCompanyName(), client.getId());
+                client.getPassword(), client.getCompanyName(), client.getInspectorId(), client.getId());
     }
 
     @Override
@@ -113,29 +113,21 @@ public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements 
     }
 
     @Override
-    public Optional<Client> findByEmail(String email, Connection connection) {
+    public Optional<Client> findByEmail(String email, Connection connection) throws SQLException {
         String sqlQuery = String.format(SELECT_CLIENT_BY_EMAIL_SQL, email);
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             ResultSet resultSet = statement.executeQuery();
             return Optional.ofNullable(mapToObject(resultSet));
-        } catch (SQLException e) {
-            LOGGER.error("Failed to get entity by ID " + e.getMessage());
         }
-        return Optional.empty();
-
     }
 
     @Override
-    public Optional<List<Client>> findClientsByInspectorId(int inspectorId, Connection connection) {
+    public Optional<List<Client>> findClientsByInspectorId(int inspectorId, Connection connection) throws SQLException {
 
         String sqlQuery = String.format(SELECT_CLIENT_BY_INSPECTOR_ID_SQL, inspectorId);
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             ResultSet resultSet = statement.executeQuery();
             return Optional.ofNullable(mapToList(resultSet));
-        } catch (SQLException e) {
-            LOGGER.error("Failed to get entity by ID " + e.getMessage());
         }
-        return Optional.empty();
     }
-
 }

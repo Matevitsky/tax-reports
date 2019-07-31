@@ -4,6 +4,8 @@ import com.matevitsky.entity.Request;
 import com.matevitsky.repository.interfaces.RequestInspectorChangeRepository;
 import org.apache.log4j.Logger;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ public class RequestInspectorChangeRepositoryImpl extends CrudRepositoryImpl<Req
     private static final String DELETE_REQUEST = "DELETE FROM requests WHERE request_id='%d'";
     private static final String SELECT_REQUEST_BY_ID = "SELECT * FROM requests WHERE request_id='%d'";
     private static final String SELECT_ALL_REQUESTS = "SELECT * FROM requests";
+    private static final String DELETE_REQUEST_BY_CLIENT_ID = "DELETE FROM requests WHERE client_id='%d'";
 
 
     @Override
@@ -77,4 +80,16 @@ public class RequestInspectorChangeRepositoryImpl extends CrudRepositoryImpl<Req
         }
         return request;
     }
+
+    @Override
+    public void deleteByClientID(int clientId, Connection connection) throws SQLException {
+        String sqlQuery = String.format(DELETE_REQUEST_BY_CLIENT_ID, clientId);
+
+        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            if (statement.executeUpdate() == 0) {
+                LOGGER.error("deleteByClientId entity failed for id " + clientId + " , no rows affected.");
+            }
+        }
+    }
+
 }

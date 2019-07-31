@@ -25,9 +25,10 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public boolean create(Request request) {
         try (Connection connection = ConnectorDB.getConnection()) {
-            return requestInspectorChangeRepository.create(request, connection);
+            requestInspectorChangeRepository.create(request, connection);
+            return true;
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error("Failed to add entity to database " + e.getMessage());
         }
         return false;
     }
@@ -35,9 +36,10 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public boolean deleteById(Integer id) {
         try (Connection connection = ConnectorDB.getConnection()) {
-            return requestInspectorChangeRepository.deleteById(id, connection);
+            requestInspectorChangeRepository.deleteById(id, connection);
+            return true;
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error("Failed to get entity by ID " + e.getMessage());
         }
         return false;
     }
@@ -62,7 +64,7 @@ public class RequestServiceImpl implements RequestService {
         try (Connection connection = ConnectorDB.getConnection()) {
             return requestInspectorChangeRepository.getAll(connection);
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error("Failed to all entities" + e.getMessage());
         }
         return Optional.empty();
     }

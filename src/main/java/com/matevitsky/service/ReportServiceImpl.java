@@ -26,9 +26,10 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public boolean create(Report report) {
         try (Connection connection = ConnectorDB.getConnection()) {
-            return reportRepository.create(report, connection);
+            reportRepository.create(report, connection);
+            return true;
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error("Failed to add entity to database " + e.getMessage());
         }
         return false;
     }
@@ -36,9 +37,10 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public boolean deleteById(Integer id) {
         try (Connection connection = ConnectorDB.getConnection()) {
-            return reportRepository.deleteById(id, connection);
+            reportRepository.deleteById(id, connection);
+            return true;
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error("Failed to deleteById  entity to database " + e.getMessage());
         }
         return false;
     }
@@ -46,7 +48,7 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public Report update(Report report) {
         try (Connection connection = ConnectorDB.getConnection()) {
-            return reportRepository.update(report, connection);
+            reportRepository.update(report, connection);
         } catch (SQLException e) {
             LOGGER.error(e);
         }
@@ -59,7 +61,7 @@ public class ReportServiceImpl implements ReportService {
         try (Connection connection = ConnectorDB.getConnection()) {
             return reportRepository.getById(id, connection);
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error("Failed to get entity by ID " + e.getMessage());
         }
         return Optional.empty();
     }
@@ -99,9 +101,9 @@ public class ReportServiceImpl implements ReportService {
         List<Report> reports;
         if (byClientId.isPresent()) {
             reports = byClientId.get();
-            return Optional.ofNullable
+            return Optional.of(
                     (reports.stream().filter(report -> report.getStatus().equals(ReportStatus.NEW))
-                            .collect(Collectors.toList()));
+                            .collect(Collectors.toList())));
 
         }
         return Optional.empty();

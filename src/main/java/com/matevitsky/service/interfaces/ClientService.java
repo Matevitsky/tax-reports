@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface ClientService extends CrudService<Client> {
 
-    Client register(Client client) throws WrongInputException;
+    Optional<Client> register(Client client) throws WrongInputException;
 
     Optional<Client> findByEmail(String email);
 

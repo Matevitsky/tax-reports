@@ -32,9 +32,10 @@ public class InspectorServiceImpl implements InspectorService {
     @Override
     public boolean create(Employee inspector) {
         try (Connection connection = ConnectorDB.getConnection()) {
-            return inspectorRepository.create(inspector, connection);
+            inspectorRepository.create(inspector, connection);
+            return true;
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error("Failed to add entity to database " + e.getMessage());
         }
         return false;
     }
@@ -42,9 +43,10 @@ public class InspectorServiceImpl implements InspectorService {
     @Override
     public boolean deleteById(Integer id) {
         try (Connection connection = ConnectorDB.getConnection()) {
-            return inspectorRepository.deleteById(id, connection);
+            inspectorRepository.deleteById(id, connection);
+            return true;
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error("Failed to deleteById  entity to database " + e.getMessage());
         }
         return false;
     }
@@ -52,7 +54,7 @@ public class InspectorServiceImpl implements InspectorService {
     @Override
     public Employee update(Employee inspector) {
         try (Connection connection = ConnectorDB.getConnection()) {
-            return inspectorRepository.update(inspector, connection);
+            inspectorRepository.update(inspector, connection);
         } catch (SQLException e) {
             LOGGER.error(e);
         }
@@ -64,7 +66,7 @@ public class InspectorServiceImpl implements InspectorService {
         try (Connection connection = ConnectorDB.getConnection()) {
             return inspectorRepository.getById(id, connection);
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error("Failed to get entity by ID " + e.getMessage());
         }
         return Optional.empty();
     }
@@ -75,7 +77,7 @@ public class InspectorServiceImpl implements InspectorService {
         try (Connection connection = ConnectorDB.getConnection()) {
             return inspectorRepository.getAll(connection);
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error("Failed to all entities" + e.getMessage());
         }
         return Optional.empty();
     }

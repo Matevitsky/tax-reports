@@ -4,7 +4,6 @@ import com.matevitsky.db.ConnectorDB;
 import com.matevitsky.entity.Client;
 import com.matevitsky.entity.Employee;
 import com.matevitsky.entity.Report;
-import com.matevitsky.exception.WrongInputException;
 import com.matevitsky.repository.implementation.ClientRepositoryImpl;
 import com.matevitsky.repository.interfaces.ClientRepository;
 import com.matevitsky.service.interfaces.ClientService;
@@ -29,15 +28,14 @@ public class ClientServiceImpl implements ClientService {
     private static final Logger LOGGER = Logger.getLogger(ClientServiceImpl.class);
 
     @Override
-    public Client register(Client client) throws WrongInputException {
+    public Optional<Client> register(Client client) {
         try (Connection connection = ConnectorDB.getConnection()) {
             clientRepository.create(client, connection);
-
+            return Optional.of(client);
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error("Failed to add entity to database " + e.getMessage());
         }
-        //TODO: что вернуть?
-        return client;
+        return Optional.empty();
     }
 
     @Override
@@ -45,7 +43,7 @@ public class ClientServiceImpl implements ClientService {
         try (Connection connection = ConnectorDB.getConnection()) {
             return clientRepository.findByEmail(email, connection);
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error("Failed to get entity by ID " + e.getMessage());
         }
         return Optional.empty();
 
@@ -83,7 +81,7 @@ public class ClientServiceImpl implements ClientService {
                 return inspectorService.getById(client.getInspectorId());
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error("Failed to get entity by ID " + e.getMessage());
         }
         return Optional.empty();
 
@@ -92,9 +90,10 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public boolean create(Client client) {
         try (Connection connection = ConnectorDB.getConnection()) {
-            return clientRepository.create(client, connection);
+            clientRepository.create(client, connection);
+            return true;
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error("Failed to add entity to database " + e.getMessage());
         }
         return false;
     }
@@ -102,9 +101,10 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public boolean deleteById(Integer id) {
         try (Connection connection = ConnectorDB.getConnection()) {
-            return clientRepository.deleteById(id, connection);
+            clientRepository.deleteById(id, connection);
+            return true;
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error("Failed to deleteById  entity to database " + e.getMessage());
         }
         return false;
     }
@@ -112,9 +112,9 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Client update(Client client) {
         try (Connection connection = ConnectorDB.getConnection()) {
-            return clientRepository.update(client, connection);
+            clientRepository.update(client, connection);
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error("Failed to get entity by ID " + e.getMessage());
         }
         return client;
     }
@@ -135,7 +135,7 @@ public class ClientServiceImpl implements ClientService {
         try (Connection connection = ConnectorDB.getConnection()) {
             return clientRepository.getAll(connection);
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error("Failed to all entities" + e.getMessage());
         }
         return Optional.empty();
     }

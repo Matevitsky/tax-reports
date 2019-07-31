@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -41,7 +42,10 @@
             <ul class="nav navbar-nav side-nav">
 
                 <li>
-                    <a href="#"/><i class="fa fa-inbox"></i> Requests<span class="badge"> 3 </span></a></a>
+                    <c:set var="requestAmount" value="${clientList}"></c:set>
+
+                    <a href="#"/><i class="fa fa-inbox"></i> Requests <span
+                        class="badge"> ${fn:length(requestAmount)} </span></a></a>
                     </a>
                 </li>
 
@@ -90,64 +94,44 @@
 
                 <th class="th-sm">Client Name</th>
                 <th class="th-sm">Inspectors</th>
-                <th class="th-sm">Button</th>
+                <th></th>
+
             </tr>
 
 
             </thead>
             <tbody>
-            <c:forEach items="${clientList}" var="client">
+            <div class="form-group">
+                <form action="/app" method="get">
+                    <c:forEach items="${clientList}" var="client">
+                        <input type="hidden" name="clientId" value="${client.id}"/>
+                        <tr>
+                            <td>${client.firstName} ${client.lastName}</td>
+                            <td>
 
-                <tr>
-                    <td>${client.firstName}</td>
-                    <td>
-                        <form action="/app" method="get">
+                                <select class="form-control " id="inspectorList" name="inspectorId">
 
-                            <fmt:message bundle="${common}" key="select.activity"/>
+                                    <c:forEach var="inspector" items="${inspectorList}">
 
+                                        <option value="${inspector.id}">${inspector.firstName} ${inspector.lastName}</option>
 
-                            <select id="unAssignedActivityList" name="selectedRecord">
+                                    </c:forEach>
+                                </select>
 
-                                <c:forEach var="unAssignedActivityList" items="${unAssignedActivityList}">
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-default" name="command"
+                                        value="admin_assign_inspector">
+                                    Assign Inspector
+                                </button>
 
-                                    <option value="${unAssignedActivityList}">${unAssignedActivityList.title}</option>
+                            </td>
 
-                                </c:forEach>
+                        </tr>
 
-                            </select>
-                            <input type="hidden" name="userId" value= ${user.id}>
-                                <%--  <input type="submit" value="Submit" align="middle">--%>
-
-
-                            <form action="/app" method="get">
-                                <input type="submit" value="<fmt:message bundle="${common}" key="assign.task"/>">
-                                <input type="hidden" name="command" value="admin_assign_activity_command">
-
-                            </form>
-
-
-                        </form>
-                    </td>
-
-                    <td>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default">Default</button>
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                                    aria-expanded="false"><span class="caret"></span></button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
-                        </div>
-                    </td>
-
-                </tr>
-
-            </c:forEach>
-
+                    </c:forEach>
+                </form>
+            </div>
             </tbody>
 
 
@@ -156,7 +140,8 @@
 
                 <th class="th-sm">Client Name</th>
                 <th class="th-sm">Inspectors</th>
-                <th class="th-sm">Button</th>
+                <th></th>
+
             </tr>
 
             </tfoot>
