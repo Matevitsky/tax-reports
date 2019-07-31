@@ -21,5 +21,4 @@ public interface InspectorService extends CrudService<Employee> {
 
     boolean declineReport(int reportId, String reasonToReject);
 
-
 }

@@ -19,7 +19,7 @@ public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements 
 
     private static final String CREATE_CLIENT_SQL = "INSERT INTO companies(company_name) VALUES ('%s') ON DUPLICATE KEY UPDATE company_id = company_id + 0;" +
             "INSERT IGNORE INTO clients (first_name, last_name, email, password, company_name, inspector_id)" +
-            " VALUES ('%s', '%s', '%s', '%s', '%s','%d');";
+            "VALUES ('%s', '%s', '%s', '%s', '%s','%d');";
 
     private static final String DELETE_CLIENT_SQL = "DELETE FROM clients WHERE client_id='%d'";
     private static final String UPDATE_CLIENT_SQL =

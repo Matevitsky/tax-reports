@@ -21,4 +21,6 @@ public interface ClientService extends CrudService<Client> {
     Optional<Employee> getInspector(int clientId);
 
     Optional<List<Client>> getClientsByInspectorId(int clientId);
+
+    Client assignInspector(Client client);
 }

@@ -90,5 +90,5 @@ INSERT INTO companies(company_name)
     ON DUPLICATE KEY UPDATE company_id = company_id + 0;
 
 INSERT INTO clients(first_name, last_name, email, password, company_name, inspector_id)
-    value ('client', 'client', 'test@test.tes', '098f6bcd4621d373cade4e832627b4f6', 'Samsung', 1);
+    value ('client', 'client', 'test3@test.tes', '098f6bcd4621d373cade4e832627b4f6', 'Samsung', 1);
 

@@ -14,8 +14,7 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class ClientServiceImpl implements ClientService {
 
@@ -24,6 +23,7 @@ public class ClientServiceImpl implements ClientService {
 
     public ClientServiceImpl() {
         clientRepository = new ClientRepositoryImpl();
+
     }
 
     private static final Logger LOGGER = Logger.getLogger(ClientServiceImpl.class);
@@ -97,6 +97,45 @@ public class ClientServiceImpl implements ClientService {
         }
         return Optional.empty();
     }
+
+    @Override
+    public Client assignInspector(Client client) {
+        Employee availableInspector = getFreeInspector();
+
+        if (availableInspector == null) {
+            LOGGER.warn("No available inspector");
+            return client;
+        }
+        return Client.newClientBuilder()
+                .withFirstName(client.getFirstName())
+                .withLastName(client.getLastName())
+                .withEmail(client.getEmail())
+                .withPassword(client.getPassword())
+                .withCompanyName(client.getCompanyName())
+                .withInspectorId(availableInspector.getId())
+                .build();
+    }
+
+    private Employee getFreeInspector() {
+        InspectorService inspectorService = new InspectorServiceImpl();
+        Optional<List<Employee>> optionalInspectorList = inspectorService.getAll();
+        List<Employee> inspectorList;
+
+        Map<Employee, Integer> map = new HashMap<>();
+        if (optionalInspectorList.isPresent()) {
+            inspectorList = optionalInspectorList.get();
+            for (Employee inspector : inspectorList) {
+                Optional<List<Client>> optionalClients = getClientsByInspectorId(inspector.getId());
+
+                if (optionalClients.isPresent()) {
+                    List<Client> clientList = optionalClients.get();
+                    map.put(inspector, clientList.size());
+                }
+            }
+        }
+        return Collections.min(map.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getKey();
+    }
+
 
     @Override
     public boolean create(Client client) {

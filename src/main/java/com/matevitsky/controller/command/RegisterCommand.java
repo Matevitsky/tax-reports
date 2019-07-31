@@ -5,10 +5,12 @@ import com.matevitsky.entity.Client;
 import com.matevitsky.exception.WrongInputException;
 import com.matevitsky.service.ClientServiceImpl;
 import com.matevitsky.service.interfaces.ClientService;
+import com.matevitsky.util.MD5Util;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
 
 public class RegisterCommand implements Command {
 
@@ -30,25 +32,30 @@ public class RegisterCommand implements Command {
         String password = request.getParameter("password");
         String companyName = request.getParameter("companyName");
 
+
         Client client = Client.newClientBuilder()
                 .withFirstName(firstName)
                 .withLastName(lastName)
                 .withEmail(emailAddress)
-                .withPassword(password)
+                .withPassword(MD5Util.encryptPassword(password))
                 .withCompanyName(companyName)
                 .build();
-
+        Client clientWithInspector = clientService.assignInspector(client);
+        Optional<Client> optionalClient = Optional.empty();
 
         try {
+            optionalClient = clientService.register(clientWithInspector);
 
-            //TODO: подумать какого инспектора присвоить
-            clientService.register(client);
         } catch (WrongInputException e) {
             request.setAttribute("error", e.getMessage());
             LOGGER.error(e.getMessage());
-
         }
-        //TODO: Create Client Page
-        return null;
+
+        if (optionalClient.isPresent()) {
+            request.getSession().setAttribute("userId", optionalClient.get().getId());
+        }
+        //TODO: Create Client Page подправить чтобы было красиво
+
+        return new GetClientPageCommand().execute(request, response);
     }
 }
