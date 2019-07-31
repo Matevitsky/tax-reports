@@ -7,4 +7,6 @@ public interface AdminService {
     void prepareAdminPage(HttpServletRequest request);
 
     boolean assignInspector(int clientId, int inspectorId);
+
+
 }

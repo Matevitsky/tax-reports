@@ -35,8 +35,12 @@ public enum CommandList {
 
     CLIENT_CHANGE_INSPECTOR(new ClientChangeInspectorCommand()),
 
+    ADMIN_MAIN_PAGE(new AdminMainPageCommand()),
 
     ADMIN_ASSIGN_INSPECTOR(new AdminAssignInspectorCommand()),
+
+    ADMIN_GET_ALL_INSPECTORS(new AdminGetAllInspectorsCommand()),
+    ADMIN_GET_ALL_CLIENTS(new AdminGetAllClientsCommand()),
 
     LOG_OUT(new LogOutCommand()),
 

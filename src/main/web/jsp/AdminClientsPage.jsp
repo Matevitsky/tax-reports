@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Page</title>
+    <title>Admin Clients Page</title>
 
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css"/>
@@ -45,7 +45,7 @@
                     <c:set var="requestAmount" value="${clientList}"></c:set>
 
                     <a href="/app?command=admin_main_page"/><i class="fa fa-inbox"></i> Requests <span
-                        class="badge"> ${fn:length(requestAmount)} </span></a></a>
+                    class="badge"> ${fn:length(requestAmount)} </span></a></a>
                     </a>
                 </li>
 
@@ -70,7 +70,7 @@
 
                 <li class="dropdown user-dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Steve Miller<b
-                            class="caret"></b></a>
+                        class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
                         <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
@@ -92,9 +92,12 @@
 
             <tr>
 
-                <th class="th-sm">Client Name</th>
-                <th class="th-sm">Inspectors</th>
-                <th></th>
+                <th class="th-sm">Name</th>
+                <th class="th-sm">Email</th>
+                <th class="th-sm">Company Name</th>
+                <th class="th-sm">Inspector Name</th>
+                <th class="th-sm">Reports</th>
+
 
             </tr>
 
@@ -113,7 +116,8 @@
 
                                     <c:forEach var="inspector" items="${inspectorList}">
 
-                                        <option value="${inspector.id}">${inspector.firstName} ${inspector.lastName}</option>
+                                        <option
+                                            value="${inspector.id}">${inspector.firstName} ${inspector.lastName}</option>
 
                                     </c:forEach>
                                 </select>
@@ -137,11 +141,11 @@
 
             <tfoot>
             <tr>
-
-                <th class="th-sm">Client Name</th>
-                <th class="th-sm">Inspectors</th>
-                <th></th>
-
+                <th class="th-sm">Name</th>
+                <th class="th-sm">Email</th>
+                <th class="th-sm">Company Name</th>
+                <th class="th-sm">Inspector Name</th>
+                <th class="th-sm">Reports</th>
             </tr>
 
             </tfoot>
