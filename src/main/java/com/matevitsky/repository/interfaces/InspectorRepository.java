@@ -12,4 +12,6 @@ public interface InspectorRepository extends CrudRepository<Employee> {
     Optional<Employee> findByEmail(String email, Connection connection);
 
     Optional<List<ReportWithClientName>> getAllClientReports(int inspectorId, Connection connection);
+
+
 }

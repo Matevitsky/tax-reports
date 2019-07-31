@@ -104,17 +104,18 @@
             <div class="form-group">
                 <form action="/app" method="get">
                     <c:forEach items="${inspectors}" var="inspector">
-                        <input type="hidden" name="clientId" value="${client.id}"/>
+                        <input type="hidden" name="inspectorId" value="${inspector.id}"/>
+                        <input type="hidden" name="inspectorFirstName" value="${inspector.firstName}"/>
+                        <input type="hidden" name="inspectorLastName" value="${inspector.lastName}"/>
+
                         <tr>
                             <td>${inspector.firstName} ${inspector.lastName}</td>
-                            <td>
 
-                                    ${inspector.email}
+                            <td>${inspector.email}</td>
 
-                            </td>
                             <td>
                                 <button type="submit" class="btn btn-default" name="command"
-                                        value="admin_assign_inspector">
+                                        value="admin_inspector_clients">
                                     Inspector Clients
                                 </button>
                             </td>

@@ -5,6 +5,7 @@ import com.matevitsky.entity.Employee;
 import com.matevitsky.exception.WrongInputException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Optional;
 
 public interface ClientService extends CrudService<Client> {
@@ -18,4 +19,6 @@ public interface ClientService extends CrudService<Client> {
     boolean addReportsListToRequest(HttpServletRequest request, int clientId);
 
     Optional<Employee> getInspector(int clientId);
+
+    Optional<List<Client>> getClientsByInspectorId(int clientId);
 }

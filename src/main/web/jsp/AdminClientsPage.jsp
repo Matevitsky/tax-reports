@@ -114,7 +114,7 @@
                             <td>${client.email}</td>
 
                             <td>${client.companyName}</td>
-                            <td> ${inspectors[status.index].firstName}</td>
+                            <td> ${inspectors[status.index].firstName} ${inspectors[status.index].lastName}</td>
                             <td>
                                 <button type="submit" class="btn btn-default" name="command"
                                         value="admin_">

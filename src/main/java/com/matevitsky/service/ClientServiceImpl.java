@@ -21,6 +21,7 @@ public class ClientServiceImpl implements ClientService {
 
     private final ClientRepository clientRepository;
 
+
     public ClientServiceImpl() {
         clientRepository = new ClientRepositoryImpl();
     }
@@ -85,6 +86,16 @@ public class ClientServiceImpl implements ClientService {
         }
         return Optional.empty();
 
+    }
+
+    @Override
+    public Optional<List<Client>> getClientsByInspectorId(int clientId) {
+        try (Connection connection = ConnectorDB.getConnection()) {
+            return clientRepository.findClientsByInspectorId(clientId, connection);
+        } catch (SQLException e) {
+            LOGGER.error("Failed to get entity by ID " + e.getMessage());
+        }
+        return Optional.empty();
     }
 
     @Override

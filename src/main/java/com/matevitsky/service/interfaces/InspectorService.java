@@ -20,4 +20,6 @@ public interface InspectorService extends CrudService<Employee> {
     void addNewReportsToRequest(HttpServletRequest request, int inspectorId);
 
     boolean declineReport(int reportId, String reasonToReject);
+
+
 }

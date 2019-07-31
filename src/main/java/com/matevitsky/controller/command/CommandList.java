@@ -40,7 +40,10 @@ public enum CommandList {
     ADMIN_ASSIGN_INSPECTOR(new AdminAssignInspectorCommand()),
 
     ADMIN_GET_ALL_INSPECTORS(new AdminGetAllInspectorsCommand()),
+
     ADMIN_GET_ALL_CLIENTS(new AdminGetAllClientsCommand()),
+
+    ADMIN_INSPECTOR_CLIENTS(new AdminInspectorClientsCommand()),
 
     LOG_OUT(new LogOutCommand()),
 

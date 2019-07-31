@@ -31,6 +31,7 @@ public class AdminGetAllClientsCommand implements Command {
             Optional<Employee> optionalInspector = inspectorService.getById(c.getInspectorId());
             if (optionalInspector.isPresent()) {
                 inspectorList.add(optionalInspector.get());
+
             }
         }
         request.setAttribute("clients", clientList);

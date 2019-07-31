@@ -52,10 +52,12 @@ public class LoginService {
                 case INSPECTOR:
                     user = new UserForLogin(employee.getId(), employee.getEmail(), employee.getPassword(), UserForLogin.Role.INSPECTOR);
                     inspectorService.addNewReportsToRequest(request, employee.getId());
-                    //TODO: поменять название на Like  prepare inspector page
+                    return user;
+                //TODO: поменять название на Like prepare inspector page
                 case ADMIN:
                     user = new UserForLogin(employee.getId(), employee.getEmail(), employee.getPassword(), UserForLogin.Role.ADMIN);
                     adminService.prepareAdminPage(request);
+                    return user;
             }
 
         } else {
