@@ -21,6 +21,8 @@ public enum CommandList {
 
     GET_CLIENT_PAGE(new GetClientPageCommand()),
 
+    CLIENT_CHANGE_INSPECTOR(new ClientChangeInspectorCommand()),
+
     INSPECTOR_NEW_REPORTS(new InspectorGetNewReportsPage()),
 
     INSPECTOR_GET_ALL_REPORTS(new InspectorGetAllReportsPage()),
@@ -33,8 +35,6 @@ public enum CommandList {
 
     GET_VIEW_REPORT_PAGE(new ClientGetViewReportPage()),
 
-    CLIENT_CHANGE_INSPECTOR(new ClientChangeInspectorCommand()),
-
     ADMIN_MAIN_PAGE(new AdminMainPageCommand()),
 
     ADMIN_ASSIGN_INSPECTOR(new AdminAssignInspectorCommand()),
@@ -45,7 +45,13 @@ public enum CommandList {
 
     ADMIN_INSPECTOR_CLIENTS(new AdminInspectorClientsCommand()),
 
+    ADMIN_CLIENT_REPORTS(new AdminClientReportsCommand()),
+
+    ADMIN_EDIT_REPORT(new AdminEditReportCommand()),
+
     LOG_OUT(new LogOutCommand()),
+
+    ADMIN_CANCEL(new AdminCancelCommand()),
 
 
     REGISTER(new RegisterCommand());

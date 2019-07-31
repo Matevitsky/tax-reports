@@ -102,8 +102,9 @@
             </thead>
             <tbody>
             <div class="form-group">
-                <form action="/app" method="get">
-                    <c:forEach items="${inspectors}" var="inspector">
+
+                <c:forEach items="${inspectors}" var="inspector">
+                    <form action="/app" method="get">
                         <input type="hidden" name="inspectorId" value="${inspector.id}"/>
                         <input type="hidden" name="inspectorFirstName" value="${inspector.firstName}"/>
                         <input type="hidden" name="inspectorLastName" value="${inspector.lastName}"/>
@@ -120,9 +121,9 @@
                                 </button>
                             </td>
                         </tr>
+                    </form>
+                </c:forEach>
 
-                    </c:forEach>
-                </form>
             </div>
             </tbody>
 

@@ -102,35 +102,36 @@
             </thead>
             <tbody>
             <div class="form-group">
-                <form action="/app" method="get">
+
                     <c:forEach items="${clientList}" var="client">
-                        <input type="hidden" name="clientId" value="${client.id}"/>
-                        <tr>
-                            <td>${client.firstName} ${client.lastName}</td>
-                            <td>
+                        <form action="/app" method="get">
+                            <input type="hidden" name="clientId" value="${client.id}"/>
+                            <tr>
+                                <td>${client.firstName} ${client.lastName}</td>
+                                <td>
 
-                                <select class="form-control " id="inspectorList" name="inspectorId">
+                                    <select class="form-control " id="inspectorList" name="inspectorId">
 
-                                    <c:forEach var="inspector" items="${inspectorList}">
+                                        <c:forEach var="inspector" items="${inspectorList}">
 
-                                        <option value="${inspector.id}">${inspector.firstName} ${inspector.lastName}</option>
+                                            <option value="${inspector.id}">${inspector.firstName} ${inspector.lastName}</option>
 
-                                    </c:forEach>
-                                </select>
+                                        </c:forEach>
+                                    </select>
 
-                            </td>
-                            <td>
-                                <button type="submit" class="btn btn-default" name="command"
-                                        value="admin_assign_inspector">
-                                    Assign Inspector
-                                </button>
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-default" name="command"
+                                            value="admin_assign_inspector">
+                                        Assign Inspector
+                                    </button>
 
-                            </td>
+                                </td>
 
-                        </tr>
-
+                            </tr>
+                        </form>
                     </c:forEach>
-                </form>
+
             </div>
             </tbody>
 

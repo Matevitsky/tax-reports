@@ -105,27 +105,30 @@
             </thead>
             <tbody>
             <div class="form-group">
-                <form action="/app" method="get">
+
                     <c:forEach items="${clients}" var="client" varStatus="status">
-                        <input type="hidden" name="clientId" value="${client.id}"/>
-                        <tr>
-                            <td>${client.firstName} ${client.lastName}</td>
+                        <form action="/app" method="get">
+                            <input type="hidden" name="clientId" value="${client.id}"/>
+                            <input type="hidden" name="clientName" value="${client.firstName} ${client.lastName}"/>
 
-                            <td>${client.email}</td>
+                            <tr>
+                                <td>${client.firstName} ${client.lastName}</td>
 
-                            <td>${client.companyName}</td>
-                            <td> ${inspectors[status.index].firstName} ${inspectors[status.index].lastName}</td>
-                            <td>
-                                <button type="submit" class="btn btn-default" name="command"
-                                        value="admin_">
-                                    Client Reports
-                                </button>
-                            </td>
+                                <td>${client.email}</td>
 
-                        </tr>
+                                <td>${client.companyName}</td>
+                                <td> ${inspectors[status.index].firstName} ${inspectors[status.index].lastName}</td>
+                                <td>
+                                    <button type="submit" class="btn btn-default" name="command"
+                                            value="admin_client_reports">
+                                        Client's Reports
+                                    </button>
+                                </td>
 
+                            </tr>
+                        </form>
                     </c:forEach>
-                </form>
+
             </div>
             </tbody>
 
