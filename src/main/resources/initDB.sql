@@ -23,7 +23,7 @@ CREATE TABLE companies
 
 CREATE TABLE employees
 (
-    id            INT AUTO_INCREMENT,
+    employee_id   INT AUTO_INCREMENT,
     first_name    VARCHAR(64)                NOT NULL,
     last_name     VARCHAR(64)                NOT NULL,
     email         VARCHAR(255)               NOT NULL UNIQUE,
@@ -48,7 +48,7 @@ CREATE TABLE clients
 
     PRIMARY KEY (client_id),
     FOREIGN KEY (company_name) REFERENCES companies (company_name),
-    FOREIGN KEY (inspector_id) REFERENCES employees (id)
+    FOREIGN KEY (inspector_id) REFERENCES employees (employee_id)
 );
 
 CREATE TABLE requests
@@ -57,7 +57,7 @@ CREATE TABLE requests
     client_id  INT NOT NULL,
 
     PRIMARY KEY (request_id),
-    FOREIGN KEY (client_id) REFERENCES employees (id)
+    FOREIGN KEY (client_id) REFERENCES employees (employee_id)
 );
 
 
@@ -72,7 +72,7 @@ CREATE TABLE reports
 
 
     PRIMARY KEY (report_id),
-    FOREIGN KEY (client_id) REFERENCES employees (id)
+    FOREIGN KEY (client_id) REFERENCES employees (employee_id)
 
 
 );

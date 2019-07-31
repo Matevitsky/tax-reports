@@ -106,29 +106,20 @@
             <tbody>
             <div class="form-group">
                 <form action="/app" method="get">
-                    <c:forEach items="${clientList}" var="client">
+                    <c:forEach items="${clients}" var="client" varStatus="status">
                         <input type="hidden" name="clientId" value="${client.id}"/>
                         <tr>
                             <td>${client.firstName} ${client.lastName}</td>
-                            <td>
 
-                                <select class="form-control " id="inspectorList" name="inspectorId">
+                            <td>${client.email}</td>
 
-                                    <c:forEach var="inspector" items="${inspectorList}">
-
-                                        <option
-                                            value="${inspector.id}">${inspector.firstName} ${inspector.lastName}</option>
-
-                                    </c:forEach>
-                                </select>
-
-                            </td>
+                            <td>${client.companyName}</td>
+                            <td> ${inspectors[status.index].firstName}</td>
                             <td>
                                 <button type="submit" class="btn btn-default" name="command"
-                                        value="admin_assign_inspector">
-                                    Assign Inspector
+                                        value="admin_">
+                                    Client Reports
                                 </button>
-
                             </td>
 
                         </tr>

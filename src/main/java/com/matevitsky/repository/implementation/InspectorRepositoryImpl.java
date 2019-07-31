@@ -23,21 +23,21 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Employee> implem
             " role) VALUES ('%s', '%s', '%s', '%s','%s');";
 
 
-    private static final String DELETE_INSPECTOR_SQL = "DELETE FROM employees WHERE inspector_id=%d";
+    private static final String DELETE_INSPECTOR_SQL = "DELETE FROM employees WHERE employee_id=%d";
 
     private static final String UPDATE_INSPECTOR_SQL =
             "UPDATE employees SET first_name='%s', last_name='%s', email='%s', password='%s', role='%s" +
-                    "where inspector_id=%d";
+                    "where employee_id_id=%d";
 
-    private static final String SELECT_INSPECTOR_BY_ID_SQL = "SELECT * FROM employees WHERE inspector_id='%d'";
+    private static final String SELECT_INSPECTOR_BY_ID_SQL = "SELECT * FROM employees WHERE employee_id='%d'";
     private static final String SELECT_ALL_INSPECTORS_SQL = "SELECT * FROM employees WHERE employee_role ='INSPECTOR'";
 
     private static final String SELECT_INSPECTOR_BY_EMAIL_SQL = "SELECT * FROM employees WHERE email='%s'";
     private static final String SELECT_INSPECTOR_REPORTS_SQL =
             "SELECT report_id,tittle,clients.first_name,clients.last_name,clients.client_id," +
-                    "clients.inspector_id,report_status\n" +
+                    "clients.employee_id_id,report_status\n" +
                     "FROM clients,reports,employees\n" +
-                    "WHERE reports.client_id=clients.client_id AND clients.inspector_id='%d'";
+                    "WHERE reports.client_id=clients.client_id AND clients.employee_id='%d'";
 
 
     @Override
@@ -92,7 +92,7 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Employee> implem
             if (resultSet.isBeforeFirst()) {
                 resultSet.next();
             }
-            int id = resultSet.getInt("id");
+            int id = resultSet.getInt("employee_id");
             String firstName = resultSet.getString("first_name");
             String lastName = resultSet.getString("last_name");
             String email = resultSet.getString("email");
