@@ -1,9 +1,12 @@
-package com.matevitsky.controller.command;
+package com.matevitsky.controller.command.admin;
 
+import com.matevitsky.controller.command.Command;
 import com.matevitsky.entity.Client;
 import com.matevitsky.entity.Employee;
+import com.matevitsky.service.AdminServiceImpl;
 import com.matevitsky.service.ClientServiceImpl;
 import com.matevitsky.service.InspectorServiceImpl;
+import com.matevitsky.service.interfaces.AdminService;
 import com.matevitsky.service.interfaces.ClientService;
 import com.matevitsky.service.interfaces.InspectorService;
 
@@ -36,6 +39,10 @@ public class AdminGetAllClientsCommand implements Command {
         }
         request.setAttribute("clients", clientList);
         request.setAttribute("inspectors", inspectorList);
+
+        AdminService adminService = new AdminServiceImpl();
+        adminService.addHeaderDataToRequest(request);
+
         return ADMIN_CLIENTS_PAGE;
     }
 }

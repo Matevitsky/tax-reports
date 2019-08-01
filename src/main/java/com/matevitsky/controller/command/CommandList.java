@@ -1,6 +1,10 @@
 package com.matevitsky.controller.command;
 
 
+import com.matevitsky.controller.command.admin.*;
+import com.matevitsky.controller.command.client.*;
+import com.matevitsky.controller.command.inspector.*;
+
 public enum CommandList {
 
     LOGIN(new LoginCommand()),

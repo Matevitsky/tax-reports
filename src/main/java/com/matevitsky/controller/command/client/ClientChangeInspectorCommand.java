@@ -1,5 +1,6 @@
-package com.matevitsky.controller.command;
+package com.matevitsky.controller.command.client;
 
+import com.matevitsky.controller.command.Command;
 import com.matevitsky.entity.Request;
 import com.matevitsky.service.RequestServiceImpl;
 import com.matevitsky.service.interfaces.RequestService;

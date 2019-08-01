@@ -1,5 +1,6 @@
-package com.matevitsky.controller.command;
+package com.matevitsky.controller.command.inspector;
 
+import com.matevitsky.controller.command.Command;
 import com.matevitsky.service.InspectorServiceImpl;
 import com.matevitsky.service.interfaces.InspectorService;
 
@@ -8,15 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import static com.matevitsky.controller.constant.PageConstant.INSPECTOR_PAGE;
 
-public class InspectorAcceptReport implements Command {
+public class InspectorDeclineCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        int reportId = Integer.parseInt(request.getParameter("reportId"));
         int inspectorId = (int) request.getSession().getAttribute("userId");
+        int reportId = Integer.parseInt(request.getParameter("reportId"));
+        String reasonToReject = request.getParameter("reasonToReject");
+
         InspectorService inspectorService = new InspectorServiceImpl();
-        boolean b = inspectorService.acceptReport(reportId);
-        //TODO: вурнуть сообщение пользователю об успешной операции
+        boolean b = inspectorService.declineReport(reportId, reasonToReject);
 
         inspectorService.addNewReportsToRequest(request, inspectorId);
 

@@ -1,8 +1,11 @@
-package com.matevitsky.controller.command;
+package com.matevitsky.controller.command.admin;
 
+import com.matevitsky.controller.command.Command;
 import com.matevitsky.entity.Client;
 import com.matevitsky.entity.Employee;
+import com.matevitsky.service.AdminServiceImpl;
 import com.matevitsky.service.ClientServiceImpl;
+import com.matevitsky.service.interfaces.AdminService;
 import com.matevitsky.service.interfaces.ClientService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +21,8 @@ public class AdminInspectorClientsCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         ClientService clientService = new ClientServiceImpl();
-
+        AdminService adminService = new AdminServiceImpl();
+        adminService.addHeaderDataToRequest(request);
 
         int inspectorId = Integer.parseInt(request.getParameter("inspectorId"));
         String firstName = request.getParameter("inspectorFirstName");
@@ -36,6 +40,7 @@ public class AdminInspectorClientsCommand implements Command {
             request.setAttribute("inspectors", inspectorList);
 
         }
+
         return ADMIN_CLIENTS_PAGE;
     }
 }

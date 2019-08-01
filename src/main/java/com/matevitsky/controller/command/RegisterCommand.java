@@ -1,6 +1,7 @@
 package com.matevitsky.controller.command;
 
 
+import com.matevitsky.controller.command.client.GetClientPageCommand;
 import com.matevitsky.entity.Client;
 import com.matevitsky.exception.WrongInputException;
 import com.matevitsky.service.ClientServiceImpl;

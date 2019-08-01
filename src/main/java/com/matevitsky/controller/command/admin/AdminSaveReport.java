@@ -1,5 +1,6 @@
-package com.matevitsky.controller.command;
+package com.matevitsky.controller.command.admin;
 
+import com.matevitsky.controller.command.Command;
 import com.matevitsky.entity.Report;
 import com.matevitsky.service.ReportServiceImpl;
 import com.matevitsky.service.interfaces.ReportService;

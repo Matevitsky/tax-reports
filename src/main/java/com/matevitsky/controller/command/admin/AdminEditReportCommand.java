@@ -1,7 +1,10 @@
-package com.matevitsky.controller.command;
+package com.matevitsky.controller.command.admin;
 
+import com.matevitsky.controller.command.Command;
 import com.matevitsky.entity.Report;
+import com.matevitsky.service.AdminServiceImpl;
 import com.matevitsky.service.ReportServiceImpl;
+import com.matevitsky.service.interfaces.AdminService;
 import com.matevitsky.service.interfaces.ReportService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +24,10 @@ public class AdminEditReportCommand implements Command {
             Report reportForUpdate = optionalReport.get();
             request.setAttribute("report", reportForUpdate);
         }
+
+        AdminService adminService = new AdminServiceImpl();
+        adminService.addHeaderDataToRequest(request);
+
         return ADMIN_EDIT_REPORTS_PAGE;
     }
 }

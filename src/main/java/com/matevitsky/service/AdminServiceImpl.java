@@ -11,6 +11,7 @@ import com.matevitsky.repository.interfaces.RequestInspectorChangeRepository;
 import com.matevitsky.service.interfaces.AdminService;
 import com.matevitsky.service.interfaces.ClientService;
 import com.matevitsky.service.interfaces.InspectorService;
+import com.matevitsky.service.interfaces.RequestService;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,7 @@ public class AdminServiceImpl implements AdminService {
 
     private static final Logger LOGGER = Logger.getLogger(AdminServiceImpl.class);
     private RequestInspectorChangeRepository requestInspectorChangeRepository;
+    private RequestService requestService;
     private ClientRepository clientRepository;
     private InspectorService inspectorService;
     private ClientService clientService;
@@ -33,13 +35,12 @@ public class AdminServiceImpl implements AdminService {
         this.clientRepository = new ClientRepositoryImpl();
         this.inspectorService = new InspectorServiceImpl();
         this.clientService = new ClientServiceImpl();
+        this.requestService = new RequestServiceImpl();
     }
 
     @Override
     public void prepareAdminPage(HttpServletRequest request) {
-
-        try (Connection connection = ConnectorDB.getConnection()) {
-            Optional<List<Request>> optionalRequests = requestInspectorChangeRepository.getAll(connection);
+        Optional<List<Request>> optionalRequests = requestService.getAll();
             List<Request> requestList = null;
             List<Client> clientList;
             List<Employee> inspectorList = null;
@@ -52,12 +53,26 @@ public class AdminServiceImpl implements AdminService {
                 inspectorList = optionalInspectors.get();
             }
             request.setAttribute("inspectorList", inspectorList);
-            request.setAttribute("requestList", requestList);
             request.setAttribute("clientList", clientList);
+        addHeaderDataToRequest(request);
 
-        } catch (SQLException e) {
-            LOGGER.error(e);
+
+    }
+
+    @Override
+    public void addHeaderDataToRequest(HttpServletRequest request) {
+        Optional<List<Request>> optionalRequestList = requestService.getAll();
+        if (optionalRequestList.isPresent()) {
+            request.setAttribute("requestList", optionalRequestList.get());
         }
+
+
+    }
+
+    @Override
+    public Employee getAdminById(int id) {
+
+        return null;
     }
 
     @Override
@@ -99,4 +114,6 @@ public class AdminServiceImpl implements AdminService {
         return true;
 
     }
+
+
 }

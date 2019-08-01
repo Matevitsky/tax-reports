@@ -1,19 +1,19 @@
-package com.matevitsky.controller.command;
+package com.matevitsky.controller.command.client;
 
+import com.matevitsky.controller.command.Command;
 import com.matevitsky.service.ReportServiceImpl;
 import com.matevitsky.service.interfaces.ReportService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class AdminDeleteReport implements Command {
+public class ClientDeleteReport implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        ReportService reportService = new ReportServiceImpl();
         int reportId = Integer.parseInt(request.getParameter("reportId"));
+        ReportService reportService = new ReportServiceImpl();
         reportService.deleteById(reportId);
-
-        return new AdminCancelCommand().execute(request, response);
+        return new GetClientPageCommand().execute(request, response);
     }
 }

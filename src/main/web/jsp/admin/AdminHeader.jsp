@@ -42,7 +42,7 @@
             <ul class="nav navbar-nav side-nav">
 
                 <li>
-                    <c:set var="requestAmount" value="${clientList}"></c:set>
+                    <c:set var="requestAmount" value="${requestList}"></c:set>
 
                     <a href="/app?command=admin_main_page"/><i class="fa fa-inbox"></i> Requests <span
                     class="badge"> ${fn:length(requestAmount)} </span></a></a>
