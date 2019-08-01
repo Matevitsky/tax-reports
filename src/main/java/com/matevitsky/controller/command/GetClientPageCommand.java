@@ -26,6 +26,10 @@ public class GetClientPageCommand implements Command {
         Optional<List<Report>> clientActiveReports = reportService.getClientActiveReports(clientId);
         ClientService clientService = new ClientServiceImpl();
         Optional<Employee> optionalInspector = clientService.getInspector(clientId);
+        String clientName = clientService.getNameById(clientId);
+
+        request.setAttribute("clientName", clientName);
+
         if (optionalInspector.isPresent()) {
             request.setAttribute("inspector", optionalInspector.get());
         }

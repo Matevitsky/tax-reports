@@ -3,7 +3,6 @@ package com.matevitsky.service;
 import com.matevitsky.dto.UserForLogin;
 import com.matevitsky.entity.Client;
 import com.matevitsky.entity.Employee;
-import com.matevitsky.entity.Report;
 import com.matevitsky.service.interfaces.AdminService;
 import com.matevitsky.service.interfaces.ClientService;
 import com.matevitsky.service.interfaces.InspectorService;
@@ -12,7 +11,6 @@ import com.matevitsky.util.Validation;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 import java.util.Optional;
 
 public class LoginService {
@@ -65,10 +63,6 @@ public class LoginService {
             if (optionalClient.isPresent()) {
                 Client client = optionalClient.get();
                 user = new UserForLogin(client.getId(), client.getEmail(), client.getPassword(), UserForLogin.Role.CLIENT);
-                Optional<List<Report>> clientActiveReports = reportService.getClientActiveReports(client.getId());
-                if (clientActiveReports.isPresent()) {
-                    request.setAttribute("reports", clientActiveReports.get());
-                }
             }
         }
         //TODO: поменять имена в базе на единственное число

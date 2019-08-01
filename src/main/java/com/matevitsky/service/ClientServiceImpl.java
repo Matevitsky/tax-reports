@@ -116,6 +116,17 @@ public class ClientServiceImpl implements ClientService {
                 .build();
     }
 
+    @Override
+    public String getNameById(int clientId) {
+        String name = "";
+        Optional<Client> optionalClient = getById(clientId);
+        if (optionalClient.isPresent()) {
+            Client client = optionalClient.get();
+            name = client.getFirstName() + " " + client.getLastName();
+        }
+        return name;
+    }
+
     private Employee getFreeInspector() {
         InspectorService inspectorService = new InspectorServiceImpl();
         Optional<List<Employee>> optionalInspectorList = inspectorService.getAll();

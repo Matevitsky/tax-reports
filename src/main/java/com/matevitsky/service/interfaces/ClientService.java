@@ -23,4 +23,6 @@ public interface ClientService extends CrudService<Client> {
     Optional<List<Client>> getClientsByInspectorId(int clientId);
 
     Client assignInspector(Client client);
+
+    String getNameById(int clientId);
 }

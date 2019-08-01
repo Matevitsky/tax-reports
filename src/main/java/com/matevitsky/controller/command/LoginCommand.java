@@ -32,7 +32,7 @@ public class LoginCommand implements Command {
                     case INSPECTOR:
                         return INSPECTOR_PAGE;
                     case CLIENT:
-                        return CLIENT_PAGE;
+                        return new GetClientPageCommand().execute(request, response);
                 }
             }
         }
