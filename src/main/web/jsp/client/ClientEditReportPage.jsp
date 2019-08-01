@@ -1,12 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="../jsp/ClientHeader.jsp" %>
+<%@include file="ClientHeader.jsp" %>
 <html lang="en">
-
-<body data-gr-c-s-loaded="true" style="">
-
-<div id="wrapper">
-
 
     <div id="page-wrapper">
 
@@ -15,7 +10,7 @@
 
                 <form employeeRole="form" action="/app" method="get">
                     <c:set var="report" value="${report}"/>
-                    <input type="hidden" name="command" value="create_report">
+                    <input type="hidden" name="reportId" value=${report.id}>
 
                     <div class="form-group">
                         <label>Tittle</label>
@@ -24,11 +19,17 @@
 
                     <div class="form-group">
                         <label>Report content</label>
-                        <textarea class="form-control" rows="3" name="content"> ${report.content} </textarea>
+                        <textarea class="form-control" rows="3" name="content">${report.content} </textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-default">Save</button>
-                    <button type="reset" class="btn btn-default">Cancel</button>
+                    <button type="submit" class="btn btn-default" name="command" value="edit_report">Save</button>
+                    <c:if test="${(report.status != 'ACCEPTED')}">
+                        <button type="submit" class="btn btn-danger" name="command" value="delete_report">Delete
+                        </button>
+                        <input type="hidden" name="reportId" value=${report.id}>
+                    </c:if>
+
+                    <button type="submit" class="btn btn-default" name="command" value="all_reports">Cancel</button>
 
                 </form>
 

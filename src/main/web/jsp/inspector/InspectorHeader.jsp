@@ -59,7 +59,7 @@
 
                 <li class="dropdown user-dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Steve Miller<b
-                            class="caret"></b></a>
+                        class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
                         <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
@@ -73,60 +73,6 @@
             </ul>
         </div>
     </nav>
-
-    <div id="page-wrapper">
-
-        <table id="allReports" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
-            <thead>
-
-            <tr>
-                <th class="th-sm">Tittle</th>
-                <th class="th-sm">Client Name</th>
-                <th class="th-sm">Report Status</th>
-                <th class="th-sm">Button</th>
-            </tr>
-
-
-            </thead>
-            <tbody>
-            <c:forEach items="${reports}" var="report">
-
-                <tr>
-                    <td>${report.tittle}</td>
-                    <td>${report.clientFullName}</td>
-                    <td>${report.reportStatus}</td>
-                    <form action="/app" method="get">
-                        <td>
-
-
-                            <button type="submit" class="btn btn-primary">
-                                View
-                            </button>
-                            <input type="hidden" name="command" value="get_inspector_report_page">
-                            <input type="hidden" name="reportId" value=${report.id}>
-
-                        </td>
-
-                    </form>
-
-                </tr>
-
-            </c:forEach>
-
-            </tbody>
-
-
-            <tfoot>
-            <tr>
-                <th class="th-sm">Tittle</th>
-                <th class="th-sm">Client Name</th>
-                <th class="th-sm">Report Status</th>
-                <th class="th-sm">Button</th>
-            </tr>
-            </tfoot>
-        </table>
-    </div>
 </div>
-
 </body>
 </html>

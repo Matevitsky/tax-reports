@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="../jsp/AdminHeader.jsp" %>
+<%@include file="AdminHeader.jsp" %>
 <html lang="en">
 <body>
 <div id="page-wrapper">
