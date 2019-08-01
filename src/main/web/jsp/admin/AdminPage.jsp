@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="AdminHeader.jsp" %>
 <html lang="en">
+<title>Requests Page</title>
 <body>
 <div id="wrapper">
     <div id="page-wrapper">

@@ -2,6 +2,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="AdminHeader.jsp" %>
 <html lang="en">
+
+<title>Admin Report Page</title>
+
 <body>
 <div id="wrapper">
 

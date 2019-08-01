@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Client's Report</title>
+
 
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css"/>
@@ -63,8 +63,7 @@
                         class="caret"></b></a>
                     <ul class="dropdown-menu">
 
-                        <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
-                        <li class="divider"></li>
+
                         <li><a href="/app?command=log_out"><i class="fa fa-power-off"></i> Log Out</a></li>
 
                     </ul>

@@ -2,64 +2,67 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="AdminHeader.jsp" %>
 <html lang="en">
+<title>Admin Client's Report Page</title>
+
 <body>
-<div id="page-wrapper">
+<div id="wrapper">
+    <div id="page-wrapper">
 
-    <table id="allReports" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
-        <thead>
+        <table id="allReports" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+            <thead>
 
-        <tr>
+            <tr>
 
-            <th class="th-sm">Tittle</th>
-            <th class="th-sm">Status</th>
-            <th class="th-sm">Client Name</th>
-            <th class="th-sm"></th>
-
-
-        </tr>
+                <th class="th-sm">Tittle</th>
+                <th class="th-sm">Status</th>
+                <th class="th-sm">Client Name</th>
+                <th class="th-sm"></th>
 
 
-        </thead>
-        <tbody>
-        <div class="form-group">
-
-            <c:forEach items="${reports}" var="report">
-                <form action="/app" method="get">
-                    <input type="hidden" name="reportId" value="${report.id}"/>
-                    <input type="hidden" name="clientName" value="${clientName}"/>
-                    <tr>
-                        <td>${report.tittle}</td>
-
-                        <td>${report.status}</td>
-
-                        <td>${clientName}</td>
-
-                        <td>
-                            <button type="submit" class="btn btn-default" name="command"
-                                    value="admin_edit_report">
-                                Report View
-                            </button>
-                        </td>
-
-                    </tr>
-                </form>
-            </c:forEach>
-
-        </div>
-        </tbody>
+            </tr>
 
 
-        <tfoot>
-        <tr>
-            <th class="th-sm">Tittle</th>
-            <th class="th-sm">Status</th>
-            <th class="th-sm">Client Name</th>
-            <th class="th-sm"></th>
-        </tr>
+            </thead>
+            <tbody>
+            <div class="form-group">
 
-        </tfoot>
-    </table>
-</div>
+                <c:forEach items="${reports}" var="report">
+                    <form action="/app" method="get">
+                        <input type="hidden" name="reportId" value="${report.id}"/>
+                        <input type="hidden" name="clientName" value="${clientName}"/>
+                        <tr>
+                            <td>${report.tittle}</td>
+
+                            <td>${report.status}</td>
+
+                            <td>${clientName}</td>
+
+                            <td>
+                                <button type="submit" class="btn btn-default" name="command"
+                                        value="admin_edit_report">
+                                    Report View
+                                </button>
+                            </td>
+
+                        </tr>
+                    </form>
+                </c:forEach>
+
+            </div>
+            </tbody>
+
+
+            <tfoot>
+            <tr>
+                <th class="th-sm">Tittle</th>
+                <th class="th-sm">Status</th>
+                <th class="th-sm">Client Name</th>
+                <th class="th-sm"></th>
+            </tr>
+
+            </tfoot>
+        </table>
+    </div>
 </div>
 
 </body>
