@@ -25,4 +25,6 @@ public interface ClientService extends CrudService<Client> {
     Client assignInspector(Client client);
 
     String getNameById(int clientId);
+
+    void putClientDataToRequest(HttpServletRequest request);
 }

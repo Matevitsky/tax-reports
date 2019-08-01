@@ -12,10 +12,8 @@ public class ClientAllReportsCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-
-        int clientId = (int) request.getSession().getAttribute("userId");
         ClientService clientService = new ClientServiceImpl();
-        clientService.addReportsListToRequest(request, clientId);
+        clientService.putClientDataToRequest(request);
         //TODO: вернуть ответ пользователю если требуется
 
         return CLIENT_ALL_REPORT_PAGE;

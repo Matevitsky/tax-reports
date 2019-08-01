@@ -127,6 +127,26 @@ public class ClientServiceImpl implements ClientService {
         return name;
     }
 
+    @Override
+    public void putClientDataToRequest(HttpServletRequest request) {
+        int clientId = (int) request.getSession().getAttribute("userId");
+        ReportService reportService = new ReportServiceImpl();
+        Optional<List<Report>> clientActiveReports = reportService.getClientActiveReports(clientId);
+
+        Optional<Employee> optionalInspector = getInspector(clientId);
+        String clientName = getNameById(clientId);
+
+        request.setAttribute("clientName", clientName);
+
+        if (optionalInspector.isPresent()) {
+            request.setAttribute("inspector", optionalInspector.get());
+        }
+
+        if (clientActiveReports.isPresent()) {
+            request.setAttribute("reports", clientActiveReports.get());
+        }
+    }
+
     private Employee getFreeInspector() {
         InspectorService inspectorService = new InspectorServiceImpl();
         Optional<List<Employee>> optionalInspectorList = inspectorService.getAll();
