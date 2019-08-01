@@ -9,7 +9,7 @@ public enum CommandList {
 
     LOGIN(new LoginCommand()),
 
-    GET_REGISTRATION_PAGE(new GetRegistrationPageCommand()),
+    GET_REGISTRATION_PAGE(new Command.GetRegistrationPageCommand()),
 
     GET_CREATE_REPORT_PAGE(new ClientGetCreateReportPageCommand()),
 
@@ -27,13 +27,13 @@ public enum CommandList {
 
     CLIENT_CHANGE_INSPECTOR(new ClientChangeInspectorCommand()),
 
-    INSPECTOR_NEW_REPORTS(new InspectorGetNewReportsPage()),
+    INSPECTOR_NEW_REPORTS(new InspectorGetNewReportsCommand()),
 
-    INSPECTOR_GET_ALL_REPORTS(new InspectorGetAllReportsPage()),
+    INSPECTOR_GET_ALL_REPORTS(new InspectorGetAllReportsCommand()),
 
-    GET_INSPECTOR_REPORT_PAGE(new GetInspectorReportPage()),
+    GET_INSPECTOR_REPORT_PAGE(new GetInspectorReportCommand()),
 
-    INSPECTOR_ACCEPT_REPORT(new InspectorAcceptReport()),
+    INSPECTOR_ACCEPT_REPORT(new InspectorAcceptReportCommand()),
 
     INSPECTOR_DECLINE_REPORT(new InspectorDeclineCommand()),
 

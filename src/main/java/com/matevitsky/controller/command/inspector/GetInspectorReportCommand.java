@@ -1,26 +1,31 @@
 package com.matevitsky.controller.command.inspector;
 
 import com.matevitsky.controller.command.Command;
+import com.matevitsky.entity.Report;
 import com.matevitsky.service.InspectorServiceImpl;
+import com.matevitsky.service.ReportServiceImpl;
 import com.matevitsky.service.interfaces.InspectorService;
+import com.matevitsky.service.interfaces.ReportService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
 
-import static com.matevitsky.controller.constant.PageConstant.INSPECTOR_PAGE;
+import static com.matevitsky.controller.constant.PageConstant.INSPECTOR_REPORT_PAGE;
 
-public class InspectorAcceptReport implements Command {
+
+public class GetInspectorReportCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         int reportId = Integer.parseInt(request.getParameter("reportId"));
+        ReportService reportService = new ReportServiceImpl();
+        Optional<Report> reportById = reportService.getById(reportId);
+        reportById.ifPresent(report -> request.setAttribute("report", report));
         int inspectorId = (int) request.getSession().getAttribute("userId");
         InspectorService inspectorService = new InspectorServiceImpl();
-        boolean b = inspectorService.acceptReport(reportId);
-        //TODO: вурнуть сообщение пользователю об успешной операции
-
         inspectorService.addNewReportsToRequest(request, inspectorId);
 
-        return INSPECTOR_PAGE;
+        return INSPECTOR_REPORT_PAGE;
     }
 }

@@ -53,7 +53,6 @@
                     <i class="fas fa-user-graduate"></i> ${inspector.firstName}  ${inspector.lastName}</span> <b
                         class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li class="divider"></li>
 
                     <li><a href="/app?command=client_change_inspector"><i class="fas fa-exchange-alt"></i> Change
                         Inspector</a></li>
@@ -65,7 +64,7 @@
                     class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
-                    <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
+
                     <li class="divider"></li>
                     <li><a href="/app?command=log_out"><i class="fa fa-power-off"></i> Log Out</a></li>
 

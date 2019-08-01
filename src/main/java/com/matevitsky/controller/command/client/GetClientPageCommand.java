@@ -15,6 +15,7 @@ public class GetClientPageCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         //TODO: создать сервис для создания страниц клиента и испектора
+        //TODO: менять статус отчета
         ClientService clientService = new ClientServiceImpl();
         clientService.putClientDataToRequest(request);
         return CLIENT_PAGE;

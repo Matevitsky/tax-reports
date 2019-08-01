@@ -142,10 +142,9 @@ public class InspectorServiceImpl implements InspectorService {
         if (inspectorById.isPresent()) {
             User inspector = inspectorById.get();
             Optional<List<ReportWithClientName>> reports = getNewReports(inspector.getId());
-            if (reports.isPresent()) {
-                request.setAttribute("reports", reports.get());
-            }
+            reports.ifPresent(reportWithClientNames -> request.setAttribute("reports", reportWithClientNames));
         }
+        request.setAttribute("adminName", getInspectorName(inspectorId));
     }
 
     @Override
@@ -172,5 +171,9 @@ public class InspectorServiceImpl implements InspectorService {
         return update != null;
     }
 
-
+    private String getInspectorName(int id) {
+        InspectorService inspectorService = new InspectorServiceImpl();
+        Optional<Employee> optionalAdmin = inspectorService.getById(id);
+        return optionalAdmin.map(employee -> employee.getFirstName() + " " + employee.getLastName()).orElse("");
+    }
 }

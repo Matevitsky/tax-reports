@@ -63,6 +63,7 @@ public class LoginService {
             Optional<Client> optionalClient = clientService.findByEmail(email);
             if (optionalClient.isPresent()) {
                 Client client = optionalClient.get();
+                request.getSession().setAttribute("userId", client.getId());
                 user = new UserForLogin(client.getId(), client.getEmail(), client.getPassword(), UserForLogin.Role.CLIENT);
             }
         }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inspector Page</title>
+
 
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css"/>
@@ -47,24 +47,24 @@
             </ul>
             <ul class="nav navbar-nav navbar-right navbar-user">
 
-                <li class="dropdown messages-dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-user-graduate"></i> Client Name <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li class="divider"></li>
+                <%-- <li class="dropdown messages-dropdown">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                         <i class="fas fa-user-graduate"></i> Client Name <b class="caret"></b></a>
+                     <ul class="dropdown-menu">
+                         <li class="divider"></li>
 
-                        <li><a href="#"><i class="fas fa-exchange-alt"></i> Change Inspector</a></li>
-                    </ul>
+                         <li><a href="#"><i class="fas fa-exchange-alt"></i> Change Inspector</a></li>
+                     </ul>--%>
                 </li>
 
                 <li class="dropdown user-dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Steve Miller<b
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> ${adminName}<b
                         class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
                         <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
                         <li class="divider"></li>
-                        <li><a href="#"><i class="fa fa-power-off"></i> Log Out</a></li>
+                        <li><a href="/app?command=log_out"><i class="fa fa-power-off"></i> Log Out</a></li>
 
                     </ul>
                 </li>
