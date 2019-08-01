@@ -26,7 +26,6 @@ public class LoginCommand implements Command {
 
         if (user != null) {
             if (user.getPassword().equals(encryptedPassword)) {
-                request.getSession().setAttribute("userId", user.getId());
                 switch (user.getRole()) {
                     case ADMIN:
                         return ADMIN_PAGE;

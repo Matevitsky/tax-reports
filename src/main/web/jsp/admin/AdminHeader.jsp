@@ -59,7 +59,7 @@
             <ul class="nav navbar-nav navbar-right navbar-user">
 
                 <li class="dropdown user-dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Steve Miller<b
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> ${adminName}<b
                         class="caret"></b></a>
                     <ul class="dropdown-menu">
 

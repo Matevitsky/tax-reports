@@ -1,7 +1,5 @@
 package com.matevitsky.service.interfaces;
 
-import com.matevitsky.entity.Employee;
-
 import javax.servlet.http.HttpServletRequest;
 
 public interface AdminService {
@@ -12,5 +10,4 @@ public interface AdminService {
 
     void addHeaderDataToRequest(HttpServletRequest request);
 
-    Employee getAdminById(int id);
 }

@@ -41,19 +41,19 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void prepareAdminPage(HttpServletRequest request) {
         Optional<List<Request>> optionalRequests = requestService.getAll();
-            List<Request> requestList = null;
-            List<Client> clientList;
-            List<Employee> inspectorList = null;
-            if (optionalRequests.isPresent()) {
-                requestList = optionalRequests.get();
-            }
-            clientList = requestList.stream().map(r -> clientService.getById(r.getClientId()).get()).collect(Collectors.toList());
-            Optional<List<Employee>> optionalInspectors = inspectorService.getAll();
-            if (optionalInspectors.isPresent()) {
-                inspectorList = optionalInspectors.get();
-            }
-            request.setAttribute("inspectorList", inspectorList);
-            request.setAttribute("clientList", clientList);
+        List<Request> requestList = null;
+        List<Client> clientList;
+        List<Employee> inspectorList = null;
+        if (optionalRequests.isPresent()) {
+            requestList = optionalRequests.get();
+        }
+        clientList = requestList.stream().map(r -> clientService.getById(r.getClientId()).get()).collect(Collectors.toList());
+        Optional<List<Employee>> optionalInspectors = inspectorService.getAll();
+        if (optionalInspectors.isPresent()) {
+            inspectorList = optionalInspectors.get();
+        }
+        request.setAttribute("inspectorList", inspectorList);
+        request.setAttribute("clientList", clientList);
         addHeaderDataToRequest(request);
 
 
@@ -61,18 +61,22 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void addHeaderDataToRequest(HttpServletRequest request) {
+        int userId = (int) request.getSession().getAttribute("userId");
         Optional<List<Request>> optionalRequestList = requestService.getAll();
         if (optionalRequestList.isPresent()) {
             request.setAttribute("requestList", optionalRequestList.get());
         }
-
-
+        request.setAttribute("adminName", getAdminName(userId));
     }
 
-    @Override
-    public Employee getAdminById(int id) {
 
-        return null;
+    private String getAdminName(int id) {
+        InspectorService inspectorService = new InspectorServiceImpl();
+        Optional<Employee> optionalAdmin = inspectorService.getById(id);
+        if (optionalAdmin.isPresent()) {
+            return optionalAdmin.get().getFirstName() + " " + optionalAdmin.get().getLastName();
+        }
+        return "";
     }
 
     @Override
@@ -86,14 +90,14 @@ public class AdminServiceImpl implements AdminService {
                 client = optionalClient.get();
             }
             Client assignedClient = Client.newClientBuilder()
-                .withInspectorId(inspectorId)
-                .withFirstName(client.getFirstName())
-                .withLastName(client.getLastName())
-                .withCompanyName(client.getCompanyName())
-                .withEmail(client.getEmail())
-                .withPassword(client.getPassword())
-                .withId(clientId)
-                .build();
+                    .withInspectorId(inspectorId)
+                    .withFirstName(client.getFirstName())
+                    .withLastName(client.getLastName())
+                    .withCompanyName(client.getCompanyName())
+                    .withEmail(client.getEmail())
+                    .withPassword(client.getPassword())
+                    .withId(clientId)
+                    .build();
             connection.setAutoCommit(false);
             clientRepository.update(assignedClient, connection);
             requestInspectorChangeRepository.deleteByClientID(clientId, connection);

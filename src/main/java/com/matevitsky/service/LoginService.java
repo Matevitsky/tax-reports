@@ -38,7 +38,7 @@ public class LoginService {
         }
         ClientService clientService = new ClientServiceImpl();
         InspectorService inspectorService = new InspectorServiceImpl();
-        ReportService reportService = new ReportServiceImpl();
+
 
         UserForLogin user = null;
 
@@ -46,6 +46,7 @@ public class LoginService {
 
         if (optionalInspector.isPresent()) {
             Employee employee = optionalInspector.get();
+            request.getSession().setAttribute("userId", employee.getId());
             switch (employee.getEmployeeRole()) {
                 case INSPECTOR:
                     user = new UserForLogin(employee.getId(), employee.getEmail(), employee.getPassword(), UserForLogin.Role.INSPECTOR);
