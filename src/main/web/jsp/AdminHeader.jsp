@@ -1,7 +1,31 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="../jsp/AdminHeader.jsp" %>
-<html lang="en">
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Client's Report</title>
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/local.css"/>
+
+    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/fa9ccce587.js"></script>
+
+
+    <!-- you need to include the shieldui css and js assets in order for the charts to work -->
+    <link rel="stylesheet" type="text/css"
+          href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css"/>
+    <link id="gridcss" rel="stylesheet" type="text/css"
+          href="http://www.shieldui.com/shared/components/latest/css/dark-bootstrap/all.min.css"/>
+
+    <script type="text/javascript"
+            src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+    <script type="text/javascript" src="http://www.prepbootstrap.com/Content/js/gridData.js"></script>
+</head>
 <body>
 <div id="wrapper">
     <nav class="navbar navbar-inverse navbar-fixed-top" employeeRole="navigation">
@@ -51,7 +75,7 @@
                         <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
                         <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
                         <li class="divider"></li>
-                        <li><a href="#"><i class="fa fa-power-off"></i> Log Out</a></li>
+                        <li><a href="/app?command=log_out"><i class="fa fa-power-off"></i> Log Out</a></li>
 
                     </ul>
                 </li>
@@ -60,62 +84,6 @@
             </ul>
         </div>
     </nav>
-
-    <div id="page-wrapper">
-
-        <table id="allReports" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
-            <thead>
-
-            <tr>
-
-                <th class="th-sm">Inspector Name</th>
-                <th class="th-sm">Email</th>
-                <th>Clients</th>
-
-            </tr>
-
-
-            </thead>
-            <tbody>
-            <div class="form-group">
-
-                <c:forEach items="${inspectors}" var="inspector">
-                    <form action="/app" method="get">
-                        <input type="hidden" name="inspectorId" value="${inspector.id}"/>
-                        <input type="hidden" name="inspectorFirstName" value="${inspector.firstName}"/>
-                        <input type="hidden" name="inspectorLastName" value="${inspector.lastName}"/>
-
-                        <tr>
-                            <td>${inspector.firstName} ${inspector.lastName}</td>
-
-                            <td>${inspector.email}</td>
-
-                            <td>
-                                <button type="submit" class="btn btn-default" name="command"
-                                        value="admin_inspector_clients">
-                                    Inspector Clients
-                                </button>
-                            </td>
-                        </tr>
-                    </form>
-                </c:forEach>
-
-            </div>
-            </tbody>
-
-
-            <tfoot>
-            <tr>
-
-                <th class="th-sm">Inspector Name</th>
-                <th class="th-sm">Email</th>
-                <th>Clients</th>
-            </tr>
-
-            </tfoot>
-        </table>
-    </div>
 </div>
-
 </body>
 </html>
