@@ -47,6 +47,7 @@ public class LoginService {
         if (optionalInspector.isPresent()) {
             Employee employee = optionalInspector.get();
             request.getSession().setAttribute("userId", employee.getId());
+            request.getSession().setAttribute("adminName", employee.getFirstName() + " " + employee.getLastName());
             switch (employee.getEmployeeRole()) {
                 case INSPECTOR:
                     user = new UserForLogin(employee.getId(), employee.getEmail(), employee.getPassword(), UserForLogin.Role.INSPECTOR);

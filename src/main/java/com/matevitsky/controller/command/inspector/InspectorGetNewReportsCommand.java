@@ -15,6 +15,8 @@ public class InspectorGetNewReportsCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         int inspectorId = (int) request.getSession().getAttribute("userId");
         InspectorService inspectorService = new InspectorServiceImpl();
+
+        inspectorService.getNewReports(inspectorId);
         inspectorService.addDataToRequest(request, inspectorId);
 
         return INSPECTOR_PAGE;

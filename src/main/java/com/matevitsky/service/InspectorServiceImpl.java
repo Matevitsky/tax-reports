@@ -144,7 +144,6 @@ public class InspectorServiceImpl implements InspectorService {
             Optional<List<ReportWithClientName>> reports = getNewReports(inspector.getId());
             reports.ifPresent(reportWithClientNames -> request.setAttribute("reports", reportWithClientNames));
         }
-        request.setAttribute("adminName", getInspectorName(inspectorId));
     }
 
     @Override

@@ -66,7 +66,6 @@ public class AdminServiceImpl implements AdminService {
         if (optionalRequestList.isPresent()) {
             request.setAttribute("requestList", optionalRequestList.get());
         }
-        request.setAttribute("adminName", getAdminName(userId));
     }
 
 

@@ -15,6 +15,7 @@ import static com.matevitsky.controller.constant.PageConstant.INSPECTOR_REPORT_P
 
 
 public class InspectorGetReportPageCommand implements Command {
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
