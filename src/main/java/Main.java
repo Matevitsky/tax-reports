@@ -48,7 +48,8 @@ public class Main {
         //TODO: inspector logout
         //TODO: убрать button  колонку из таблиц
 
-        //TODO: СДЕЛАТЬ ИЗМЕНЕНИЕ СТАТУСА
+
         //TODO: СМЕНА ЯЗЫКОВ
+        //TODO: Once accepted report can't be decline massage inspector page
     }
 }

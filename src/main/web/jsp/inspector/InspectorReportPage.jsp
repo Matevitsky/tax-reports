@@ -45,7 +45,7 @@
                             Decline
                         </button>
 
-                        <button type="submit" class="btn btn-default" name="command" value="inspector_new_reports">
+                        <button type="submit" class="btn btn-default" name="command" value="inspector_get_all_reports">
                             Cancel
                         </button>
 

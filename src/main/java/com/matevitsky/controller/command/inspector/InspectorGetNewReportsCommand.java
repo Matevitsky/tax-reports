@@ -1,11 +1,14 @@
 package com.matevitsky.controller.command.inspector;
 
 import com.matevitsky.controller.command.Command;
+import com.matevitsky.dto.ReportWithClientName;
 import com.matevitsky.service.InspectorServiceImpl;
 import com.matevitsky.service.interfaces.InspectorService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Optional;
 
 import static com.matevitsky.controller.constant.PageConstant.INSPECTOR_PAGE;
 
@@ -16,8 +19,8 @@ public class InspectorGetNewReportsCommand implements Command {
         int inspectorId = (int) request.getSession().getAttribute("userId");
         InspectorService inspectorService = new InspectorServiceImpl();
 
-        inspectorService.getNewReports(inspectorId);
-        inspectorService.addDataToRequest(request, inspectorId);
+        Optional<List<ReportWithClientName>> optionalReports = inspectorService.getNewReports(inspectorId);
+        optionalReports.ifPresent(reportWithClientNames -> request.setAttribute("reports", reportWithClientNames));
 
         return INSPECTOR_PAGE;
     }

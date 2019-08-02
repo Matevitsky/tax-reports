@@ -33,9 +33,11 @@ public enum CommandList {
 
     GET_INSPECTOR_REPORT_PAGE(new InspectorGetReportPageCommand()),
 
+    GET_INSPECTOR_NEW_REPORT_PAGE(new InspectorGetNewReportPageCommand()),
+
     INSPECTOR_ACCEPT_REPORT(new InspectorAcceptReportCommand()),
 
-    INSPECTOR_DECLINE_REPORT(new InspectorDeclineCommand()),
+    INSPECTOR_DECLINE_REPORT(new InspectorDeclineReportCommand()),
 
     GET_VIEW_REPORT_PAGE(new ClientGetViewReportPage()),
 

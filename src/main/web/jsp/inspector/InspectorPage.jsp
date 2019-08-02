@@ -29,13 +29,22 @@
                     <td>${report.reportStatus}</td>
                     <form action="/app" method="get">
                         <td>
-
-
-                            <button type="submit" class="btn btn-primary">
-                                View
-                            </button>
-                            <input type="hidden" name="command" value="get_inspector_report_page">
                             <input type="hidden" name="reportId" value=${report.id}>
+
+                            <c:choose>
+                                <c:when test="${(report.reportStatus == 'NEW')}">
+                                    <button type="submit" class="btn btn-primary">
+                                        View
+                                    </button>
+                                    <input type="hidden" name="command" value="get_inspector_new_report_page">
+                                </c:when>
+                                <c:otherwise>
+                                    <button type="submit" class="btn btn-primary">
+                                        View
+                                    </button>
+                                    <input type="hidden" name="command" value="get_inspector_report_page">
+                                </c:otherwise>
+                            </c:choose>
 
                         </td>
 

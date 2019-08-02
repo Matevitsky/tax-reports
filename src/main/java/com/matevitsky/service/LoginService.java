@@ -51,7 +51,7 @@ public class LoginService {
             switch (employee.getEmployeeRole()) {
                 case INSPECTOR:
                     user = new UserForLogin(employee.getId(), employee.getEmail(), employee.getPassword(), UserForLogin.Role.INSPECTOR);
-                    inspectorService.addDataToRequest(request, employee.getId());
+                    //   inspectorService.addDataToRequest(request, employee.getId());
                     return user;
                 //TODO: поменять название на Like prepare inspector page
                 case ADMIN:

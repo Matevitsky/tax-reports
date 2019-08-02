@@ -5,14 +5,12 @@ import com.matevitsky.dto.ReportWithClientName;
 import com.matevitsky.entity.Employee;
 import com.matevitsky.entity.Report;
 import com.matevitsky.entity.ReportStatus;
-import com.matevitsky.entity.User;
 import com.matevitsky.repository.implementation.InspectorRepositoryImpl;
 import com.matevitsky.repository.interfaces.InspectorRepository;
 import com.matevitsky.service.interfaces.InspectorService;
 import com.matevitsky.service.interfaces.ReportService;
 import org.apache.log4j.Logger;
 
-import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -136,15 +134,6 @@ public class InspectorServiceImpl implements InspectorService {
         return update != null;
     }
 
-    @Override
-    public void addDataToRequest(HttpServletRequest request, int inspectorId) {
-        Optional<Employee> inspectorById = getById(inspectorId);
-        if (inspectorById.isPresent()) {
-            User inspector = inspectorById.get();
-            Optional<List<ReportWithClientName>> reports = getNewReports(inspector.getId());
-            reports.ifPresent(reportWithClientNames -> request.setAttribute("reports", reportWithClientNames));
-        }
-    }
 
     @Override
     public boolean declineReport(int reportId, String reasonToReject) {
@@ -154,6 +143,7 @@ public class InspectorServiceImpl implements InspectorService {
         if (optionalReport.isPresent()) {
             Report report = optionalReport.get();
             if (report.getStatus().equals(ReportStatus.ACCEPTED)) {
+                LOGGER.info("Can't decline accepted report");
                 return false;
             } else {
                 Report acceptedReport = Report.newBuilder()
