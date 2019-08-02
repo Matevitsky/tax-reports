@@ -2,9 +2,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="ClientHeader.jsp" %>
 <html lang="en">
-
+<div id="wrapper">
     <div id="page-wrapper">
-
         <div class="row">
             <div class="col-lg-6">
 

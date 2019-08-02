@@ -19,7 +19,7 @@ public class InspectorAcceptReportCommand implements Command {
         boolean b = inspectorService.acceptReport(reportId);
         //TODO: вурнуть сообщение пользователю об успешной операции
 
-        inspectorService.addNewReportsToRequest(request, inspectorId);
+        inspectorService.addDataToRequest(request, inspectorId);
 
         return INSPECTOR_PAGE;
     }

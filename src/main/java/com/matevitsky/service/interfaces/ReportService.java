@@ -14,4 +14,6 @@ public interface ReportService extends CrudService<Report> {
     //TODO: перенести в другие сервисы
 
     Optional<List<Report>> getInspectorNewReports(int inspectorId);
+
+    Report changeStatusToInProgress(Report report);
 }

@@ -21,7 +21,7 @@ public class InspectorGetAllReportsCommand implements Command {
 
         Optional<List<ReportWithClientName>> reports = inspectorService.getReports(inspectorId);
         reports.ifPresent(reportWithClientNames -> request.setAttribute("reports", reportWithClientNames));
-        inspectorService.addNewReportsToRequest(request, inspectorId);
+        inspectorService.addDataToRequest(request, inspectorId);
 
         return INSPECTOR_PAGE;
     }

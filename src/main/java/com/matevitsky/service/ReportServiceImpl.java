@@ -109,4 +109,24 @@ public class ReportServiceImpl implements ReportService {
         return Optional.empty();
 
     }
+
+    @Override
+    public Report changeStatusToInProgress(Report report) {
+        Report reportInProgress = Report.newBuilder()
+                .withId(report.getId())
+                .withTittle(report.getTittle())
+                .withContent(report.getContent())
+                .withreasonToReject(report.getReasonToReject())
+                .withStatus(ReportStatus.IN_PROGRESS)
+                .withClientId(report.getClientId())
+                .build();
+        try (Connection connection = ConnectorDB.getConnection()) {
+            reportRepository.update(reportInProgress, connection);
+        } catch (SQLException s) {
+            LOGGER.warn("Failed to change report status to IN_PROGRESS");
+            return report;
+        }
+
+        return reportInProgress;
+    }
 }

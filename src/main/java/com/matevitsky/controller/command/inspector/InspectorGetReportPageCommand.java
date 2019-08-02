@@ -14,17 +14,24 @@ import java.util.Optional;
 import static com.matevitsky.controller.constant.PageConstant.INSPECTOR_REPORT_PAGE;
 
 
-public class GetInspectorReportCommand implements Command {
+public class InspectorGetReportPageCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         int reportId = Integer.parseInt(request.getParameter("reportId"));
         ReportService reportService = new ReportServiceImpl();
-        Optional<Report> reportById = reportService.getById(reportId);
-        reportById.ifPresent(report -> request.setAttribute("report", report));
+        Optional<Report> optionalReport = reportService.getById(reportId);
+        Report report = null;
+
+        if (optionalReport.isPresent()) {
+            report = reportService.changeStatusToInProgress(optionalReport.get());
+        }
+
+        request.setAttribute("report", report);
+
         int inspectorId = (int) request.getSession().getAttribute("userId");
         InspectorService inspectorService = new InspectorServiceImpl();
-        inspectorService.addNewReportsToRequest(request, inspectorId);
+        inspectorService.addDataToRequest(request, inspectorId);
 
         return INSPECTOR_REPORT_PAGE;
     }

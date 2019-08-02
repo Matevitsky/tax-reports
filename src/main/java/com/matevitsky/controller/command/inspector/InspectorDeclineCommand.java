@@ -20,7 +20,7 @@ public class InspectorDeclineCommand implements Command {
         InspectorService inspectorService = new InspectorServiceImpl();
         boolean b = inspectorService.declineReport(reportId, reasonToReject);
 
-        inspectorService.addNewReportsToRequest(request, inspectorId);
+        inspectorService.addDataToRequest(request, inspectorId);
 
         return INSPECTOR_PAGE;
     }

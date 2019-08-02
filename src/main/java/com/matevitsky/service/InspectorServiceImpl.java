@@ -137,7 +137,7 @@ public class InspectorServiceImpl implements InspectorService {
     }
 
     @Override
-    public void addNewReportsToRequest(HttpServletRequest request, int inspectorId) {
+    public void addDataToRequest(HttpServletRequest request, int inspectorId) {
         Optional<Employee> inspectorById = getById(inspectorId);
         if (inspectorById.isPresent()) {
             User inspector = inspectorById.get();
