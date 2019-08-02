@@ -9,6 +9,10 @@
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/local.css"/>
 
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
+
+
     <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/fa9ccce587.js"></script>
@@ -45,9 +49,21 @@
             <li><a href="/app?command=all_reports"><i class="fa fa-bars"></i> All Reports</a></li>
 
         </ul>
+
+
         <ul class="nav navbar-nav navbar-right navbar-user">
 
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown09" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-us"> </span> English</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown09">
+
+                    <a class="dropdown-item" href="#ru"><span class="flag-icon flag-icon-ru"> </span> Russian</a>
+                </div>
+            </li>
             <li class="dropdown messages-dropdown">
+
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     <c:set var="inspector" value="${inspector}"/>
                     <i class="fas fa-user-graduate"></i> ${inspector.firstName}  ${inspector.lastName}</span> <b
@@ -61,7 +77,7 @@
 
             <li class="dropdown user-dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> ${clientName}<b
-                    class="caret"></b></a>
+                        class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
 
@@ -76,4 +92,9 @@
     </div>
 </nav>
 </body>
+<script>
+    $(function () {
+        $('.selectpicker').selectpicker();
+    });
+</script>
 </html>
