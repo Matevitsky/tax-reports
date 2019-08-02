@@ -13,6 +13,8 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
+import static java.util.Locale.ENGLISH;
+
 public class LoginService {
 
 
@@ -43,6 +45,7 @@ public class LoginService {
         UserForLogin user = null;
 
         Optional<Employee> optionalInspector = inspectorService.findByEmail(email);
+        request.getSession().setAttribute("locale", ENGLISH);
 
         if (optionalInspector.isPresent()) {
             Employee employee = optionalInspector.get();

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="/jsp/i18n.jsp" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -55,13 +56,22 @@
 
 
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown09" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-us"> </span> English</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown09">
 
-                    <a class="dropdown-item" href="#ru"><span class="flag-icon flag-icon-ru"> </span> Russian</a>
-                </div>
+
+                <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown"
+                   class="dropdown-toggle" href=/app?command=change_locale" name="locale">
+                    <span id="selected"> <span class=" flag-icon flag-icon-us"></span>
+                        <fmt:message bundle="${common}" key="language.en"/></span>
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/app?command=change_locale"><span class=" flag-icon flag-icon-ru"></span>
+                        <fmt:message bundle="${common}" key="language.ru"/></a></li>
+
+                </ul>
+
             </li>
+
+
             <li class="dropdown messages-dropdown">
 
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -93,8 +103,8 @@
 </nav>
 </body>
 <script>
-    $(function () {
-        $('.selectpicker').selectpicker();
+    $('.dropdown-menu a').click(function () {
+        $('#selected').text($(this).text());
     });
 </script>
 </html>

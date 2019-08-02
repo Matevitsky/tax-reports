@@ -1,11 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Sergey
-  Date: 2019-07-09
-  Time: 20:40
-  To change this template use File | Settings | File Templates.
---%>
-<%@include file="../header.jsp" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>

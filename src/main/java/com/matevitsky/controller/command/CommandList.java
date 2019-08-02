@@ -63,6 +63,8 @@ public enum CommandList {
 
     ADMIN_CANCEL(new AdminCancelCommand()),
 
+    CHANGE_LOCALE(new ChangeLocaleCommand()),
+
 
     REGISTER(new RegisterCommand());
 
