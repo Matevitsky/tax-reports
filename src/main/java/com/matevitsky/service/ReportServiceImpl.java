@@ -12,7 +12,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class ReportServiceImpl implements ReportService {
 
@@ -72,7 +71,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public Optional<List<Report>> getByClientId(int clientId) {
+    public Optional<List<Report>> getReportsByClientId(int clientId) {
         try (Connection connection = ConnectorDB.getConnection()) {
             return reportRepository.getByClientId(clientId, connection);
         } catch (SQLException e) {
@@ -84,7 +83,7 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public Optional<List<Report>> getClientActiveReports(int clientId) {
-        Optional<List<Report>> byClientId = getByClientId(clientId);
+        Optional<List<Report>> byClientId = getReportsByClientId(clientId);
         List<Report> reports;
         if (byClientId.isPresent()) {
             reports = byClientId.get();
@@ -95,9 +94,9 @@ public class ReportServiceImpl implements ReportService {
         return Optional.empty();
     }
 
-    @Override
+   /* @Override
     public Optional<List<Report>> getInspectorNewReports(int clientId) {
-        Optional<List<Report>> byClientId = getByClientId(clientId);
+        Optional<List<Report>> byClientId = getReportsByClientId(clientId);
         List<Report> reports;
         if (byClientId.isPresent()) {
             reports = byClientId.get();
@@ -108,7 +107,7 @@ public class ReportServiceImpl implements ReportService {
         }
         return Optional.empty();
 
-    }
+    }*/
 
     @Override
     public Report changeStatusToInProgress(Report report) {

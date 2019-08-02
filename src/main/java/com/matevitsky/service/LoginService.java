@@ -51,7 +51,7 @@ public class LoginService {
             switch (employee.getEmployeeRole()) {
                 case INSPECTOR:
                     user = new UserForLogin(employee.getId(), employee.getEmail(), employee.getPassword(), UserForLogin.Role.INSPECTOR);
-                    //   inspectorService.addDataToRequest(request, employee.getId());
+
                     return user;
                 //TODO: поменять название на Like prepare inspector page
                 case ADMIN:
@@ -65,6 +65,13 @@ public class LoginService {
             if (optionalClient.isPresent()) {
                 Client client = optionalClient.get();
                 request.getSession().setAttribute("userId", client.getId());
+                request.getSession().setAttribute("clientName", client.getFirstName() + " " + client.getLastName());
+
+                Optional<Employee> inspector = clientService.getInspector(client.getId());
+                inspector.ifPresent(employee -> request.getSession().setAttribute("inspector", employee));
+
+
+
                 user = new UserForLogin(client.getId(), client.getEmail(), client.getPassword(), UserForLogin.Role.CLIENT);
             }
         }

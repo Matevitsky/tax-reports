@@ -24,7 +24,7 @@
 
                     <div class="form-group">
                         <label>Report content</label>
-                        <textarea class="form-control" rows="3" name="content"> ${report.content} </textarea>
+                        <textarea class="form-control" name="content">${report.content}</textarea>
                     </div>
 
                     <button type="submit" class="btn btn-default">Save</button>

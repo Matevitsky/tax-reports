@@ -25,7 +25,7 @@ public class AdminClientReportsCommand implements Command {
 
 
         ReportService reportService = new ReportServiceImpl();
-        Optional<List<Report>> optionalReportList = reportService.getByClientId(clientId);
+        Optional<List<Report>> optionalReportList = reportService.getReportsByClientId(clientId);
         if (optionalReportList.isPresent()) {
 
             request.setAttribute("reports", optionalReportList.get());

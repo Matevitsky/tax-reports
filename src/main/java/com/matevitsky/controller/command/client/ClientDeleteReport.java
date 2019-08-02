@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 public class ClientDeleteReport implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-
         int reportId = Integer.parseInt(request.getParameter("reportId"));
         ReportService reportService = new ReportServiceImpl();
         reportService.deleteById(reportId);
+
         return new GetClientPageCommand().execute(request, response);
     }
 }

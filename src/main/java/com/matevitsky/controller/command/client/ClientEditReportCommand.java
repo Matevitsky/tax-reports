@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-import static com.matevitsky.controller.constant.PageConstant.CLIENT_ALL_REPORT_PAGE;
-
 public class ClientEditReportCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -31,11 +29,11 @@ public class ClientEditReportCommand implements Command {
 
         reportService.update(report);
 
-        List<Report> reportList = reportService.getByClientId(clientId).get();
+        List<Report> reportList = reportService.getReportsByClientId(clientId).get();
 
         request.setAttribute("reports", reportList);
 
-        return CLIENT_ALL_REPORT_PAGE;
+        return new GetClientPageCommand().execute(request, response);
     }
 
     //TODO: подумать- может вынести в отельный сервис создание страницы reports page

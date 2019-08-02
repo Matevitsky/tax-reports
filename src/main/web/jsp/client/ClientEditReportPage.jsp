@@ -13,7 +13,7 @@
 
                     <div class="form-group">
                         <label>Tittle</label>
-                        <input class="form-control" name="tittle" placeholder="${report.tittle}">
+                        <input class="form-control" name="tittle" value="${report.tittle}">
                     </div>
 
                     <div class="form-group">
@@ -22,6 +22,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-default" name="command" value="edit_report">Save</button>
+
                     <c:if test="${(report.status != 'ACCEPTED')}">
                         <button type="submit" class="btn btn-danger" name="command" value="delete_report">Delete
                         </button>

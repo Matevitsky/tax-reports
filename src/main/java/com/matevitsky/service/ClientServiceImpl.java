@@ -64,7 +64,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public boolean addReportsListToRequest(HttpServletRequest request, int clientId) {
         ReportService reportService = new ReportServiceImpl();
-        Optional<List<Report>> clientReportList = reportService.getByClientId(clientId);
+        Optional<List<Report>> clientReportList = reportService.getReportsByClientId(clientId);
         if (clientReportList.isPresent()) {
             request.setAttribute("reports", clientReportList.get());
             return true;
@@ -134,17 +134,10 @@ public class ClientServiceImpl implements ClientService {
         Optional<List<Report>> clientActiveReports = reportService.getClientActiveReports(clientId);
 
         Optional<Employee> optionalInspector = getInspector(clientId);
-        String clientName = getNameById(clientId);
 
-        request.setAttribute("clientName", clientName);
+        //   optionalInspector.ifPresent(employee -> request.setAttribute("inspector", employee));
 
-        if (optionalInspector.isPresent()) {
-            request.setAttribute("inspector", optionalInspector.get());
-        }
-
-        if (clientActiveReports.isPresent()) {
-            request.setAttribute("reports", clientActiveReports.get());
-        }
+        // clientActiveReports.ifPresent(reports -> request.setAttribute("reports", reports));
     }
 
     private Employee getFreeInspector() {

@@ -13,7 +13,7 @@ public enum CommandList {
 
     GET_CREATE_REPORT_PAGE(new ClientGetCreateReportPageCommand()),
 
-    GET_EDIT_REPORT_PAGE(new ClientGetEditPageCommand()),
+    //  GET_EDIT_REPORT_PAGE(new ClientGetEditPageCommand()),
 
     CREATE_REPORT(new ClientCreateReportCommand()),
 
@@ -39,7 +39,7 @@ public enum CommandList {
 
     INSPECTOR_DECLINE_REPORT(new InspectorDeclineReportCommand()),
 
-    GET_VIEW_REPORT_PAGE(new ClientGetViewReportPage()),
+    //   GET_VIEW_REPORT_PAGE(new ClientGetViewReportPage()),
 
     ADMIN_MAIN_PAGE(new AdminMainPageCommand()),
 
