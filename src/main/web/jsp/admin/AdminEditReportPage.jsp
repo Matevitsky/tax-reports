@@ -19,7 +19,7 @@
 
                     <div class="form-group">
                         <label>Tittle</label>
-                        <input class="form-control" name="tittle" placeholder="${report.tittle}">
+                        <input class="form-control" name="tittle" value="${report.tittle}">
                     </div>
 
                     <div class="form-group">
