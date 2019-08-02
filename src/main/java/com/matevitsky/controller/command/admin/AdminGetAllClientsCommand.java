@@ -29,14 +29,12 @@ public class AdminGetAllClientsCommand implements Command {
         Optional<List<Client>> optionalClients = clientService.getAll();
         if (optionalClients.isPresent()) {
             clientList = optionalClients.get();
-        }
-        for (Client c : clientList) {
-            Optional<Employee> optionalInspector = inspectorService.getById(c.getInspectorId());
-            if (optionalInspector.isPresent()) {
-                inspectorList.add(optionalInspector.get());
-
+            for (Client c : clientList) {
+                Optional<Employee> optionalInspector = inspectorService.getById(c.getInspectorId());
+                optionalInspector.ifPresent(inspectorList::add);
             }
         }
+
         request.setAttribute("clients", clientList);
         request.setAttribute("inspectors", inspectorList);
 

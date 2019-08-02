@@ -20,10 +20,7 @@ public class AdminEditReportCommand implements Command {
         int reportId = Integer.parseInt(request.getParameter("reportId"));
         ReportService reportService = new ReportServiceImpl();
         Optional<Report> optionalReport = reportService.getById(reportId);
-        if (optionalReport.isPresent()) {
-            Report reportForUpdate = optionalReport.get();
-            request.setAttribute("report", reportForUpdate);
-        }
+        optionalReport.ifPresent(report -> request.setAttribute("report", report));
 
         AdminService adminService = new AdminServiceImpl();
         adminService.addHeaderDataToRequest(request);

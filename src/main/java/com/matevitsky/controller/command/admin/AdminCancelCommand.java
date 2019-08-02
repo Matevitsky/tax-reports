@@ -31,6 +31,7 @@ public class AdminCancelCommand implements Command {
 
         AdminService adminService = new AdminServiceImpl();
         adminService.addHeaderDataToRequest(request);
+
         return ADMIN_REPORTS_PAGE;
     }
 }

@@ -7,8 +7,6 @@ import com.matevitsky.service.interfaces.AdminService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.matevitsky.controller.constant.PageConstant.ADMIN_PAGE;
-
 public class AdminAssignInspectorCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -21,8 +19,10 @@ public class AdminAssignInspectorCommand implements Command {
         adminService.assignInspector(clientId, inspectorId);
 
         //TODO: return message to user from admin service
-        adminService.prepareAdminPage(request);
-        adminService.addHeaderDataToRequest(request);
-        return ADMIN_PAGE;
+        // adminService.prepareAdminPage(request);
+
+
+        //  adminService.addHeaderDataToRequest(request);
+        return new AdminMainPageCommand().execute(request, response);
     }
 }

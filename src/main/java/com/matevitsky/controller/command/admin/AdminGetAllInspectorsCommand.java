@@ -17,7 +17,8 @@ public class AdminGetAllInspectorsCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         InspectorService inspectorService = new InspectorServiceImpl();
         AdminService adminService = new AdminServiceImpl();
-        request.setAttribute("inspectors", inspectorService.getAll().get());
+        inspectorService.getAll().ifPresent(employees -> request.setAttribute("inspectors", employees));
+
         adminService.addHeaderDataToRequest(request);
 
         return ADMIN_INSPECTORS_PAGE;

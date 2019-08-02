@@ -33,6 +33,7 @@ public class AdminInspectorClientsCommand implements Command {
             .build();
 
         Optional<List<Client>> optionalClients = clientService.getClientsByInspectorId(inspectorId);
+
         if (optionalClients.isPresent()) {
             List<Employee> inspectorList = Collections.nCopies(optionalClients.get().size(), inspector);
 

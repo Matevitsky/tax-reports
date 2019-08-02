@@ -21,18 +21,18 @@ public class AdminSaveReport implements Command {
         ReportService reportService = new ReportServiceImpl();
         Optional<Report> optionalReport = reportService.getById(reportId);
 
-        if (optionalReport.isPresent()) {
-            Report report = optionalReport.get();
+        optionalReport.ifPresent(value -> {
+            Report report = value;
             Report reportForSave = Report.newBuilder()
-                .withId(reportId)
-                .withTittle(tittle)
-                .withContent(content)
-                .withClientId(report.getClientId())
-                .withStatus(report.getStatus())
-                .withreasonToReject(report.getReasonToReject())
-                .build();
+                    .withId(reportId)
+                    .withTittle(tittle)
+                    .withContent(content)
+                    .withClientId(report.getClientId())
+                    .withStatus(report.getStatus())
+                    .withreasonToReject(report.getReasonToReject())
+                    .build();
             reportService.update(reportForSave);
-        }
+        });
         return new AdminCancelCommand().execute(request, response);
     }
 }

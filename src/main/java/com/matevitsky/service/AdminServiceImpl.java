@@ -48,6 +48,7 @@ public class AdminServiceImpl implements AdminService {
             requestList = optionalRequests.get();
         }
         clientList = requestList.stream().map(r -> clientService.getById(r.getClientId()).get()).collect(Collectors.toList());
+
         Optional<List<Employee>> optionalInspectors = inspectorService.getAll();
         if (optionalInspectors.isPresent()) {
             inspectorList = optionalInspectors.get();
@@ -56,27 +57,20 @@ public class AdminServiceImpl implements AdminService {
         request.setAttribute("clientList", clientList);
         addHeaderDataToRequest(request);
 
-
     }
 
     @Override
     public void addHeaderDataToRequest(HttpServletRequest request) {
-        int userId = (int) request.getSession().getAttribute("userId");
         Optional<List<Request>> optionalRequestList = requestService.getAll();
-        if (optionalRequestList.isPresent()) {
-            request.setAttribute("requestList", optionalRequestList.get());
-        }
+        optionalRequestList.ifPresent(requests -> request.setAttribute("requestList", requests));
     }
 
 
-    private String getAdminName(int id) {
+   /* private String getAdminName(int id) {
         InspectorService inspectorService = new InspectorServiceImpl();
         Optional<Employee> optionalAdmin = inspectorService.getById(id);
-        if (optionalAdmin.isPresent()) {
-            return optionalAdmin.get().getFirstName() + " " + optionalAdmin.get().getLastName();
-        }
-        return "";
-    }
+        return optionalAdmin.map(employee -> employee.getFirstName() + " " + employee.getLastName()).orElse("");
+    }*/
 
     @Override
     public boolean assignInspector(int clientId, int inspectorId) {

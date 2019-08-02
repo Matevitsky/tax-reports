@@ -23,14 +23,12 @@ public class AdminClientReportsCommand implements Command {
         request.getSession().setAttribute("clientId", clientId);
         request.getSession().setAttribute("clientName", clientName);
 
-
         ReportService reportService = new ReportServiceImpl();
         Optional<List<Report>> optionalReportList = reportService.getReportsByClientId(clientId);
-        if (optionalReportList.isPresent()) {
-
-            request.setAttribute("reports", optionalReportList.get());
+        optionalReportList.ifPresent(reports -> {
+            request.setAttribute("reports", reports);
             request.setAttribute("clientName", clientName);
-        }
+        });
         AdminService adminService = new AdminServiceImpl();
         adminService.addHeaderDataToRequest(request);
         return ADMIN_REPORTS_PAGE;
