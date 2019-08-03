@@ -12,10 +12,10 @@
             <thead>
 
             <tr>
-                <th class="th-sm">Tittle</th>
-                <th class="th-sm">Client Name</th>
-                <th class="th-sm">Report Status</th>
-                <th class="th-sm">Button</th>
+                <th class="th-sm"><fmt:message bundle="${common}" key="title"/></th>
+                <th class="th-sm"><fmt:message bundle="${common}" key="client.name"/></th>
+                <th class="th-sm"><fmt:message bundle="${common}" key="status"/></th>
+                <th class="th-sm"></th>
             </tr>
 
 
@@ -40,7 +40,7 @@
                                 </c:when>
                                 <c:otherwise>
                                     <button type="submit" class="btn btn-primary">
-                                        View
+                                        <fmt:message bundle="${common}" key="view"/>
                                     </button>
                                     <input type="hidden" name="command" value="get_inspector_report_page">
                                 </c:otherwise>
@@ -59,10 +59,10 @@
 
             <tfoot>
             <tr>
-                <th class="th-sm">Tittle</th>
-                <th class="th-sm">Client Name</th>
-                <th class="th-sm">Report Status</th>
-                <th class="th-sm">Button</th>
+                <th class="th-sm"><fmt:message bundle="${common}" key="title"/></th>
+                <th class="th-sm"><fmt:message bundle="${common}" key="client.name"/></th>
+                <th class="th-sm"><fmt:message bundle="${common}" key="status"/></th>
+                <th class="th-sm"></th>
             </tr>
             </tfoot>
         </table>
