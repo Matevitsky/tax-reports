@@ -1,5 +1,6 @@
 package com.matevitsky.controller.command;
 
+import com.matevitsky.controller.command.admin.AdminMainPageCommand;
 import com.matevitsky.controller.command.client.GetClientPageCommand;
 import com.matevitsky.service.ResourceManager;
 import org.apache.log4j.Logger;
@@ -14,17 +15,24 @@ public class ChangeLocaleCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        LOGGER.debug("Method execute started");
 
-        Locale locale = (Locale) request.getSession().getAttribute("locale");
-        ResourceManager.INSTANCE.changeResource(locale);
+        String locale = request.getParameter("locale");
+        ResourceManager.INSTANCE.changeResource(Locale.forLanguageTag(locale));
         request.getSession().setAttribute("locale", locale);
         LOGGER.info("Locale: " + locale);
 
+        String role = (String) request.getSession().getAttribute("role");
+        switch (role) {
+            case ("client"):
+                return new GetClientPageCommand().execute(request, response);
+            case ("admin"):
+                return new AdminMainPageCommand().execute(request, response);
+            case ("inspector"):
+                return new InspectorGetNewReportPageCommand().execute(request, response);
+            default:
+                return null;
+        }
 
-        Integer userId = (Integer) request.getSession().getAttribute("userId");
-
-        return new GetClientPageCommand().execute(request, response);
     }
 
 }

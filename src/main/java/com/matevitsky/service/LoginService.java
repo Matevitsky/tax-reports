@@ -50,14 +50,17 @@ public class LoginService {
         if (optionalInspector.isPresent()) {
             Employee employee = optionalInspector.get();
             request.getSession().setAttribute("userId", employee.getId());
+
             request.getSession().setAttribute("adminName", employee.getFirstName() + " " + employee.getLastName());
             switch (employee.getEmployeeRole()) {
                 case INSPECTOR:
+                    request.getSession().setAttribute("role", "inspector");
                     user = new UserForLogin(employee.getId(), employee.getEmail(), employee.getPassword(), UserForLogin.Role.INSPECTOR);
 
                     return user;
                 //TODO: поменять название на Like prepare inspector page
                 case ADMIN:
+                    request.getSession().setAttribute("role", "admin");
                     user = new UserForLogin(employee.getId(), employee.getEmail(), employee.getPassword(), UserForLogin.Role.ADMIN);
                     adminService.prepareAdminPage(request);
                     return user;
@@ -68,6 +71,7 @@ public class LoginService {
             if (optionalClient.isPresent()) {
                 Client client = optionalClient.get();
                 request.getSession().setAttribute("userId", client.getId());
+                request.getSession().setAttribute("role", "client");
                 request.getSession().setAttribute("clientName", client.getFirstName() + " " + client.getLastName());
 
                 Optional<Employee> inspector = clientService.getInspector(client.getId());

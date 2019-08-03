@@ -26,9 +26,9 @@
             <thead>
 
             <tr>
-                <th class="th-sm">Tittle</th>
-                <th class="th-sm">Status</th>
-                <th class="th-sm">Button</th>
+                <th class="th-sm"><fmt:message bundle="${common}" key="title"/></th>
+                <th class="th-sm"><fmt:message bundle="${common}" key="status"/></th>
+                <th class="th-sm"></th>
 
             </tr>
 
@@ -65,9 +65,9 @@
 
             <tfoot>
             <tr>
-                <th class="th-sm">Tittle</th>
-                <th class="th-sm">Status</th>
-                <th class="th-sm">Button</th>
+                <th class="th-sm"><fmt:message bundle="${common}" key="title"/></th>
+                <th class="th-sm"><fmt:message bundle="${common}" key="status"/></th>
+                <th class="th-sm"></th>
 
             </tr>
             </tfoot>

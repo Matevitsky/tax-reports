@@ -38,6 +38,7 @@ public class MainController extends HttpServlet {
         if (Objects.nonNull(goTo)) {//Objects
             request.getRequestDispatcher(goTo).forward(request, response);
         } else {
+
             // response.sendRedirect(PageConstant.ERROR_PAGE);
         }
     }
