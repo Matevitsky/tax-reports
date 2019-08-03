@@ -13,9 +13,15 @@
 
             <tr>
 
-                <th class="th-sm">Tittle</th>
-                <th class="th-sm">Status</th>
-                <th class="th-sm">Client Name</th>
+                <th class="th-sm">
+                    <fmt:message bundle="${common}" key="title"/>
+                </th>
+                <th class="th-sm">
+                    <fmt:message bundle="${common}" key="status"/>
+                </th>
+                <th class="th-sm">
+                    <fmt:message bundle="${common}" key="client.name"/>
+                </th>
                 <th class="th-sm"></th>
 
 
@@ -40,7 +46,7 @@
                             <td>
                                 <button type="submit" class="btn btn-default" name="command"
                                         value="admin_edit_report">
-                                    Report View
+                                    <fmt:message bundle="${common}" key="view"/>
                                 </button>
                             </td>
 
@@ -54,10 +60,17 @@
 
             <tfoot>
             <tr>
-                <th class="th-sm">Tittle</th>
-                <th class="th-sm">Status</th>
-                <th class="th-sm">Client Name</th>
+                <th class="th-sm">
+                    <fmt:message bundle="${common}" key="title"/>
+                </th>
+                <th class="th-sm">
+                    <fmt:message bundle="${common}" key="status"/>
+                </th>
+                <th class="th-sm">
+                    <fmt:message bundle="${common}" key="client.name"/>
+                </th>
                 <th class="th-sm"></th>
+
             </tr>
 
             </tfoot>

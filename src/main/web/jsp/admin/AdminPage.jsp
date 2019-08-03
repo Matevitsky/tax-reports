@@ -12,8 +12,12 @@
 
             <tr>
 
-                <th class="th-sm">Client Name</th>
-                <th class="th-sm">Inspectors</th>
+                <th class="th-sm">
+                    <fmt:message bundle="${common}" key="client.name"/>
+                </th>
+                <th class="th-sm">
+                    <fmt:message bundle="${common}" key="inspectors"/>
+                </th>
                 <th></th>
 
             </tr>
@@ -43,7 +47,7 @@
                             <td>
                                 <button type="submit" class="btn btn-default" name="command"
                                         value="admin_assign_inspector">
-                                    Assign Inspector
+                                    <fmt:message bundle="${common}" key="assign.inspector"/>
                                 </button>
 
                             </td>
@@ -58,9 +62,12 @@
 
             <tfoot>
             <tr>
-
-                <th class="th-sm">Client Name</th>
-                <th class="th-sm">Inspectors</th>
+                <th class="th-sm">
+                    <fmt:message bundle="${common}" key="client.name"/>
+                </th>
+                <th class="th-sm">
+                    <fmt:message bundle="${common}" key="inspectors"/>
+                </th>
                 <th></th>
 
             </tr>

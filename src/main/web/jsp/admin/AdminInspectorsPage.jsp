@@ -13,9 +13,13 @@
 
             <tr>
 
-                <th class="th-sm">Inspector Name</th>
+                <th class="th-sm">
+                    <fmt:message bundle="${common}" key="inspector.name"/>
+                </th>
                 <th class="th-sm">Email</th>
-                <th>Clients</th>
+                <th>
+                    <fmt:message bundle="${common}" key="clients"/>
+                </th>
 
             </tr>
 
@@ -38,7 +42,7 @@
                             <td>
                                 <button type="submit" class="btn btn-default" name="command"
                                         value="admin_inspector_clients">
-                                    Inspector Clients
+                                    <fmt:message bundle="${common}" key="inspector.clients"/>
                                 </button>
                             </td>
                         </tr>
@@ -52,9 +56,13 @@
             <tfoot>
             <tr>
 
-                <th class="th-sm">Inspector Name</th>
+                <th class="th-sm">
+                    <fmt:message bundle="${common}" key="inspector.name"/>
+                </th>
                 <th class="th-sm">Email</th>
-                <th>Clients</th>
+                <th>
+                    <fmt:message bundle="${common}" key="clients"/>
+                </th>
             </tr>
 
             </tfoot>

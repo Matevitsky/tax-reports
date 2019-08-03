@@ -14,11 +14,19 @@
 
             <tr>
 
-                <th class="th-sm">Name</th>
+                <th class="th-sm">
+                    <fmt:message bundle="${common}" key="client.name"/>
+                </th>
                 <th class="th-sm">Email</th>
-                <th class="th-sm">Company Name</th>
-                <th class="th-sm">Inspector Name</th>
-                <th class="th-sm">Reports</th>
+                <th class="th-sm">
+                    <fmt:message bundle="${common}" key="company.name"/>
+                </th>
+                <th class="th-sm">
+                    <fmt:message bundle="${common}" key="inspector.name"/>
+                </th>
+                <th class="th-sm">
+                    <fmt:message bundle="${common}" key="reports"/>
+                </th>
 
 
             </tr>
@@ -43,7 +51,7 @@
                             <td>
                                 <button type="submit" class="btn btn-default" name="command"
                                         value="admin_client_reports">
-                                    Client's Reports
+                                    <fmt:message bundle="${common}" key="clients.report"/>
                                 </button>
                             </td>
 
@@ -57,11 +65,20 @@
 
             <tfoot>
             <tr>
-                <th class="th-sm">Name</th>
+                <th class="th-sm">
+                    <fmt:message bundle="${common}" key="client.name"/>
+                </th>
                 <th class="th-sm">Email</th>
-                <th class="th-sm">Company Name</th>
-                <th class="th-sm">Inspector Name</th>
-                <th class="th-sm">Reports</th>
+                <th class="th-sm">
+                    <fmt:message bundle="${common}" key="company.name"/>
+                </th>
+                <th class="th-sm">
+                    <fmt:message bundle="${common}" key="inspector.name"/>
+                </th>
+                <th class="th-sm">
+                    <fmt:message bundle="${common}" key="reports"/>
+                </th>
+
             </tr>
 
             </tfoot>
