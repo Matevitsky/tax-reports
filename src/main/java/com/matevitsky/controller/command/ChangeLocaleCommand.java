@@ -2,6 +2,7 @@ package com.matevitsky.controller.command;
 
 import com.matevitsky.controller.command.admin.AdminMainPageCommand;
 import com.matevitsky.controller.command.client.GetClientPageCommand;
+import com.matevitsky.controller.command.inspector.InspectorGetNewReportsCommand;
 import com.matevitsky.service.ResourceManager;
 import org.apache.log4j.Logger;
 
@@ -28,7 +29,7 @@ public class ChangeLocaleCommand implements Command {
             case ("admin"):
                 return new AdminMainPageCommand().execute(request, response);
             case ("inspector"):
-                return new InspectorGetNewReportPageCommand().execute(request, response);
+                return new InspectorGetNewReportsCommand().execute(request, response);
             default:
                 return null;
         }
