@@ -107,7 +107,8 @@ public class InspectorServiceImpl implements InspectorService {
         if (allReports.isPresent()) {
             reportList = allReports.get();
             return Optional.of(reportList.stream()
-                    .filter(reportWithClientName -> reportWithClientName.getReportStatus().equals(ReportStatus.NEW))
+                    .filter(reportWithClientName ->
+                            reportWithClientName.getReportStatus().equals(ReportStatus.NEW))
                     .collect(Collectors.toList()));
         }
         return Optional.empty();
@@ -158,11 +159,5 @@ public class InspectorServiceImpl implements InspectorService {
             }
         }
         return update != null;
-    }
-
-    private String getInspectorName(int id) {
-        InspectorService inspectorService = new InspectorServiceImpl();
-        Optional<Employee> optionalAdmin = inspectorService.getById(id);
-        return optionalAdmin.map(employee -> employee.getFirstName() + " " + employee.getLastName()).orElse("");
     }
 }

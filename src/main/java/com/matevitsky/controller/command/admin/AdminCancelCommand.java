@@ -15,22 +15,26 @@ import java.util.Optional;
 import static com.matevitsky.controller.constant.PageConstant.ADMIN_REPORTS_PAGE;
 
 public class AdminCancelCommand implements Command {
+
+    private static final String CLIENT_ID = "clientId";
+    private static final String CLIENT_NAME = "clientName";
+    private static final String REPORTS = "reports";
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         ReportService reportService = new ReportServiceImpl();
-        int clientId = (int) request.getSession().getAttribute("clientId");
-        String clientName = (String) request.getSession().getAttribute("clientName");
-
+        int clientId = (int) request.getSession().getAttribute(CLIENT_ID);
+        String clientName = (String) request.getSession().getAttribute(CLIENT_NAME);
 
         Optional<List<Report>> optionalReportList = reportService.getReportsByClientId(clientId);
-        if (optionalReportList.isPresent()) {
-            request.setAttribute("reports", optionalReportList.get());
-            request.setAttribute("clientName", clientName);
-        }
+        optionalReportList.ifPresent(reports -> {
+            request.setAttribute(REPORTS, reports);
+            request.setAttribute(CLIENT_NAME, clientName);
+        });
 
         AdminService adminService = new AdminServiceImpl();
-        adminService.addHeaderDataToRequest(request);
+        adminService.addRequestAmountToHeader(request);
 
         return ADMIN_REPORTS_PAGE;
     }

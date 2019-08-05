@@ -10,12 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 public class AdminSaveReport implements Command {
+
+    private static final String REPORT_ID = "reportId";
+    private static final String TITTLE = "tittle";
+    private static final String CONTENT = "content";
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        int reportId = Integer.parseInt(request.getParameter("reportId"));
-        String tittle = request.getParameter("tittle");
-        String content = request.getParameter("content");
+        int reportId = Integer.parseInt(request.getParameter(REPORT_ID));
+        String tittle = request.getParameter(TITTLE);
+        String content = request.getParameter(CONTENT);
 
 
         ReportService reportService = new ReportServiceImpl();

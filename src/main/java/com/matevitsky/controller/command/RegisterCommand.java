@@ -17,22 +17,24 @@ public class RegisterCommand implements Command {
 
 
     private static final Logger LOGGER = Logger.getLogger(RegisterCommand.class);
+    private static final String FIRST_NAME = "firstName";
+    private static final String LAST_NAME = "lastName";
+    private static final String EMAIL_ADDRESS = "emailAddress";
+    private static final String PASSWORD = "password";
+    private static final String COMPANY_NAME = "companyName";
+    private static final String USER_ID = "userId";
 
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        LOGGER.debug("RegisterCommand Started");
-
-
         ClientService clientService = new ClientServiceImpl();
 
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        String emailAddress = request.getParameter("emailAddress");
-        String password = request.getParameter("password");
-        String companyName = request.getParameter("companyName");
-
+        String firstName = request.getParameter(FIRST_NAME);
+        String lastName = request.getParameter(LAST_NAME);
+        String emailAddress = request.getParameter(EMAIL_ADDRESS);
+        String password = request.getParameter(PASSWORD);
+        String companyName = request.getParameter(COMPANY_NAME);
 
         Client client = Client.newClientBuilder()
                 .withFirstName(firstName)
@@ -48,14 +50,11 @@ public class RegisterCommand implements Command {
             optionalClient = clientService.register(clientWithInspector);
 
         } catch (WrongInputException e) {
-            request.setAttribute("error", e.getMessage());
+            request.setAttribute("Registration error", e.getMessage());
             LOGGER.error(e.getMessage());
         }
 
-        if (optionalClient.isPresent()) {
-            request.getSession().setAttribute("userId", optionalClient.get().getId());
-        }
-        //TODO: Create Client Page подправить чтобы было красиво
+        optionalClient.ifPresent(value -> request.getSession().setAttribute(USER_ID, value.getId()));
 
         return new GetMainClientPageCommand().execute(request, response);
     }

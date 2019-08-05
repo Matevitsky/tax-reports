@@ -8,6 +8,6 @@ public interface AdminService {
 
     boolean assignInspector(int clientId, int inspectorId);
 
-    void addHeaderDataToRequest(HttpServletRequest request);
+    void addRequestAmountToHeader(HttpServletRequest request);
 
 }

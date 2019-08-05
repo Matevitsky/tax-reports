@@ -15,17 +15,20 @@ import static com.matevitsky.controller.constant.PageConstant.CREATE_REPORT_PAGE
 public class ClientCreateReportCommand implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(ClientCreateReportCommand.class);
+    private static final String TITTLE = "tittle";
+    private static final String CONTENT = "content";
+    private static final String USER_ID = "userId";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        String tittle = request.getParameter("tittle");
-        String content = request.getParameter("content");
+        String tittle = request.getParameter(TITTLE);
+        String content = request.getParameter(CONTENT);
         if (tittle.isEmpty() || content.isEmpty()) {
             LOGGER.info("tittle or content is empty");
             return CREATE_REPORT_PAGE;
         }
-        int clientId = (int) request.getSession().getAttribute("userId");
+        int clientId = (int) request.getSession().getAttribute(USER_ID);
 
         Report report = Report.newBuilder()
                 .withTittle(tittle)

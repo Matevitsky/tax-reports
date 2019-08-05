@@ -13,13 +13,16 @@ import static com.matevitsky.controller.constant.PageConstant.ADMIN_INSPECTORS_P
 
 public class AdminGetAllInspectorsCommand implements Command {
 
+    private static final String INSPECTORS = "inspectors";
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+
         InspectorService inspectorService = new InspectorServiceImpl();
         AdminService adminService = new AdminServiceImpl();
-        inspectorService.getAll().ifPresent(employees -> request.setAttribute("inspectors", employees));
+        inspectorService.getAll().ifPresent(employees -> request.setAttribute(INSPECTORS, employees));
 
-        adminService.addHeaderDataToRequest(request);
+        adminService.addRequestAmountToHeader(request);
 
         return ADMIN_INSPECTORS_PAGE;
     }

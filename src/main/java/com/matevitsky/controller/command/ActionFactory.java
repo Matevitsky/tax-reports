@@ -7,12 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 public class ActionFactory {
 
     private static final Logger LOGGER = Logger.getLogger(ActionFactory.class);
+    public static final String COMMAND = "command";
 
     public Command defineCommand(HttpServletRequest request) {
         LOGGER.debug("Method defineCommand started");
 
         Command current = null;
-        String action = request.getParameter("command");
+        String action = request.getParameter(COMMAND);
         if (action == null) {
             LOGGER.warn("command is NULL");
             return null;

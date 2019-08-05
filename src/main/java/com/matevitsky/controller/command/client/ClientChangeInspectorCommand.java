@@ -9,10 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class ClientChangeInspectorCommand implements Command {
+
+    private static final String USER_ID = "userId";
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         RequestService requestService = new RequestServiceImpl();
-        int clientId = (int) request.getSession().getAttribute("userId");
+        int clientId = (int) request.getSession().getAttribute(USER_ID);
         Request changeInspectorRequest = new Request(0, clientId);
         requestService.create(changeInspectorRequest);
 

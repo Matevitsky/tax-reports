@@ -18,15 +18,21 @@ import static com.matevitsky.controller.constant.PageConstant.ADMIN_CLIENTS_PAGE
 
 public class AdminInspectorClientsCommand implements Command {
 
+    private static final String INSPECTOR_ID = "inspectorId";
+    private static final String INSPECTOR_FIRST_NAME = "inspectorFirstName";
+    private static final String INSPECTOR_LAST_NAME = "inspectorLastName";
+    private static final String CLIENTS = "clients";
+    private static final String INSPECTORS = "inspectors";
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         ClientService clientService = new ClientServiceImpl();
         AdminService adminService = new AdminServiceImpl();
-        adminService.addHeaderDataToRequest(request);
+        adminService.addRequestAmountToHeader(request);
 
-        int inspectorId = Integer.parseInt(request.getParameter("inspectorId"));
-        String firstName = request.getParameter("inspectorFirstName");
-        String lastName = request.getParameter("inspectorLastName");
+        int inspectorId = Integer.parseInt(request.getParameter(INSPECTOR_ID));
+        String firstName = request.getParameter(INSPECTOR_FIRST_NAME);
+        String lastName = request.getParameter(INSPECTOR_LAST_NAME);
         Employee inspector = Employee.newBuilder()
             .withFirstName(firstName)
             .withLastName(lastName)
@@ -37,9 +43,8 @@ public class AdminInspectorClientsCommand implements Command {
         if (optionalClients.isPresent()) {
             List<Employee> inspectorList = Collections.nCopies(optionalClients.get().size(), inspector);
 
-            request.setAttribute("clients", optionalClients.get());
-            request.setAttribute("inspectors", inspectorList);
-
+            request.setAttribute(CLIENTS, optionalClients.get());
+            request.setAttribute(INSPECTORS, inspectorList);
         }
 
         return ADMIN_CLIENTS_PAGE;

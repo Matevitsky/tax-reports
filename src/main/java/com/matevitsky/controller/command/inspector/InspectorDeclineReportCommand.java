@@ -8,11 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class InspectorDeclineReportCommand implements Command {
+
+    private static final String REPORT_ID = "reportId";
+    private static final String REASON_TO_REJECT = "reasonToReject";
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        int reportId = Integer.parseInt(request.getParameter("reportId"));
-        String reasonToReject = request.getParameter("reasonToReject");
+        int reportId = Integer.parseInt(request.getParameter(REPORT_ID));
+        String reasonToReject = request.getParameter(REASON_TO_REJECT);
 
         InspectorService inspectorService = new InspectorServiceImpl();
         inspectorService.declineReport(reportId, reasonToReject);

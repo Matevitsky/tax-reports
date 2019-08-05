@@ -19,6 +19,10 @@ import java.util.Optional;
 import static com.matevitsky.controller.constant.PageConstant.ADMIN_CLIENTS_PAGE;
 
 public class AdminGetAllClientsCommand implements Command {
+
+    private static final String CLIENTS = "clients";
+    private static final String INSPECTORS = "inspectors";
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         ClientService clientService = new ClientServiceImpl();
@@ -27,6 +31,7 @@ public class AdminGetAllClientsCommand implements Command {
         List<Client> clientList = new ArrayList<>();
         List<Employee> inspectorList = new ArrayList<>();
         Optional<List<Client>> optionalClients = clientService.getAll();
+
         if (optionalClients.isPresent()) {
             clientList = optionalClients.get();
             for (Client c : clientList) {
@@ -35,11 +40,11 @@ public class AdminGetAllClientsCommand implements Command {
             }
         }
 
-        request.setAttribute("clients", clientList);
-        request.setAttribute("inspectors", inspectorList);
+        request.setAttribute(CLIENTS, clientList);
+        request.setAttribute(INSPECTORS, inspectorList);
 
         AdminService adminService = new AdminServiceImpl();
-        adminService.addHeaderDataToRequest(request);
+        adminService.addRequestAmountToHeader(request);
 
         return ADMIN_CLIENTS_PAGE;
     }

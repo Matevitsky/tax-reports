@@ -16,12 +16,14 @@ import static com.matevitsky.controller.constant.PageConstant.LOGIN_PAGE;
 public class LoginCommand implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(LoginCommand.class);
+    private static final String EMAIL = "email";
+    private static final String PASSWORD = "password";
 
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        String email = request.getParameter(EMAIL);
+        String password = request.getParameter(PASSWORD);
         String encryptedPassword = MD5Util.encryptPassword(password);
         LoginService loginService = new LoginService();
 

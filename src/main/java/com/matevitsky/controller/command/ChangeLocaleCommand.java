@@ -14,6 +14,9 @@ import java.util.Objects;
 
 public class ChangeLocaleCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(ChangeLocaleCommand.class);
+    private static final String CLIENT = "client";
+    private static final String ADMIN = "admin";
+    private static final String INSPECTOR = "inspector";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -26,11 +29,11 @@ public class ChangeLocaleCommand implements Command {
         String role = (String) request.getSession().getAttribute("role");
         if (Objects.nonNull(role)) {
             switch (role) {
-                case ("client"):
+                case CLIENT:
                     return new GetMainClientPageCommand().execute(request, response);
-                case ("admin"):
+                case ADMIN:
                     return new AdminMainPageCommand().execute(request, response);
-                case ("inspector"):
+                case INSPECTOR:
                     return new InspectorGetNewReportsCommand().execute(request, response);
             }
         }

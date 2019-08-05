@@ -15,22 +15,27 @@ import java.util.Optional;
 import static com.matevitsky.controller.constant.PageConstant.ADMIN_REPORTS_PAGE;
 
 public class AdminClientReportsCommand implements Command {
+
+    private static final String CLIENT_ID = "clientId";
+    private static final String CLIENT_NAME = "clientName";
+    private static final String REPORTS = "reports";
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        int clientId = Integer.parseInt(request.getParameter("clientId"));
-        String clientName = request.getParameter("clientName");
+        int clientId = Integer.parseInt(request.getParameter(CLIENT_ID));
+        String clientName = request.getParameter(CLIENT_NAME);
 
-        request.getSession().setAttribute("clientId", clientId);
-        request.getSession().setAttribute("clientName", clientName);
+        request.getSession().setAttribute(CLIENT_ID, clientId);
+        request.getSession().setAttribute(CLIENT_NAME, clientName);
 
         ReportService reportService = new ReportServiceImpl();
         Optional<List<Report>> optionalReportList = reportService.getReportsByClientId(clientId);
         optionalReportList.ifPresent(reports -> {
-            request.setAttribute("reports", reports);
-            request.setAttribute("clientName", clientName);
+            request.setAttribute(REPORTS, reports);
+            request.setAttribute(CLIENT_NAME, clientName);
         });
         AdminService adminService = new AdminServiceImpl();
-        adminService.addHeaderDataToRequest(request);
+        adminService.addRequestAmountToHeader(request);
         return ADMIN_REPORTS_PAGE;
     }
 }

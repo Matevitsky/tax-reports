@@ -9,32 +9,38 @@ import com.matevitsky.service.interfaces.ReportService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Optional;
 
 public class ClientEditReportCommand implements Command {
+
+    private static final String REPORT_ID = "reportId";
+    private static final String TITTLE = "tittle";
+    private static final String CONTENT = "content";
+    private static final String USER_ID = "userId";
+    private static final String REPORTS = "reports";
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        int reportId = Integer.parseInt(request.getParameter("reportId"));
-        String reportTittle = request.getParameter("tittle");
-        String reportContent = request.getParameter("content");
-        int clientId = (int) request.getSession().getAttribute("userId");
+        int reportId = Integer.parseInt(request.getParameter(REPORT_ID));
+        String reportTittle = request.getParameter(TITTLE);
+        String reportContent = request.getParameter(CONTENT);
+        int clientId = (int) request.getSession().getAttribute(USER_ID);
         ReportService reportService = new ReportServiceImpl();
         Report report = Report.newBuilder()
-            .withId(reportId)
-            .withTittle(reportTittle)
-            .withContent(reportContent)
-            .withStatus(ReportStatus.NEW)
-            .withClientId(clientId)
-            .build();
+                .withId(reportId)
+                .withTittle(reportTittle)
+                .withContent(reportContent)
+                .withStatus(ReportStatus.NEW)
+                .withClientId(clientId)
+                .build();
 
         reportService.update(report);
 
-        List<Report> reportList = reportService.getReportsByClientId(clientId).get();
-
-        request.setAttribute("reports", reportList);
+        Optional<List<Report>> optionalReportList = reportService.getReportsByClientId(clientId);
+        optionalReportList.ifPresent(reports -> request.setAttribute(REPORTS, reports));
 
         return new GetMainClientPageCommand().execute(request, response);
     }
 
-    //TODO: подумать- может вынести в отельный сервис создание страницы reports page
 }

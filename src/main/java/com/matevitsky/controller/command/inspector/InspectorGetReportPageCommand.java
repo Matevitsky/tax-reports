@@ -14,18 +14,17 @@ import static com.matevitsky.controller.constant.PageConstant.INSPECTOR_REPORT_P
 
 public class InspectorGetReportPageCommand implements Command {
 
+    public static final String REPORT_ID = "reportId";
+    public static final String REPORT = "report";
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        int reportId = Integer.parseInt(request.getParameter("reportId"));
+        int reportId = Integer.parseInt(request.getParameter(REPORT_ID));
         ReportService reportService = new ReportServiceImpl();
         Optional<Report> optionalReport = reportService.getById(reportId);
 
-        request.setAttribute("report", optionalReport.get());
-
-       /* int inspectorId = (int) request.getSession().getAttribute("userId");
-        InspectorService inspectorService = new InspectorServiceImpl();
-      //  inspectorService.addDataToRequest(request, inspectorId);*/
+        optionalReport.ifPresent(report -> request.setAttribute(REPORT, optionalReport.get()));
 
         return INSPECTOR_REPORT_PAGE;
     }

@@ -22,7 +22,6 @@ public class AdminAssignInspectorCommand implements Command {
         // adminService.prepareAdminPage(request);
 
 
-        //  adminService.addHeaderDataToRequest(request);
         return new AdminMainPageCommand().execute(request, response);
     }
 }

@@ -18,6 +18,9 @@ import java.util.*;
 
 public class ClientServiceImpl implements ClientService {
 
+    public static final String REPORT = "report";
+    private static final Logger LOGGER = Logger.getLogger(ClientServiceImpl.class);
+
     private final ClientRepository clientRepository;
 
 
@@ -26,7 +29,6 @@ public class ClientServiceImpl implements ClientService {
 
     }
 
-    private static final Logger LOGGER = Logger.getLogger(ClientServiceImpl.class);
 
     @Override
     public Optional<Client> register(Client client) {
@@ -55,18 +57,7 @@ public class ClientServiceImpl implements ClientService {
         ReportService reportService = new ReportServiceImpl();
         Optional<Report> reportById = reportService.getById(reportId);
         if (reportById.isPresent()) {
-            request.setAttribute("report", reportById.get());
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean addReportsListToRequest(HttpServletRequest request, int clientId) {
-        ReportService reportService = new ReportServiceImpl();
-        Optional<List<Report>> clientReportList = reportService.getReportsByClientId(clientId);
-        if (clientReportList.isPresent()) {
-            request.setAttribute("reports", clientReportList.get());
+            request.setAttribute(REPORT, reportById.get());
             return true;
         }
         return false;
@@ -116,29 +107,6 @@ public class ClientServiceImpl implements ClientService {
                 .build();
     }
 
-    @Override
-    public String getNameById(int clientId) {
-        String name = "";
-        Optional<Client> optionalClient = getById(clientId);
-        if (optionalClient.isPresent()) {
-            Client client = optionalClient.get();
-            name = client.getFirstName() + " " + client.getLastName();
-        }
-        return name;
-    }
-
-    @Override
-    public void putClientDataToRequest(HttpServletRequest request) {
-        int clientId = (int) request.getSession().getAttribute("userId");
-        ReportService reportService = new ReportServiceImpl();
-        Optional<List<Report>> clientActiveReports = reportService.getClientActiveReports(clientId);
-
-        Optional<Employee> optionalInspector = getInspector(clientId);
-
-        //   optionalInspector.ifPresent(employee -> request.setAttribute("inspector", employee));
-
-        // clientActiveReports.ifPresent(reports -> request.setAttribute("reports", reports));
-    }
 
     private Employee getFreeInspector() {
         InspectorService inspectorService = new InspectorServiceImpl();
@@ -150,14 +118,13 @@ public class ClientServiceImpl implements ClientService {
             inspectorList = optionalInspectorList.get();
             for (Employee inspector : inspectorList) {
                 Optional<List<Client>> optionalClients = getClientsByInspectorId(inspector.getId());
-
-                if (optionalClients.isPresent()) {
-                    List<Client> clientList = optionalClients.get();
-                    map.put(inspector, clientList.size());
-                }
+                optionalClients.ifPresent(clients ->
+                        map.put(inspector, clients.size()));
             }
         }
-        return Collections.min(map.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getKey();
+        return Collections.min(map.entrySet(),
+                Comparator.comparingInt(Map.Entry::getValue)).getKey();
+
     }
 
 

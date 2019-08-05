@@ -83,31 +83,16 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public Optional<List<Report>> getClientActiveReports(int clientId) {
-        Optional<List<Report>> byClientId = getReportsByClientId(clientId);
+        Optional<List<Report>> optionalReportList = getReportsByClientId(clientId);
         List<Report> reports;
-        if (byClientId.isPresent()) {
-            reports = byClientId.get();
-            reports.removeIf(report -> report.getStatus().equals(ReportStatus.ACCEPTED));
-            return Optional.ofNullable(reports);
+        if (optionalReportList.isPresent()) {
+            reports = optionalReportList.get();
+            optionalReportList.ifPresent(reports1 -> reports.removeIf(report -> report.getStatus().equals(ReportStatus.ACCEPTED)));
+            return Optional.of(reports);
         }
 
         return Optional.empty();
     }
-
-   /* @Override
-    public Optional<List<Report>> getInspectorNewReports(int clientId) {
-        Optional<List<Report>> byClientId = getReportsByClientId(clientId);
-        List<Report> reports;
-        if (byClientId.isPresent()) {
-            reports = byClientId.get();
-            return Optional.of(
-                    (reports.stream().filter(report -> report.getStatus().equals(ReportStatus.NEW))
-                            .collect(Collectors.toList())));
-
-        }
-        return Optional.empty();
-
-    }*/
 
     @Override
     public Report changeStatusToInProgress(Report report) {

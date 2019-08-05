@@ -18,12 +18,14 @@ import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class AdminServiceImpl implements AdminService {
 
     private static final Logger LOGGER = Logger.getLogger(AdminServiceImpl.class);
+    private static final String CLIENT_LIST = "clientList";
     private RequestInspectorChangeRepository requestInspectorChangeRepository;
     private RequestService requestService;
     private ClientRepository clientRepository;
@@ -40,67 +42,60 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void prepareAdminPage(HttpServletRequest request) {
+
         Optional<List<Request>> optionalRequests = requestService.getAll();
         List<Request> requestList = null;
         List<Client> clientList;
-        List<Employee> inspectorList = null;
+
         if (optionalRequests.isPresent()) {
             requestList = optionalRequests.get();
         }
-        clientList = requestList.stream().map(r -> clientService.getById(r.getClientId()).get()).collect(Collectors.toList());
+
+        clientList = Objects.requireNonNull(requestList)
+                .stream().map(r -> clientService.getById(r.getClientId()).get()).collect(Collectors.toList());
+        request.setAttribute(CLIENT_LIST, clientList);
 
         Optional<List<Employee>> optionalInspectors = inspectorService.getAll();
-        if (optionalInspectors.isPresent()) {
-            inspectorList = optionalInspectors.get();
-        }
-        request.setAttribute("inspectorList", inspectorList);
-        request.setAttribute("clientList", clientList);
-        addHeaderDataToRequest(request);
+        optionalInspectors.ifPresent(employees -> request.setAttribute("inspectorList", optionalInspectors.get()));
 
+        addRequestAmountToHeader(request);
     }
 
     @Override
-    public void addHeaderDataToRequest(HttpServletRequest request) {
+    public void addRequestAmountToHeader(HttpServletRequest request) {
         Optional<List<Request>> optionalRequestList = requestService.getAll();
         optionalRequestList.ifPresent(requests -> request.setAttribute("requestList", requests));
     }
 
-
-   /* private String getAdminName(int id) {
-        InspectorService inspectorService = new InspectorServiceImpl();
-        Optional<Employee> optionalAdmin = inspectorService.getById(id);
-        return optionalAdmin.map(employee -> employee.getFirstName() + " " + employee.getLastName()).orElse("");
-    }*/
 
     @Override
     public boolean assignInspector(int clientId, int inspectorId) {
         Connection connection = null;
         try {
             connection = ConnectorDB.getConnection();
-            Client client = null;
+            Client client;
             Optional<Client> optionalClient = clientService.getById(clientId);
             if (optionalClient.isPresent()) {
                 client = optionalClient.get();
+                Client assignedClient = Client.newClientBuilder()
+                        .withInspectorId(inspectorId)
+                        .withFirstName(client.getFirstName())
+                        .withLastName(client.getLastName())
+                        .withCompanyName(client.getCompanyName())
+                        .withEmail(client.getEmail())
+                        .withPassword(client.getPassword())
+                        .withId(clientId)
+                        .build();
+                connection.setAutoCommit(false);
+                clientRepository.update(assignedClient, connection);
+                requestInspectorChangeRepository.deleteByClientID(clientId, connection);
+
+                connection.commit();
+                connection.setAutoCommit(true);
             }
-            Client assignedClient = Client.newClientBuilder()
-                    .withInspectorId(inspectorId)
-                    .withFirstName(client.getFirstName())
-                    .withLastName(client.getLastName())
-                    .withCompanyName(client.getCompanyName())
-                    .withEmail(client.getEmail())
-                    .withPassword(client.getPassword())
-                    .withId(clientId)
-                    .build();
-            connection.setAutoCommit(false);
-            clientRepository.update(assignedClient, connection);
-            requestInspectorChangeRepository.deleteByClientID(clientId, connection);
-
-            connection.commit();
-            connection.setAutoCommit(true);
-
         } catch (SQLException e) {
             try {
-                connection.rollback();
+                Objects.requireNonNull(connection).rollback();
                 LOGGER.error("Transaction failed " + e.getMessage());
                 return false;
             } catch (SQLException s) {
@@ -111,6 +106,5 @@ public class AdminServiceImpl implements AdminService {
         return true;
 
     }
-
 
 }
