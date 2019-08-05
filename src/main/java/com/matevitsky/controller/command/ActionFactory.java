@@ -15,14 +15,14 @@ public class ActionFactory {
         String action = request.getParameter("command");
         if (action == null) {
             LOGGER.warn("command is NULL");
-            return current;
+            return null;
         }
         try {
             CommandList command = CommandList.valueOf(action.toUpperCase());
             current = command.getCommand();
         } catch (IllegalArgumentException e) {
-            LOGGER.warn("The command does not exist");
-            // return new ErrorCommand();
+            LOGGER.warn("The command " + action.toUpperCase() + " does not exist");
+
         }
         return current;
     }

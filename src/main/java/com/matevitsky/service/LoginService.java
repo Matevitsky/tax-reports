@@ -18,6 +18,11 @@ import static java.util.Locale.ENGLISH;
 public class LoginService {
 
 
+    public static final String USER_ID = "userId";
+    public static final String ROLE = "role";
+    public static final String CLIENT = "client";
+    public static final String ADMIN = "admin";
+    public static final String INSPECTOR = "inspector";
     private ClientService clientService;
     private InspectorService inspectorService;
     private ReportService reportService;
@@ -49,18 +54,18 @@ public class LoginService {
 
         if (optionalInspector.isPresent()) {
             Employee employee = optionalInspector.get();
-            request.getSession().setAttribute("userId", employee.getId());
+            request.getSession().setAttribute(USER_ID, employee.getId());
 
             request.getSession().setAttribute("adminName", employee.getFirstName() + " " + employee.getLastName());
             switch (employee.getEmployeeRole()) {
                 case INSPECTOR:
-                    request.getSession().setAttribute("role", "inspector");
+                    request.getSession().setAttribute(ROLE, INSPECTOR);
                     user = new UserForLogin(employee.getId(), employee.getEmail(), employee.getPassword(), UserForLogin.Role.INSPECTOR);
 
                     return user;
                 //TODO: поменять название на Like prepare inspector page
                 case ADMIN:
-                    request.getSession().setAttribute("role", "admin");
+                    request.getSession().setAttribute(ROLE, ADMIN);
                     user = new UserForLogin(employee.getId(), employee.getEmail(), employee.getPassword(), UserForLogin.Role.ADMIN);
                     adminService.prepareAdminPage(request);
                     return user;
@@ -70,13 +75,11 @@ public class LoginService {
             Optional<Client> optionalClient = clientService.findByEmail(email);
             if (optionalClient.isPresent()) {
                 Client client = optionalClient.get();
-                request.getSession().setAttribute("userId", client.getId());
-                request.getSession().setAttribute("role", "client");
+                request.getSession().setAttribute(USER_ID, client.getId());
+                request.getSession().setAttribute(ROLE, CLIENT);
                 request.getSession().setAttribute("clientName", client.getFirstName() + " " + client.getLastName());
-
                 Optional<Employee> inspector = clientService.getInspector(client.getId());
                 inspector.ifPresent(employee -> request.getSession().setAttribute("inspector", employee));
-
 
 
                 user = new UserForLogin(client.getId(), client.getEmail(), client.getPassword(), UserForLogin.Role.CLIENT);

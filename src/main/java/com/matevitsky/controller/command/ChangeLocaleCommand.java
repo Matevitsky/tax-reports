@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
+import java.util.Objects;
 
 
 public class ChangeLocaleCommand implements Command {
@@ -23,16 +24,17 @@ public class ChangeLocaleCommand implements Command {
         LOGGER.info("Locale: " + locale);
 
         String role = (String) request.getSession().getAttribute("role");
-        switch (role) {
-            case ("client"):
-                return new GetClientPageCommand().execute(request, response);
-            case ("admin"):
-                return new AdminMainPageCommand().execute(request, response);
-            case ("inspector"):
-                return new InspectorGetNewReportsCommand().execute(request, response);
-            default:
-                return null;
+        if (Objects.nonNull(role)) {
+            switch (role) {
+                case ("client"):
+                    return new GetClientPageCommand().execute(request, response);
+                case ("admin"):
+                    return new AdminMainPageCommand().execute(request, response);
+                case ("inspector"):
+                    return new InspectorGetNewReportsCommand().execute(request, response);
+            }
         }
+        return request.getParameter("uri");
 
     }
 

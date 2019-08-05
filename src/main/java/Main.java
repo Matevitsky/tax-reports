@@ -41,15 +41,15 @@ public class Main {
         //  System.out.println(MD5Util.encryptPassword("test"));
 
 
-        //TODO: create Header for client page
+
 
         //TODO: удалить все логгер дебаг
+        //TODO: сделать создание инспектора
+        //TODO: удалить get registration page
 
-        //TODO: inspector logout
-        //TODO: убрать button  колонку из таблиц
 
 
-        //TODO: СМЕНА ЯЗЫКОВ
-        //TODO: Once accepted report can't be decline massage inspector page
+
+
     }
 }

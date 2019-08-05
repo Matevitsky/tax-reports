@@ -2,6 +2,7 @@ package com.matevitsky.controller;
 
 import com.matevitsky.controller.command.ActionFactory;
 import com.matevitsky.controller.command.Command;
+import com.matevitsky.controller.constant.PageConstant;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -30,16 +31,15 @@ public class MainController extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        LOGGER.debug("Method processRequest " + request.getRequestURI());
         ActionFactory factory = new ActionFactory();
         Command command = factory.defineCommand(request);
 
         String goTo = command.execute(request, response);
-        if (Objects.nonNull(goTo)) {//Objects
+        if (Objects.nonNull(goTo)) {
             request.getRequestDispatcher(goTo).forward(request, response);
         } else {
-
-            // response.sendRedirect(PageConstant.ERROR_PAGE);
+            LOGGER.error("command.execute returned null");
+            response.sendRedirect(PageConstant.ERROR_PAGE);
         }
     }
 }

@@ -50,7 +50,7 @@
                             <td> ${inspectors[status.index].firstName} ${inspectors[status.index].lastName}</td>
                             <td>
                                 <button type="submit" class="btn btn-default" name="command"
-                                        value="admin_client_reports">
+                                        value="admin_customer_reports">
                                     <fmt:message bundle="${common}" key="clients.report"/>
                                 </button>
                             </td>

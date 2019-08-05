@@ -12,24 +12,33 @@
                     <input type="hidden" name="reportId" value=${report.id}>
 
                     <div class="form-group">
-                        <label>Tittle</label>
+                        <label>
+                            <fmt:message bundle="${common}" key="title"/>
+                        </label>
                         <input class="form-control" name="tittle" value="${report.tittle}">
                     </div>
 
                     <div class="form-group">
-                        <label>Report content</label>
+                        <label>
+                            <fmt:message bundle="${common}" key="report.content"/>
+                        </label>
                         <textarea class="form-control" rows="3" name="content">${report.content} </textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-default" name="command" value="edit_report">Save</button>
+                    <button type="submit" class="btn btn-default" name="command" value="client_edit_report">
+                        <fmt:message bundle="${common}" key="save"/>
+                    </button>
 
                     <c:if test="${(report.status != 'ACCEPTED')}">
-                        <button type="submit" class="btn btn-danger" name="command" value="delete_report">Delete
+                        <button type="submit" class="btn btn-danger" name="command" value="client_delete_report">
+                            <fmt:message bundle="${common}" key="delete"/>
                         </button>
                         <input type="hidden" name="reportId" value=${report.id}>
                     </c:if>
 
-                    <button type="submit" class="btn btn-default" name="command" value="all_reports">Cancel</button>
+                    <button type="submit" class="btn btn-default" name="command" value="client_all_reports">
+                        <fmt:message bundle="${common}" key="cancel"/>
+                    </button>
 
                 </form>
 

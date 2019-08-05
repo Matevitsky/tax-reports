@@ -1,7 +1,17 @@
 package com.matevitsky.controller.command.client;
 
-/*
-public class ClientGetEditPageCommand implements Command {
+import com.matevitsky.controller.command.Command;
+import com.matevitsky.entity.Report;
+import com.matevitsky.service.ReportServiceImpl;
+import com.matevitsky.service.interfaces.ReportService;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
+
+import static com.matevitsky.controller.constant.PageConstant.CLIENT_EDIT_REPORT_PAGE;
+
+public class ClientGetEditReportPageCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         int reportId = Integer.parseInt(request.getParameter("reportId"));
@@ -12,7 +22,6 @@ public class ClientGetEditPageCommand implements Command {
             Report reportForUpdate = optionalReport.get();
             request.setAttribute("report", reportForUpdate);
         }
-        return EDIT_VIEW_REPORT_PAGE;
+        return CLIENT_EDIT_REPORT_PAGE;
     }
 }
-*/

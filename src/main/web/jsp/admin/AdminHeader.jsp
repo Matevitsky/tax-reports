@@ -62,12 +62,12 @@
                 </li>
 
 
-                <li><a href="<c:url value="/app?command=admin_get_all_inspectors"/>">
+                <li><a href="<c:url value="/app?command=admin_get_all_supervisors"/>">
                     <i class="fas fa-user-graduate"></i>
                     <fmt:message bundle="${common}" key="inspectors"/>
                 </a></li>
 
-                <li><a href="<c:url value="/app?command=admin_get_all_clients"/>"><i class="fa fa-users"></i>
+                <li><a href="<c:url value="/app?command=admin_get_all_customers"/>"><i class="fa fa-users"></i>
                     <fmt:message bundle="${common}" key="clients"/>
                 </a></li>
             </ul>

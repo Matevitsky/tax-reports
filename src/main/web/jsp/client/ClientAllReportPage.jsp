@@ -14,9 +14,13 @@
             <thead>
 
             <tr>
-                <th class="th-sm">Tittle</th>
-                <th class="th-sm">Status</th>
-                <th class="th-sm">Button</th>
+                <th class="th-sm">
+                    <fmt:message bundle="${common}" key="title"/>
+                </th>
+                <th class="th-sm">
+                    <fmt:message bundle="${common}" key="status"/>
+                </th>
+                <th class="th-sm"></th>
 
             </tr>
 
@@ -32,22 +36,22 @@
                             <c:if test="${(report.status == 'NEW')|| report.status == 'DECLINED' }">
 
                                 <button type="submit" class="btn btn-primary">
-                                    EDIT
+                                    <fmt:message bundle="${common}" key="edit"/>
                                 </button>
 
-                                <input type="hidden" name="command" value="get_edit_report_page">
+                                <input type="hidden" name="command" value="client_get_edit_report_page">
                                 <input type="hidden" name="reportId" value=${report.id}>
 
                             </c:if>
-                            <c:if test="${report.status == 'ACCEPTED' }">
+                                <%--   <c:if test="${report.status == 'ACCEPTED' }">--%>
 
                                 <button type="submit" class="btn btn-primary">
-                                    VIEW
+                                    <fmt:message bundle="${common}" key="view"/>
                                 </button>
 
-                                <input type="hidden" name="command" value="get_view_report_page">
+                            <input type="hidden" name="command" value="client_view_report_page">
                                 <input type="hidden" name="reportId" value=${report.id}>
-                            </c:if>
+                                <%--    </c:if>--%>
 
                         </td>
 
@@ -61,9 +65,14 @@
 
             <tfoot>
             <tr>
-                <th class="th-sm">Tittle</th>
-                <th class="th-sm">Status</th>
-                <th class="th-sm">Button</th>
+                <th class="th-sm">
+                    <fmt:message bundle="${common}" key="title"/>
+                </th>
+                <th class="th-sm">
+                    <fmt:message bundle="${common}" key="status"/>
+                </th>
+                <th class="th-sm"></th>
+
 
             </tr>
             </tfoot>
@@ -71,49 +80,6 @@
     </div>
 </div>
 
-<%--<div class="modal fade" id="Modal" tabindex="-1" employeeRole="dialog" aria-labelledby="myModalLabel"
-     style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-notify modal-info" employeeRole="document">
-        <!--Content-->
-        <div class="modal-content">
-
-            <!--Header-->
-            <div class="modal-header">
-                <p class="heading lead">Report</p>
-            </div>
-
-            <!--Body-->
-            <div class="modal-body">
-                <div class="text-left">
-
-                    <div class="row">
-
-                        <div class="form-group">
-                            <label>Tittle</label>
-                            <input class="form-control" name="tittle" placeholder="${report.tittle}">
-
-                        </div>
-
-                        <div class="form-group">
-                            <label>Report content</label>
-                            <textarea class="form-control" rows="3" name="content">${report.id}
-                            </textarea>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <!--Footer-->
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-info waves-effect waves-light">Save</button>
-
-                <a type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">Cancel</a>
-            </div>
-        </div>
-        <!--/.Content-->
-    </div>
-</div>--%>
 
 
 </body>

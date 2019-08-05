@@ -11,21 +11,23 @@ public enum CommandList {
 
     GET_REGISTRATION_PAGE(new Command.GetRegistrationPageCommand()),
 
-    GET_CREATE_REPORT_PAGE(new ClientGetCreateReportPageCommand()),
+    CLIENT_GET_CREATE_REPORT_PAGE(new ClientGetCreateReportPageCommand()),
 
-    //  GET_EDIT_REPORT_PAGE(new ClientGetEditPageCommand()),
+    CLIENT_CREATE_REPORT(new ClientCreateReportCommand()),
 
-    CREATE_REPORT(new ClientCreateReportCommand()),
+    CLIENT_DELETE_REPORT(new ClientDeleteReport()),
 
-    DELETE_REPORT(new ClientDeleteReport()),
+    CLIENT_EDIT_REPORT(new ClientEditReportCommand()),
 
-    EDIT_REPORT(new ClientEditReportCommand()),
-
-    ALL_REPORTS(new ClientAllReportsCommand()),
+    CLIENT_ALL_REPORTS(new ClientAllReportsCommand()),
 
     GET_CLIENT_PAGE(new GetClientPageCommand()),
 
-    CLIENT_CHANGE_INSPECTOR(new ClientChangeInspectorCommand()),
+    CLIENT_VIEW_REPORT_PAGE(new ClientGetViewReportPage()),
+
+    CLIENT_GET_EDIT_REPORT_PAGE(new ClientGetEditReportPageCommand()),
+
+    CLIENT_CHANGE_SUPERVISOR(new ClientChangeInspectorCommand()),
 
     INSPECTOR_NEW_REPORTS(new InspectorGetNewReportsCommand()),
 
@@ -39,19 +41,17 @@ public enum CommandList {
 
     INSPECTOR_DECLINE_REPORT(new InspectorDeclineReportCommand()),
 
-    //   GET_VIEW_REPORT_PAGE(new ClientGetViewReportPage()),
-
     ADMIN_MAIN_PAGE(new AdminMainPageCommand()),
 
-    ADMIN_ASSIGN_INSPECTOR(new AdminAssignInspectorCommand()),
+    ADMIN_ASSIGN_SUPERVISOR(new AdminAssignInspectorCommand()),
 
-    ADMIN_GET_ALL_INSPECTORS(new AdminGetAllInspectorsCommand()),
+    ADMIN_GET_ALL_SUPERVISORS(new AdminGetAllInspectorsCommand()),
 
-    ADMIN_GET_ALL_CLIENTS(new AdminGetAllClientsCommand()),
+    ADMIN_GET_ALL_CUSTOMERS(new AdminGetAllClientsCommand()),
 
-    ADMIN_INSPECTOR_CLIENTS(new AdminInspectorClientsCommand()),
+    ADMIN_CUSTOMER_LIST(new AdminInspectorClientsCommand()),
 
-    ADMIN_CLIENT_REPORTS(new AdminClientReportsCommand()),
+    ADMIN_CUSTOMER_REPORTS(new AdminClientReportsCommand()),
 
     ADMIN_EDIT_REPORT(new AdminEditReportCommand()),
 
@@ -67,28 +67,6 @@ public enum CommandList {
 
 
     REGISTER(new RegisterCommand());
-
-   /* USER_ACTIVITY_REMOVE_REQUEST(new UserActivityRemoveCommand(Context.activityService)),
-
-    USER_REQUEST_ACTIVITY(new UserRequestActivityCommand(Context.activityService, Context.activityRequestService)),
-
-    ADMIN_GET_FINISHED_ACTIVITIES(new AdminGetFinishedActivitiesCommand(Context.activityService, Context.userService)),
-
-    ADMIN_MAIN_PAGE(new AdminMainPageCommand(Context.activityService)),
-
-    ADMIN_CREATE_NEW_ACTIVITY(new AdminCreateNewActivityCommand(Context.activityService)),
-
-    ADMIN_ACTIVITY_REQUESTS(new AdminActivityRequestsPageCommand(Context.userService, Context.activityService, Context.activityRequestService)),
-
-    ADMIN_REMOVE_ACTIVITY(new AdminRemoveActivityCommand(Context.activityService, Context.userService)),
-
-    ADMIN_ASSIGN_ACTIVITY_COMMAND(new AdminAssignActivityCommand(Context.userService, Context.activityService, Context.activityRequestService)),
-
-    ERROR(new ErrorCommand()),
-
-    LOGOUT(new LogOutCommand()),
-
-    CHANGE_LOCALE(new ChangeLocaleCommand(Context.activityService));*/
 
     private Command command;
 

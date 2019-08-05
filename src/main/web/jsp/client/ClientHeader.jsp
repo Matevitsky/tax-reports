@@ -52,12 +52,14 @@
         <ul id="active" class="nav navbar-nav side-nav">
 
 
-            <li><a href="/app?command=get_create_report_page"><i class="fa fa-plus"></i> <fmt:message bundle="${common}"
-                                                                                                      key="create.new.report"/></a>
+            <li><a href="/app?command=client_get_create_report_page"><i class="fa fa-plus"></i> <fmt:message
+                    bundle="${common}"
+                    key="create.new.report"/></a>
             </li>
 
-            <li><a href="/app?command=all_reports"><i class="fa fa-bars"></i> <fmt:message bundle="${common}"
-                                                                                           key="all.reports"/></a></li>
+            <li><a href="/app?command=client_all_reports"><i class="fa fa-bars"></i> <fmt:message bundle="${common}"
+                                                                                                  key="all.reports"/></a>
+            </li>
 
         </ul>
 
@@ -73,7 +75,7 @@
                         class="caret"></b></a>
                 <ul class="dropdown-menu">
 
-                    <li><a href="/app?command=client_change_inspector"><i class="fas fa-exchange-alt"></i>
+                    <li><a href="/app?command=client_change_supervisor"><i class="fas fa-exchange-alt"></i>
                         <fmt:message bundle="${common}" key="change.inspector"/>
                     </a></li>
                 </ul>

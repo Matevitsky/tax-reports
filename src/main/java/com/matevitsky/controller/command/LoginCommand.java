@@ -1,6 +1,7 @@
 package com.matevitsky.controller.command;
 
 import com.matevitsky.controller.command.client.GetClientPageCommand;
+import com.matevitsky.controller.command.inspector.InspectorGetNewReportsCommand;
 import com.matevitsky.dto.UserForLogin;
 import com.matevitsky.service.LoginService;
 import com.matevitsky.util.MD5Util;
@@ -9,7 +10,8 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.matevitsky.controller.constant.PageConstant.*;
+import static com.matevitsky.controller.constant.PageConstant.ADMIN_PAGE;
+import static com.matevitsky.controller.constant.PageConstant.LOGIN_PAGE;
 
 public class LoginCommand implements Command {
 
@@ -30,7 +32,7 @@ public class LoginCommand implements Command {
                     case ADMIN:
                         return ADMIN_PAGE;
                     case INSPECTOR:
-                        return INSPECTOR_PAGE;
+                        return new InspectorGetNewReportsCommand().execute(request, response);
                     case CLIENT:
                         return new GetClientPageCommand().execute(request, response);
                 }

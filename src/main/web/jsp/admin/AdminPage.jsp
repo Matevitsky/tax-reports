@@ -46,7 +46,7 @@
                             </td>
                             <td>
                                 <button type="submit" class="btn btn-default" name="command"
-                                        value="admin_assign_inspector">
+                                        value="admin_assign_supervisor">
                                     <fmt:message bundle="${common}" key="assign.inspector"/>
                                 </button>
 

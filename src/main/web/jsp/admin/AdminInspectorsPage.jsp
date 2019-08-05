@@ -41,7 +41,7 @@
 
                             <td>
                                 <button type="submit" class="btn btn-default" name="command"
-                                        value="admin_inspector_clients">
+                                        value="admin_customer_list">
                                     <fmt:message bundle="${common}" key="inspector.clients"/>
                                 </button>
                             </td>

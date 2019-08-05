@@ -16,19 +16,25 @@
 
                     <div class="form-group">
 
-                        <label>Tittle</label>
+                        <label>
+                            <fmt:message bundle="${common}" key="title"/>
+                        </label>
 
                         <input class="form-control" name="tittle" placeholder="${report.tittle}">
 
                     </div>
 
                     <div class="form-group">
-                        <label>Report content</label>
+                        <label>
+                            <fmt:message bundle="${common}" key="report.content"/>
+                        </label>
                         <textarea class="form-control" rows="3" name="content"> ${report.content} </textarea>
                     </div>
 
                     <div class="form-group">
-                        <label>Reason To Reject</label>
+                        <label>
+                            <fmt:message bundle="${common}" key="reason.to.reject"/>
+                        </label>
                         <textarea class="form-control" rows="3"
                                   name="reasonToReject">${report.reasonToReject} </textarea>
                     </div>
@@ -36,17 +42,17 @@
 
                     <form action="/app" method="get" style="display: inline">
                         <button type="submit" class="btn btn-default" name="command" value="inspector_accept_report">
-                            Accept
+                            <fmt:message bundle="${common}" key="accept"/>
                         </button>
 
                         <input type="hidden" name="reportId" value=${report.id}>
 
                         <button type="submit" class="btn btn-default" name="command" value="inspector_decline_report">
-                            Decline
+                            <fmt:message bundle="${common}" key="decline"/>
                         </button>
 
                         <button type="submit" class="btn btn-default" name="command" value="inspector_get_all_reports">
-                            Cancel
+                            <fmt:message bundle="${common}" key="cancel"/>
                         </button>
 
                     </form>
