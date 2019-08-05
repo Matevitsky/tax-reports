@@ -26,6 +26,8 @@ public class AuthenticationFilter implements Filter {
         if (uri.contains("/app")) {
             chain.doFilter(request, response);
         } else {
+            LOGGER.warn("User try to reach not existing page");
+
             response.sendRedirect(PageConstant.ERROR_PAGE);
         }
     }
