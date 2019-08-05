@@ -1,6 +1,7 @@
 package com.matevitsky.controller.command;
 
-import com.matevitsky.controller.command.client.GetClientPageCommand;
+import com.matevitsky.controller.command.admin.AdminMainPageCommand;
+import com.matevitsky.controller.command.client.GetMainClientPageCommand;
 import com.matevitsky.controller.command.inspector.InspectorGetNewReportsCommand;
 import com.matevitsky.dto.UserForLogin;
 import com.matevitsky.service.LoginService;
@@ -10,7 +11,6 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.matevitsky.controller.constant.PageConstant.ADMIN_PAGE;
 import static com.matevitsky.controller.constant.PageConstant.LOGIN_PAGE;
 
 public class LoginCommand implements Command {
@@ -24,21 +24,20 @@ public class LoginCommand implements Command {
         String password = request.getParameter("password");
         String encryptedPassword = MD5Util.encryptPassword(password);
         LoginService loginService = new LoginService();
+
         UserForLogin user = loginService.login(email, encryptedPassword, request);
 
-        if (user != null) {
-            if (user.getPassword().equals(encryptedPassword)) {
-                switch (user.getRole()) {
-                    case ADMIN:
-                        return ADMIN_PAGE;
-                    case INSPECTOR:
-                        return new InspectorGetNewReportsCommand().execute(request, response);
-                    case CLIENT:
-                        return new GetClientPageCommand().execute(request, response);
-                }
+        if (user != null && user.getPassword().equals(encryptedPassword)) {
+            switch (user.getRole()) {
+                case ADMIN:
+                    return new AdminMainPageCommand().execute(request, response);
+                case INSPECTOR:
+                    return new InspectorGetNewReportsCommand().execute(request, response);
+                case CLIENT:
+                    return new GetMainClientPageCommand().execute(request, response);
             }
         }
-        LOGGER.info("User with email not exist");
+        LOGGER.info("User with email" + email + " not exist");
         return LOGIN_PAGE;
 
     }

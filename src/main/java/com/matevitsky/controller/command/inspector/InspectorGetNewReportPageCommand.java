@@ -2,9 +2,7 @@ package com.matevitsky.controller.command.inspector;
 
 import com.matevitsky.controller.command.Command;
 import com.matevitsky.entity.Report;
-import com.matevitsky.service.InspectorServiceImpl;
 import com.matevitsky.service.ReportServiceImpl;
-import com.matevitsky.service.interfaces.InspectorService;
 import com.matevitsky.service.interfaces.ReportService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,10 +25,6 @@ public class InspectorGetNewReportPageCommand implements Command {
         }
 
         request.setAttribute("report", report);
-
-        int inspectorId = (int) request.getSession().getAttribute("userId");
-        InspectorService inspectorService = new InspectorServiceImpl();
-        //  inspectorService.addDataToRequest(request, inspectorId);
 
         return INSPECTOR_REPORT_PAGE;
     }

@@ -1,7 +1,7 @@
 package com.matevitsky.controller.command;
 
 import com.matevitsky.controller.command.admin.AdminMainPageCommand;
-import com.matevitsky.controller.command.client.GetClientPageCommand;
+import com.matevitsky.controller.command.client.GetMainClientPageCommand;
 import com.matevitsky.controller.command.inspector.InspectorGetNewReportsCommand;
 import com.matevitsky.service.ResourceManager;
 import org.apache.log4j.Logger;
@@ -27,7 +27,7 @@ public class ChangeLocaleCommand implements Command {
         if (Objects.nonNull(role)) {
             switch (role) {
                 case ("client"):
-                    return new GetClientPageCommand().execute(request, response);
+                    return new GetMainClientPageCommand().execute(request, response);
                 case ("admin"):
                     return new AdminMainPageCommand().execute(request, response);
                 case ("inspector"):

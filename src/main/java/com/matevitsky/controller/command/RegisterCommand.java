@@ -1,7 +1,7 @@
 package com.matevitsky.controller.command;
 
 
-import com.matevitsky.controller.command.client.GetClientPageCommand;
+import com.matevitsky.controller.command.client.GetMainClientPageCommand;
 import com.matevitsky.entity.Client;
 import com.matevitsky.exception.WrongInputException;
 import com.matevitsky.service.ClientServiceImpl;
@@ -57,6 +57,6 @@ public class RegisterCommand implements Command {
         }
         //TODO: Create Client Page подправить чтобы было красиво
 
-        return new GetClientPageCommand().execute(request, response);
+        return new GetMainClientPageCommand().execute(request, response);
     }
 }

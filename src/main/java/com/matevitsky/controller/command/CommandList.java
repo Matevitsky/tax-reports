@@ -21,7 +21,7 @@ public enum CommandList {
 
     CLIENT_ALL_REPORTS(new ClientAllReportsCommand()),
 
-    GET_CLIENT_PAGE(new GetClientPageCommand()),
+    GET_CLIENT_PAGE(new GetMainClientPageCommand()),
 
     CLIENT_VIEW_REPORT_PAGE(new ClientGetViewReportPage()),
 

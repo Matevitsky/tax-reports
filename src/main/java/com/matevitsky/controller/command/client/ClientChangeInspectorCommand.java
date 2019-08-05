@@ -16,7 +16,7 @@ public class ClientChangeInspectorCommand implements Command {
         Request changeInspectorRequest = new Request(0, clientId);
         requestService.create(changeInspectorRequest);
 
-        return new GetClientPageCommand().execute(request, response);
+        return new GetMainClientPageCommand().execute(request, response);
         //TODO: Notify client about success
     }
 }

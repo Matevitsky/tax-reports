@@ -14,6 +14,6 @@ public class ClientDeleteReport implements Command {
         ReportService reportService = new ReportServiceImpl();
         reportService.deleteById(reportId);
 
-        return new GetClientPageCommand().execute(request, response);
+        return new GetMainClientPageCommand().execute(request, response);
     }
 }

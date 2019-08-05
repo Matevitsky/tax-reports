@@ -12,7 +12,7 @@ import java.util.Optional;
 
 import static com.matevitsky.controller.constant.PageConstant.CLIENT_PAGE;
 
-public class GetClientPageCommand implements Command {
+public class GetMainClientPageCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

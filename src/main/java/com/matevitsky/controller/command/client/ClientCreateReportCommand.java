@@ -37,6 +37,6 @@ public class ClientCreateReportCommand implements Command {
         ReportService reportService = new ReportServiceImpl();
         reportService.create(report);
 
-        return new GetClientPageCommand().execute(request, response);
+        return new GetMainClientPageCommand().execute(request, response);
     }
 }

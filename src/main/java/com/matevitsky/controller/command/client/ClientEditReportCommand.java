@@ -33,7 +33,7 @@ public class ClientEditReportCommand implements Command {
 
         request.setAttribute("reports", reportList);
 
-        return new GetClientPageCommand().execute(request, response);
+        return new GetMainClientPageCommand().execute(request, response);
     }
 
     //TODO: подумать- может вынести в отельный сервис создание страницы reports page
