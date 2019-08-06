@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.matevitsky.controller.constant.ParameterConstant.*;
+
 public class ReportRepositoryImpl extends CrudRepositoryImpl<Report> implements ReportRepository {
 
     private static final Logger LOGGER = Logger.getLogger(ReportRepositoryImpl.class);
@@ -76,17 +78,18 @@ public class ReportRepositoryImpl extends CrudRepositoryImpl<Report> implements 
 
     @Override
     protected Report mapToObject(ResultSet resultSet) {
+
         Report report = null;
         try {
             if (resultSet.isBeforeFirst()) {
                 resultSet.next();
             }
-            int id = resultSet.getInt("report_id");
-            String tittle = resultSet.getString("tittle");
-            String content = resultSet.getString("content");
-            String reportStatus = resultSet.getString("report_status");
-            String cancellationReason = resultSet.getString("reason_to_reject");
-            int clientId = resultSet.getInt("client_id");
+            int id = resultSet.getInt(REPORT_ID);
+            String tittle = resultSet.getString(TITTLE);
+            String content = resultSet.getString(CONTENT);
+            String reportStatus = resultSet.getString(REPORT_STATUS);
+            String cancellationReason = resultSet.getString(REASON_TO_REJECT);
+            int clientId = resultSet.getInt(CLIENT_ID);
 
             report = Report.newBuilder()
                     .withId(id)
@@ -104,7 +107,9 @@ public class ReportRepositoryImpl extends CrudRepositoryImpl<Report> implements 
 
     @Override
     public Optional<List<Report>> getByClientId(int clientId, Connection connection) {
+
         String sqlQuery = String.format(SELECT_ALL_BY_CLIENT_ID, clientId);
+
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             ResultSet resultSet = statement.executeQuery();
             return Optional.ofNullable(mapToList(resultSet));

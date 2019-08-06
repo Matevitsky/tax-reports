@@ -11,6 +11,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.matevitsky.controller.constant.ParameterConstant.CLIENT_ID;
+import static com.matevitsky.controller.constant.ParameterConstant.REQUEST_ID;
+
 public class RequestInspectorChangeRepositoryImpl extends CrudRepositoryImpl<Request> implements RequestInspectorChangeRepository {
 
     private static final Logger LOGGER = Logger.getLogger(RequestInspectorChangeRepositoryImpl.class);
@@ -20,6 +23,7 @@ public class RequestInspectorChangeRepositoryImpl extends CrudRepositoryImpl<Req
     private static final String SELECT_REQUEST_BY_ID = "SELECT * FROM requests WHERE request_id='%d'";
     private static final String SELECT_ALL_REQUESTS = "SELECT * FROM requests";
     private static final String DELETE_REQUEST_BY_CLIENT_ID = "DELETE FROM requests WHERE client_id='%d'";
+
 
 
     @Override
@@ -49,8 +53,10 @@ public class RequestInspectorChangeRepositoryImpl extends CrudRepositoryImpl<Req
 
     @Override
     protected List<Request> mapToList(ResultSet resultSet) {
+
         List<Request> allRequestList = new ArrayList<>();
         Request request;
+
         try {
             while (resultSet.next()) {
                 request = mapToObject(resultSet);
@@ -71,8 +77,8 @@ public class RequestInspectorChangeRepositoryImpl extends CrudRepositoryImpl<Req
             if (resultSet.isBeforeFirst()) {
                 resultSet.next();
             }
-            int id = resultSet.getInt("request_id");
-            int clientId = resultSet.getInt("client_id");
+            int id = resultSet.getInt(REQUEST_ID);
+            int clientId = resultSet.getInt(CLIENT_ID);
             request = new Request(id, clientId);
 
         } catch (SQLException e) {
@@ -83,6 +89,7 @@ public class RequestInspectorChangeRepositoryImpl extends CrudRepositoryImpl<Req
 
     @Override
     public void deleteByClientID(int clientId, Connection connection) throws SQLException {
+
         String sqlQuery = String.format(DELETE_REQUEST_BY_CLIENT_ID, clientId);
 
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {

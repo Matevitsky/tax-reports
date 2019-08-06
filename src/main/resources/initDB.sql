@@ -35,21 +35,21 @@ CREATE TABLE employees
 
 
 
-CREATE TABLE clients
+create table clients
 (
-    client_id    INT AUTO_INCREMENT,
-    first_name   VARCHAR(64)  NOT NULL,
-    last_name    VARCHAR(64)  NOT NULL,
-    email        VARCHAR(255) NOT NULL UNIQUE,
-    password     VARCHAR(32)  NOT NULL,
-    company_name VARCHAR(255) NOT NULL,
-    inspector_id INT,
-
-
-    PRIMARY KEY (client_id),
-    FOREIGN KEY (company_name) REFERENCES companies (company_name),
-    FOREIGN KEY (inspector_id) REFERENCES employees (employee_id)
+    client_id   INT auto_increment,
+    first_name  VARCHAR(64)  not null,
+    last_name   VARCHAR(64)  not null,
+    email       VARCHAR(255) not null,
+    password    VARCHAR(32)  not null,
+    company_id  INT          not null,
+    employee_id INT          null,
+    primary key (client_id),
+    foreign key (company_id) references Tax.companies (company_id),
+    foreign key (employee_id) references Tax.employees (employee_id)
 );
+
+
 
 CREATE TABLE requests
 (
@@ -89,6 +89,6 @@ INSERT INTO companies(company_name)
     value ('Samsung')
     ON DUPLICATE KEY UPDATE company_id = company_id + 0;
 
-INSERT INTO clients(first_name, last_name, email, password, company_name, inspector_id)
+INSERT INTO clients(first_name, last_name, email, password, company_name, employee_id)
     value ('client', 'client', 'test3@test.tes', '098f6bcd4621d373cade4e832627b4f6', 'Samsung', 1);
 

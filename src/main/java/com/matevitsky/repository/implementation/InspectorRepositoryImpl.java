@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.matevitsky.controller.constant.ParameterConstant.*;
+
 public class InspectorRepositoryImpl extends CrudRepositoryImpl<Employee> implements InspectorRepository {
 
     private static final Logger LOGGER = Logger.getLogger(InspectorRepositoryImpl.class);
@@ -35,9 +37,10 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Employee> implem
     private static final String SELECT_INSPECTOR_BY_EMAIL_SQL = "SELECT * FROM employees WHERE email='%s'";
     private static final String SELECT_INSPECTOR_REPORTS_SQL =
             "SELECT report_id,tittle,clients.first_name,clients.last_name,clients.client_id," +
-                    "clients.inspector_id,report_status\n" +
+                "clients.employee_id,report_status\n" +
                     "FROM clients,reports\n" +
-                    "WHERE reports.client_id=clients.client_id AND clients.inspector_id='%d'";
+                "WHERE reports.client_id=clients.client_id AND clients.employee_id='%d'";
+
 
 
     @Override
@@ -71,8 +74,10 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Employee> implem
 
     @Override
     protected List<Employee> mapToList(ResultSet resultSet) {
+
         List<Employee> allInspectorList = new ArrayList<>();
         Employee inspector;
+
         try {
             while (resultSet.next()) {
                 inspector = mapToObject(resultSet);
@@ -81,23 +86,23 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Employee> implem
         } catch (SQLException e) {
             LOGGER.warn("GetAll method return empty RowSet");
         }
-
         return allInspectorList;
     }
 
     @Override
     protected Employee mapToObject(ResultSet resultSet) {
         Employee inspector = null;
+
         try {
             if (resultSet.isBeforeFirst()) {
                 resultSet.next();
             }
-            int id = resultSet.getInt("employee_id");
-            String firstName = resultSet.getString("first_name");
-            String lastName = resultSet.getString("last_name");
-            String email = resultSet.getString("email");
-            String password = resultSet.getString("password");
-            String role = resultSet.getString("employee_role");
+            int id = resultSet.getInt(EMPLOYEE_ID);
+            String firstName = resultSet.getString(FIRST_NAME);
+            String lastName = resultSet.getString(LAST_NAME);
+            String email = resultSet.getString(EMAIL);
+            String password = resultSet.getString(PASSWORD);
+            String role = resultSet.getString(EMPLOYEE_ROLE);
 
             inspector = Employee.newBuilder()
                     .withId(id)
@@ -115,7 +120,9 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Employee> implem
 
     @Override
     public Optional<Employee> findByEmail(String email, Connection connection) {
+
         String sqlQuery = String.format(SELECT_INSPECTOR_BY_EMAIL_SQL, email);
+
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             ResultSet resultSet = statement.executeQuery();
             return Optional.ofNullable(mapToObject(resultSet));
@@ -129,8 +136,11 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Employee> implem
 
     @Override
     public Optional<List<ReportWithClientName>> getAllClientReports(int inspectorId, Connection connection) {
+
         String sqlQuery = String.format(SELECT_INSPECTOR_REPORTS_SQL, inspectorId);
+
         List<ReportWithClientName> inspectorReportList = new ArrayList<>();
+
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             ResultSet resultSet = statement.executeQuery();
             ReportWithClientName reportWithClientName;
@@ -150,12 +160,14 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Employee> implem
         } catch (SQLException e) {
             LOGGER.error("Failed to get entity by ID " + e.getMessage());
         }
-        return Optional.ofNullable(inspectorReportList);
+        return Optional.of(inspectorReportList);
     }
 
 
     private ReportWithClientName mapToReportWithClientName(ResultSet resultSet) {
+
         ReportWithClientName report = null;
+
         try {
             int reportId = resultSet.getInt("report_id");
             String clientFirstName = resultSet.getString("first_name");

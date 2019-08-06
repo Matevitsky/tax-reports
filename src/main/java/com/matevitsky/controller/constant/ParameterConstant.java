@@ -27,5 +27,9 @@ public final class ParameterConstant {
     public static final String ROLE = "role";
     public static final String URI = "uri";
     public static final String EMAIL = "email";
+    public static final String EMPLOYEE_ID = "employee_id";
+    public static final String EMPLOYEE_ROLE = "employee_role";
+    public static final String REPORT_STATUS = "report_status";
+    public static final String REQUEST_ID = "request_id";
 
 }
