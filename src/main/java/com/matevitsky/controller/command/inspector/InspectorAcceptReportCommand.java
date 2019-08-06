@@ -7,16 +7,17 @@ import com.matevitsky.service.interfaces.InspectorService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static com.matevitsky.controller.constant.ParameterConstant.REPORT_ID;
+
 public class InspectorAcceptReportCommand implements Command {
 
-    private static final String REPORT_ID = "reportId";
+    private final InspectorService inspectorService = new InspectorServiceImpl();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         int reportId = Integer.parseInt(request.getParameter(REPORT_ID));
 
-        InspectorService inspectorService = new InspectorServiceImpl();
         inspectorService.acceptReport(reportId);
 
         return new InspectorGetAllReportsCommand().execute(request, response);

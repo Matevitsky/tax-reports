@@ -9,8 +9,6 @@ public enum CommandList {
 
     LOGIN(new LoginCommand()),
 
-    GET_REGISTRATION_PAGE(new Command.GetRegistrationPageCommand()),
-
     CLIENT_GET_CREATE_REPORT_PAGE(new ClientGetCreateReportPageCommand()),
 
     CLIENT_CREATE_REPORT(new ClientCreateReportCommand()),

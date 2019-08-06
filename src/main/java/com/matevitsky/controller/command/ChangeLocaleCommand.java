@@ -11,22 +11,23 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
 import java.util.Objects;
 
+import static com.matevitsky.controller.constant.ParameterConstant.*;
+
 
 public class ChangeLocaleCommand implements Command {
+
     private static final Logger LOGGER = Logger.getLogger(ChangeLocaleCommand.class);
-    private static final String CLIENT = "client";
-    private static final String ADMIN = "admin";
-    private static final String INSPECTOR = "inspector";
+
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        String locale = request.getParameter("locale");
+        String locale = request.getParameter(LOCALE);
         ResourceManager.INSTANCE.changeResource(Locale.forLanguageTag(locale));
-        request.getSession().setAttribute("locale", locale);
+        request.getSession().setAttribute(LOCALE, locale);
         LOGGER.info("Locale: " + locale);
 
-        String role = (String) request.getSession().getAttribute("role");
+        String role = (String) request.getSession().getAttribute(ROLE);
         if (Objects.nonNull(role)) {
             switch (role) {
                 case CLIENT:
@@ -37,7 +38,7 @@ public class ChangeLocaleCommand implements Command {
                     return new InspectorGetNewReportsCommand().execute(request, response);
             }
         }
-        return request.getParameter("uri");
+        return request.getParameter(URI);
 
     }
 

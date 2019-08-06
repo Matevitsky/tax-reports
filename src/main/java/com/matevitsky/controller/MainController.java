@@ -15,6 +15,8 @@ import java.util.Objects;
 
 @WebServlet(urlPatterns = "/app/*")
 public class MainController extends HttpServlet {
+    private final ActionFactory factory = new ActionFactory();
+
 
     private static final Logger LOGGER = Logger.getLogger(MainController.class);
 
@@ -31,10 +33,10 @@ public class MainController extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        ActionFactory factory = new ActionFactory();
         Command command = factory.defineCommand(request);
 
         String goTo = command.execute(request, response);
+
         if (Objects.nonNull(goTo)) {
             request.getRequestDispatcher(goTo).forward(request, response);
         } else {

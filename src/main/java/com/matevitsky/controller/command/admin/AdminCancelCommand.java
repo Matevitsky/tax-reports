@@ -13,17 +13,17 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.matevitsky.controller.constant.PageConstant.ADMIN_REPORTS_PAGE;
+import static com.matevitsky.controller.constant.ParameterConstant.*;
 
 public class AdminCancelCommand implements Command {
 
-    private static final String CLIENT_ID = "clientId";
-    private static final String CLIENT_NAME = "clientName";
-    private static final String REPORTS = "reports";
+    private final ReportService reportService = new ReportServiceImpl();
+    private final AdminService adminService = new AdminServiceImpl();
+
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        ReportService reportService = new ReportServiceImpl();
         int clientId = (int) request.getSession().getAttribute(CLIENT_ID);
         String clientName = (String) request.getSession().getAttribute(CLIENT_NAME);
 
@@ -33,7 +33,7 @@ public class AdminCancelCommand implements Command {
             request.setAttribute(CLIENT_NAME, clientName);
         });
 
-        AdminService adminService = new AdminServiceImpl();
+
         adminService.addRequestAmountToHeader(request);
 
         return ADMIN_REPORTS_PAGE;

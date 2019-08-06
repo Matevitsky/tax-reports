@@ -3,6 +3,7 @@ package com.matevitsky.controller.command;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 public class ActionFactory {
 
@@ -14,9 +15,9 @@ public class ActionFactory {
 
         Command current = null;
         String action = request.getParameter(COMMAND);
-        if (action == null) {
+        if (Objects.isNull(action)) {
             LOGGER.warn("command is NULL");
-            return null;
+            return current;
         }
         try {
             CommandList command = CommandList.valueOf(action.toUpperCase());

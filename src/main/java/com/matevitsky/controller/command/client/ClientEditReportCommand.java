@@ -11,13 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;
 
+import static com.matevitsky.controller.constant.ParameterConstant.*;
+
 public class ClientEditReportCommand implements Command {
 
-    private static final String REPORT_ID = "reportId";
-    private static final String TITTLE = "tittle";
-    private static final String CONTENT = "content";
-    private static final String USER_ID = "userId";
-    private static final String REPORTS = "reports";
+    private final ReportService reportService = new ReportServiceImpl();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -26,7 +24,7 @@ public class ClientEditReportCommand implements Command {
         String reportTittle = request.getParameter(TITTLE);
         String reportContent = request.getParameter(CONTENT);
         int clientId = (int) request.getSession().getAttribute(USER_ID);
-        ReportService reportService = new ReportServiceImpl();
+
         Report report = Report.newBuilder()
                 .withId(reportId)
                 .withTittle(reportTittle)

@@ -11,17 +11,18 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.matevitsky.controller.constant.PageConstant.CLIENT_ALL_REPORT_PAGE;
+import static com.matevitsky.controller.constant.ParameterConstant.REPORTS;
+import static com.matevitsky.controller.constant.ParameterConstant.USER_ID;
 
 public class ClientAllReportsCommand implements Command {
 
-    private static final String USER_ID = "userId";
-    private static final String REPORTS = "reports";
+    private final ReportService reportService = new ReportServiceImpl();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         int clientId = (int) request.getSession().getAttribute(USER_ID);
-        ReportService reportService = new ReportServiceImpl();
+
         Optional<List<Report>> clientActiveReports = reportService.getReportsByClientId(clientId);
         clientActiveReports.ifPresent(reports -> request.setAttribute(REPORTS, reports));
 

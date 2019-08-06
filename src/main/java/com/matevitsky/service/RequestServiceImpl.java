@@ -37,11 +37,11 @@ public class RequestServiceImpl implements RequestService {
     public boolean deleteById(Integer id) {
         try (Connection connection = ConnectorDB.getConnection()) {
             requestInspectorChangeRepository.deleteById(id, connection);
-            return true;
         } catch (SQLException e) {
             LOGGER.error("Failed to get entity by ID " + e.getMessage());
+            return false;
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -67,5 +67,16 @@ public class RequestServiceImpl implements RequestService {
             LOGGER.error("Failed to all entities" + e.getMessage());
         }
         return Optional.empty();
+    }
+
+    @Override
+    public boolean deleteByClientID(int clientId) {
+        try (Connection connection = ConnectorDB.getConnection()) {
+            requestInspectorChangeRepository.deleteByClientID(clientId, connection);
+        } catch (SQLException e) {
+            LOGGER.error("Failed to all entities" + e.getMessage());
+            return false;
+        }
+        return true;
     }
 }

@@ -17,16 +17,17 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.matevitsky.controller.constant.PageConstant.ADMIN_CLIENTS_PAGE;
+import static com.matevitsky.controller.constant.ParameterConstant.CLIENTS;
+import static com.matevitsky.controller.constant.ParameterConstant.INSPECTORS;
 
 public class AdminGetAllClientsCommand implements Command {
 
-    private static final String CLIENTS = "clients";
-    private static final String INSPECTORS = "inspectors";
+    private final ClientService clientService = new ClientServiceImpl();
+    private final InspectorService inspectorService = new InspectorServiceImpl();
+    private final AdminService adminService = new AdminServiceImpl();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        ClientService clientService = new ClientServiceImpl();
-        InspectorService inspectorService = new InspectorServiceImpl();
 
         List<Client> clientList = new ArrayList<>();
         List<Employee> inspectorList = new ArrayList<>();
@@ -34,16 +35,22 @@ public class AdminGetAllClientsCommand implements Command {
 
         if (optionalClients.isPresent()) {
             clientList = optionalClients.get();
+
             for (Client c : clientList) {
                 Optional<Employee> optionalInspector = inspectorService.getById(c.getInspectorId());
+                //TODO: заменить на запрос IN sql
                 optionalInspector.ifPresent(inspectorList::add);
             }
         }
 
+      /*  optionalClients.ifPresent(clients -> {
+            clients.forEach(inspectorService.getById());
+        });*/
+
+
         request.setAttribute(CLIENTS, clientList);
         request.setAttribute(INSPECTORS, inspectorList);
 
-        AdminService adminService = new AdminServiceImpl();
         adminService.addRequestAmountToHeader(request);
 
         return ADMIN_CLIENTS_PAGE;

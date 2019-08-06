@@ -8,15 +8,18 @@ import com.matevitsky.service.interfaces.RequestService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static com.matevitsky.controller.constant.ParameterConstant.USER_ID;
+
 public class ClientChangeInspectorCommand implements Command {
 
-    private static final String USER_ID = "userId";
+    private final RequestService requestService = new RequestServiceImpl();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        RequestService requestService = new RequestServiceImpl();
+
         int clientId = (int) request.getSession().getAttribute(USER_ID);
         Request changeInspectorRequest = new Request(0, clientId);
+
         requestService.create(changeInspectorRequest);
 
         return new GetMainClientPageCommand().execute(request, response);

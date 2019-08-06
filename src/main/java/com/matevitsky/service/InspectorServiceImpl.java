@@ -61,6 +61,7 @@ public class InspectorServiceImpl implements InspectorService {
 
     @Override
     public Optional<Employee> getById(Integer id) {
+        //TODO: return int
         try (Connection connection = ConnectorDB.getConnection()) {
             return inspectorRepository.getById(id, connection);
         } catch (SQLException e) {

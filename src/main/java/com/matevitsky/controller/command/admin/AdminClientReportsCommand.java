@@ -13,12 +13,12 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.matevitsky.controller.constant.PageConstant.ADMIN_REPORTS_PAGE;
+import static com.matevitsky.controller.constant.ParameterConstant.*;
 
 public class AdminClientReportsCommand implements Command {
 
-    private static final String CLIENT_ID = "clientId";
-    private static final String CLIENT_NAME = "clientName";
-    private static final String REPORTS = "reports";
+    private final ReportService reportService = new ReportServiceImpl();
+    private final AdminService adminService = new AdminServiceImpl();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -28,13 +28,13 @@ public class AdminClientReportsCommand implements Command {
         request.getSession().setAttribute(CLIENT_ID, clientId);
         request.getSession().setAttribute(CLIENT_NAME, clientName);
 
-        ReportService reportService = new ReportServiceImpl();
         Optional<List<Report>> optionalReportList = reportService.getReportsByClientId(clientId);
         optionalReportList.ifPresent(reports -> {
             request.setAttribute(REPORTS, reports);
             request.setAttribute(CLIENT_NAME, clientName);
         });
-        AdminService adminService = new AdminServiceImpl();
+
+
         adminService.addRequestAmountToHeader(request);
         return ADMIN_REPORTS_PAGE;
     }

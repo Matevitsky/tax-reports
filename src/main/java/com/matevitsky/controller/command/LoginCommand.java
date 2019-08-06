@@ -12,20 +12,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static com.matevitsky.controller.constant.PageConstant.LOGIN_PAGE;
+import static com.matevitsky.controller.constant.ParameterConstant.EMAIL;
+import static com.matevitsky.controller.constant.ParameterConstant.PASSWORD;
 
 public class LoginCommand implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(LoginCommand.class);
-    private static final String EMAIL = "email";
-    private static final String PASSWORD = "password";
 
+    private final LoginService loginService = new LoginService();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+
         String email = request.getParameter(EMAIL);
         String password = request.getParameter(PASSWORD);
         String encryptedPassword = MD5Util.encryptPassword(password);
-        LoginService loginService = new LoginService();
 
         UserForLogin user = loginService.login(email, encryptedPassword, request);
 
@@ -40,8 +41,8 @@ public class LoginCommand implements Command {
             }
         }
         LOGGER.info("User with email" + email + " not exist");
-        return LOGIN_PAGE;
 
+        return LOGIN_PAGE;
     }
 }
 

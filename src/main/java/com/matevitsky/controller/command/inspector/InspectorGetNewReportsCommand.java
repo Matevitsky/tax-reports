@@ -11,16 +11,17 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.matevitsky.controller.constant.PageConstant.INSPECTOR_PAGE;
+import static com.matevitsky.controller.constant.ParameterConstant.REPORTS;
+import static com.matevitsky.controller.constant.ParameterConstant.USER_ID;
 
 public class InspectorGetNewReportsCommand implements Command {
 
-    private static final String USER_ID = "userId";
-    private static final String REPORTS = "reports";
+    private final InspectorService inspectorService = new InspectorServiceImpl();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+
         int inspectorId = (int) request.getSession().getAttribute(USER_ID);
-        InspectorService inspectorService = new InspectorServiceImpl();
 
         Optional<List<ReportWithClientName>> optionalReports = inspectorService.getNewReports(inspectorId);
         optionalReports.ifPresent(reportWithClientNames -> request.setAttribute(REPORTS, reportWithClientNames));

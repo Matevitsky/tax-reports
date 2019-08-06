@@ -7,20 +7,23 @@ import com.matevitsky.service.interfaces.AdminService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static com.matevitsky.controller.constant.ParameterConstant.CLIENT_ID;
+import static com.matevitsky.controller.constant.ParameterConstant.INSPECTOR_ID;
+
 public class AdminAssignInspectorCommand implements Command {
+
+    private final AdminService adminService = new AdminServiceImpl();
+
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        AdminService adminService = new AdminServiceImpl();
-
-        int clientId = Integer.parseInt(request.getParameter("clientId"));
-        int inspectorId = Integer.parseInt(request.getParameter("inspectorId"));
+        int clientId = Integer.parseInt(request.getParameter(CLIENT_ID));
+        int inspectorId = Integer.parseInt(request.getParameter(INSPECTOR_ID));
 
         adminService.assignInspector(clientId, inspectorId);
 
         //TODO: return message to user from admin service
-        // adminService.prepareAdminPage(request);
-
 
         return new AdminMainPageCommand().execute(request, response);
     }

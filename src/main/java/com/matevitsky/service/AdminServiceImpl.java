@@ -27,10 +27,10 @@ public class AdminServiceImpl implements AdminService {
     private static final Logger LOGGER = Logger.getLogger(AdminServiceImpl.class);
     private static final String CLIENT_LIST = "clientList";
     private RequestInspectorChangeRepository requestInspectorChangeRepository;
-    private RequestService requestService;
-    private ClientRepository clientRepository;
-    private InspectorService inspectorService;
-    private ClientService clientService;
+    RequestService requestService;
+    ClientRepository clientRepository;
+    InspectorService inspectorService;
+    ClientService clientService;
 
     public AdminServiceImpl() {
         this.requestInspectorChangeRepository = new RequestInspectorChangeRepositoryImpl();

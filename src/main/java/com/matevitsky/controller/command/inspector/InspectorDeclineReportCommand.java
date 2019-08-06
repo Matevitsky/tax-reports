@@ -7,10 +7,12 @@ import com.matevitsky.service.interfaces.InspectorService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static com.matevitsky.controller.constant.ParameterConstant.REASON_TO_REJECT;
+import static com.matevitsky.controller.constant.ParameterConstant.REPORT_ID;
+
 public class InspectorDeclineReportCommand implements Command {
 
-    private static final String REPORT_ID = "reportId";
-    private static final String REASON_TO_REJECT = "reasonToReject";
+    private final InspectorService inspectorService = new InspectorServiceImpl();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -18,7 +20,6 @@ public class InspectorDeclineReportCommand implements Command {
         int reportId = Integer.parseInt(request.getParameter(REPORT_ID));
         String reasonToReject = request.getParameter(REASON_TO_REJECT);
 
-        InspectorService inspectorService = new InspectorServiceImpl();
         inspectorService.declineReport(reportId, reasonToReject);
 
 

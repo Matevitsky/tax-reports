@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
+import static com.matevitsky.controller.constant.ParameterConstant.*;
+
 public class AdminSaveReport implements Command {
 
-    private static final String REPORT_ID = "reportId";
-    private static final String TITTLE = "tittle";
-    private static final String CONTENT = "content";
+    private final ReportService reportService = new ReportServiceImpl();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -22,8 +22,6 @@ public class AdminSaveReport implements Command {
         String tittle = request.getParameter(TITTLE);
         String content = request.getParameter(CONTENT);
 
-
-        ReportService reportService = new ReportServiceImpl();
         Optional<Report> optionalReport = reportService.getById(reportId);
 
         optionalReport.ifPresent(value -> {

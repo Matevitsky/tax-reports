@@ -11,13 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static com.matevitsky.controller.constant.PageConstant.CREATE_REPORT_PAGE;
+import static com.matevitsky.controller.constant.ParameterConstant.*;
 
 public class ClientCreateReportCommand implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(ClientCreateReportCommand.class);
-    private static final String TITTLE = "tittle";
-    private static final String CONTENT = "content";
-    private static final String USER_ID = "userId";
+    private final ReportService reportService = new ReportServiceImpl();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -37,7 +36,7 @@ public class ClientCreateReportCommand implements Command {
                 .withreasonToReject("")
                 .withClientId(clientId)
                 .build();
-        ReportService reportService = new ReportServiceImpl();
+
         reportService.create(report);
 
         return new GetMainClientPageCommand().execute(request, response);
