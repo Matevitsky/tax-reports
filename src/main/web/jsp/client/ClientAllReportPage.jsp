@@ -33,25 +33,26 @@
                     <td>${report.status}</td>
                     <form action="/app" method="get">
                         <td>
-                            <c:if test="${(report.status == 'NEW')|| report.status == 'DECLINED' }">
+                            <c:choose>
+                                <c:when test="${(report.status == 'NEW')|| report.status == 'DECLINED' }">
 
-                                <button type="submit" class="btn btn-primary">
-                                    <fmt:message bundle="${common}" key="edit"/>
-                                </button>
+                                    <button type="submit" class="btn btn-primary">
+                                        <fmt:message bundle="${common}" key="edit"/>
+                                    </button>
 
-                                <input type="hidden" name="command" value="client_get_edit_report_page">
-                                <input type="hidden" name="reportId" value=${report.id}>
+                                    <input type="hidden" name="command" value="client_get_edit_report_page">
+                                    <input type="hidden" name="reportId" value=${report.id}>
 
-                            </c:if>
-                                <%--   <c:if test="${report.status == 'ACCEPTED' }">--%>
+                                </c:when>
+                                <c:otherwise>
+                                    <button type="submit" class="btn btn-primary">
+                                        <fmt:message bundle="${common}" key="view"/>
+                                    </button>
 
-                                <button type="submit" class="btn btn-primary">
-                                    <fmt:message bundle="${common}" key="view"/>
-                                </button>
-
-                            <input type="hidden" name="command" value="client_view_report_page">
-                                <input type="hidden" name="reportId" value=${report.id}>
-                                <%--    </c:if>--%>
+                                    <input type="hidden" name="command" value="client_view_report_page">
+                                    <input type="hidden" name="reportId" value=${report.id}>
+                                </c:otherwise>
+                            </c:choose>
 
                         </td>
 
@@ -79,7 +80,6 @@
         </table>
     </div>
 </div>
-
 
 
 </body>

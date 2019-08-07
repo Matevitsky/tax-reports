@@ -49,7 +49,7 @@
                             <button type="submit" class="btn btn-primary">
                                 EDIT
                             </button>
-                            <input type="hidden" name="command" value="client_view_report_page">
+                            <input type="hidden" name="command" value="client_get_edit_report_page">
                             <input type="hidden" name="reportId" value=${report.id}>
 
                         </td>

@@ -25,7 +25,6 @@ public class ChangeLocaleCommand implements Command {
         String locale = request.getParameter(LOCALE);
         ResourceManager.INSTANCE.changeResource(Locale.forLanguageTag(locale));
         request.getSession().setAttribute(LOCALE, locale);
-        LOGGER.info("Locale: " + locale);
 
         String role = (String) request.getSession().getAttribute(ROLE);
         if (Objects.nonNull(role)) {

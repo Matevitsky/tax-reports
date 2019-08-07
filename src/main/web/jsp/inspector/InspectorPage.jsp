@@ -34,7 +34,7 @@
                             <c:choose>
                                 <c:when test="${(report.reportStatus == 'NEW')}">
                                     <button type="submit" class="btn btn-primary">
-                                        View
+                                        <fmt:message bundle="${common}" key="view"/>
                                     </button>
                                     <input type="hidden" name="command" value="get_inspector_new_report_page">
                                 </c:when>

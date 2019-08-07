@@ -171,8 +171,8 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Employee> implem
 
         try {
             int reportId = resultSet.getInt(DB_REPORT_ID);
-            String clientFirstName = resultSet.getString(EMPLOYEE_FIRST_NAME);
-            String clientLastName = resultSet.getString(EMPLOYEE_LAST_NAME);
+            String clientFirstName = resultSet.getString(CLIENT_FIRST_NAME);
+            String clientLastName = resultSet.getString(CLIENT_LAST_NAME);
             String tittle = resultSet.getString(TITTLE);
             String reportStatus = resultSet.getString(REPORT_STATUS);
             report = new ReportWithClientName(reportId, tittle, clientFirstName, clientLastName,
