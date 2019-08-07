@@ -11,29 +11,17 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
+import static com.matevitsky.controller.constant.ParameterConstant.*;
 import static java.util.Locale.ENGLISH;
 
 public class LoginService {
 
 
-    private static final String USER_ID = "userId";
-    private static final String ROLE = "role";
-    private static final String CLIENT = "client";
-    private static final String ADMIN = "admin";
-    private static final String INSPECTOR = "inspector";
-    private static final String ADMIN_NAME = "adminName";
-    private static final String CLIENT_NAME = "clientName";
-    private static final String LOCALE = "locale";
-    private ClientService clientService;
-    private InspectorService inspectorService;
+    private ClientService clientService = new ClientServiceImpl();
+    private InspectorService inspectorService = new InspectorServiceImpl();
+
 
     private static final Logger LOGGER = Logger.getLogger(LoginService.class);
-
-    public LoginService() {
-        this.clientService = new ClientServiceImpl();
-        this.inspectorService = new InspectorServiceImpl();
-
-    }
 
     public UserForLogin login(String email, String password, HttpServletRequest request) {
 

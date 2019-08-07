@@ -1,6 +1,7 @@
 package com.matevitsky.service;
 
 import com.matevitsky.db.ConnectorDB;
+import com.matevitsky.dto.ClientForAdmin;
 import com.matevitsky.entity.Client;
 import com.matevitsky.entity.Employee;
 import com.matevitsky.entity.Report;
@@ -102,9 +103,30 @@ public class ClientServiceImpl implements ClientService {
                 .withLastName(client.getLastName())
                 .withEmail(client.getEmail())
                 .withPassword(client.getPassword())
-                .withCompanyName(client.getCompanyName())
+                .withCompanyId(client.getCompanyId())
                 .withInspectorId(availableInspector.getId())
                 .build();
+    }
+
+    @Override
+    public Optional<List<ClientForAdmin>> getAllClientsForInspector() {
+
+        try (Connection connection = ConnectorDB.getConnection()) {
+            return clientRepository.getAllClientsForAdmin(connection);
+        } catch (SQLException e) {
+            LOGGER.error("Failed to Build clientForInspector with ID " + e.getMessage());
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<List<ClientForAdmin>> getClientsForAdminByInspectorId(int inspectorId) {
+        try (Connection connection = ConnectorDB.getConnection()) {
+            return clientRepository.getClientsForAdminByInspectorId(inspectorId, connection);
+        } catch (SQLException e) {
+            LOGGER.error("Failed to Build clientForInspector with ID " + e.getMessage());
+        }
+        return Optional.empty();
     }
 
 

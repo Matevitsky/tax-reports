@@ -17,6 +17,7 @@ public class Employee extends User {
         return employeeRole;
     }
 
+
     public static class Builder {
         private int id;
         private String firstName;
@@ -24,6 +25,7 @@ public class Employee extends User {
         private String email;
         private String password;
         private EmployeeRole employeeRole;
+
 
         private Builder() {
 

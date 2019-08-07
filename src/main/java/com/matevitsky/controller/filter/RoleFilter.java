@@ -10,19 +10,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
 
+import static com.matevitsky.controller.constant.ParameterConstant.*;
+
 @WebFilter(filterName = "RoleFilter")
 public class RoleFilter implements Filter {
-    private static final String ALLOWED_PATH = "login change_locale log_out";
+
     private static final Logger LOGGER = Logger.getLogger(RoleFilter.class);
-    private static final String COMMAND = "command";
-    private static final String ROLE = "role";
-    private static final String USER_ID = "userId";
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
+
         String command = request.getParameter(COMMAND);
         String role = (String) request.getSession().getAttribute(ROLE);
 

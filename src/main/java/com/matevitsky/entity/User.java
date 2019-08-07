@@ -70,4 +70,8 @@ public abstract class User {
                 ", password='" + password +
                 '}';
     }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 }

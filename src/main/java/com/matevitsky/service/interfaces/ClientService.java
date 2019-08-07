@@ -1,5 +1,6 @@
 package com.matevitsky.service.interfaces;
 
+import com.matevitsky.dto.ClientForAdmin;
 import com.matevitsky.entity.Client;
 import com.matevitsky.entity.Employee;
 
@@ -21,4 +22,8 @@ public interface ClientService extends CrudService<Client> {
 
     Client assignInspector(Client client);
 
+
+    Optional<List<ClientForAdmin>> getAllClientsForInspector();
+
+    Optional<List<ClientForAdmin>> getClientsForAdminByInspectorId(int inspectorId);
 }

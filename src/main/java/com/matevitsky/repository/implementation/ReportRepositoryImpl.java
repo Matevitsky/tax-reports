@@ -84,12 +84,12 @@ public class ReportRepositoryImpl extends CrudRepositoryImpl<Report> implements 
             if (resultSet.isBeforeFirst()) {
                 resultSet.next();
             }
-            int id = resultSet.getInt(REPORT_ID);
+            int id = resultSet.getInt(DB_REPORT_ID);
             String tittle = resultSet.getString(TITTLE);
             String content = resultSet.getString(CONTENT);
             String reportStatus = resultSet.getString(REPORT_STATUS);
-            String cancellationReason = resultSet.getString(REASON_TO_REJECT);
-            int clientId = resultSet.getInt(CLIENT_ID);
+            String cancellationReason = resultSet.getString(DB_REASON_TO_REJECT);
+            int clientId = resultSet.getInt(DB_CLIENT_ID);
 
             report = Report.newBuilder()
                     .withId(id)

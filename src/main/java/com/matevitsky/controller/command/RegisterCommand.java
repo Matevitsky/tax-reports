@@ -24,14 +24,14 @@ public class RegisterCommand implements Command {
         String lastName = request.getParameter(LAST_NAME);
         String emailAddress = request.getParameter(EMAIL_ADDRESS);
         String password = request.getParameter(PASSWORD);
-        String companyName = request.getParameter(COMPANY_NAME);
+        int companyId = Integer.parseInt(request.getParameter(COMPANY_ID));
 
         Client client = Client.newClientBuilder()
                 .withFirstName(firstName)
                 .withLastName(lastName)
                 .withEmail(emailAddress)
                 .withPassword(MD5Util.encryptPassword(password))
-                .withCompanyName(companyName)
+                .withCompanyId(companyId)
                 .build();
         Client clientWithInspector = clientService.assignInspector(client);
         Optional<Client> optionalClient = clientService.register(clientWithInspector);

@@ -22,23 +22,19 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.matevitsky.controller.constant.ParameterConstant.CLIENT_LIST;
+
 public class AdminServiceImpl implements AdminService {
 
     private static final Logger LOGGER = Logger.getLogger(AdminServiceImpl.class);
-    private static final String CLIENT_LIST = "clientList";
-    private RequestInspectorChangeRepository requestInspectorChangeRepository;
-    RequestService requestService;
-    ClientRepository clientRepository;
-    InspectorService inspectorService;
-    ClientService clientService;
 
-    public AdminServiceImpl() {
-        this.requestInspectorChangeRepository = new RequestInspectorChangeRepositoryImpl();
-        this.clientRepository = new ClientRepositoryImpl();
-        this.inspectorService = new InspectorServiceImpl();
-        this.clientService = new ClientServiceImpl();
-        this.requestService = new RequestServiceImpl();
-    }
+
+    private final RequestInspectorChangeRepository requestInspectorChangeRepository = new RequestInspectorChangeRepositoryImpl();
+    private final RequestService requestService = new RequestServiceImpl();
+    private final ClientRepository clientRepository = new ClientRepositoryImpl();
+    private final InspectorService inspectorService = new InspectorServiceImpl();
+    private final ClientService clientService = new ClientServiceImpl();
+
 
     @Override
     public void prepareAdminPage(HttpServletRequest request) {
@@ -81,7 +77,7 @@ public class AdminServiceImpl implements AdminService {
                         .withInspectorId(inspectorId)
                         .withFirstName(client.getFirstName())
                         .withLastName(client.getLastName())
-                        .withCompanyName(client.getCompanyName())
+                        .withCompanyId(client.getCompanyId())
                         .withEmail(client.getEmail())
                         .withPassword(client.getPassword())
                         .withId(clientId)

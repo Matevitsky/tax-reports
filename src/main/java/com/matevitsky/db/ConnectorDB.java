@@ -29,7 +29,6 @@ public final class ConnectorDB {
      * @throws SQLException if something went wrong
      */
     public static Connection getConnection() throws SQLException {
-        LOGGER.debug("Method get connection started");
 
         String url = RESOURCE_BUNDLE.getString(DB_URL);
         String user = RESOURCE_BUNDLE.getString(DB_USER);

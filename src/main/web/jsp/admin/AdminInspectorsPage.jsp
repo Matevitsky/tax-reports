@@ -16,7 +16,9 @@
                 <th class="th-sm">
                     <fmt:message bundle="${common}" key="inspector.name"/>
                 </th>
-                <th class="th-sm">Email</th>
+                <th class="th-sm">
+                    <fmt:message bundle="${common}" key="email"/>
+                </th>
                 <th>
                     <fmt:message bundle="${common}" key="clients"/>
                 </th>
@@ -59,7 +61,9 @@
                 <th class="th-sm">
                     <fmt:message bundle="${common}" key="inspector.name"/>
                 </th>
-                <th class="th-sm">Email</th>
+                <th class="th-sm">
+                    <fmt:message bundle="${common}" key="email"/>
+                </th>
                 <th>
                     <fmt:message bundle="${common}" key="clients"/>
                 </th>

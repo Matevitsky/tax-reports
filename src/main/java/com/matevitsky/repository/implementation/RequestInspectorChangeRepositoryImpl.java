@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.matevitsky.controller.constant.ParameterConstant.CLIENT_ID;
+import static com.matevitsky.controller.constant.ParameterConstant.DB_CLIENT_ID;
 import static com.matevitsky.controller.constant.ParameterConstant.REQUEST_ID;
 
 public class RequestInspectorChangeRepositoryImpl extends CrudRepositoryImpl<Request> implements RequestInspectorChangeRepository {
@@ -78,7 +78,7 @@ public class RequestInspectorChangeRepositoryImpl extends CrudRepositoryImpl<Req
                 resultSet.next();
             }
             int id = resultSet.getInt(REQUEST_ID);
-            int clientId = resultSet.getInt(CLIENT_ID);
+            int clientId = resultSet.getInt(DB_CLIENT_ID);
             request = new Request(id, clientId);
 
         } catch (SQLException e) {

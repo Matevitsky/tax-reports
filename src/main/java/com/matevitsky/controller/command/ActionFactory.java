@@ -11,7 +11,7 @@ public class ActionFactory {
     public static final String COMMAND = "command";
 
     public Command defineCommand(HttpServletRequest request) {
-        LOGGER.debug("Method defineCommand started");
+
 
         Command current = null;
         String action = request.getParameter(COMMAND);

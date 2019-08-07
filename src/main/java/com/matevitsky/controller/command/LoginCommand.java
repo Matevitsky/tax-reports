@@ -40,7 +40,7 @@ public class LoginCommand implements Command {
                     return new GetMainClientPageCommand().execute(request, response);
             }
         }
-        LOGGER.info("User with email" + email + " not exist");
+        LOGGER.info("User with email " + email + " not exist");
 
         return LOGIN_PAGE;
     }

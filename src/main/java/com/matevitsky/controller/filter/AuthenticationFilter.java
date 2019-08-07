@@ -17,7 +17,6 @@ public class AuthenticationFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
-        LOGGER.warn("AuthenticationFilter started");
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
@@ -27,7 +26,6 @@ public class AuthenticationFilter implements Filter {
             chain.doFilter(request, response);
         } else {
             LOGGER.warn("User try to reach not existing page");
-
             response.sendRedirect(PageConstant.ERROR_PAGE);
         }
     }

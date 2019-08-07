@@ -3,13 +3,13 @@ package com.matevitsky.entity;
 import java.util.Objects;
 
 public class Client extends User {
-    private final String companyName;
+    private final int companyId;
     private final int inspectorId;
 
 
     public Client(ClientBuilder builder) {
         super(builder.id, builder.firstName, builder.lastName, builder.email, builder.password, builder.employeeRole);
-        this.companyName = builder.companyName;
+        this.companyId = builder.companyId;
         this.inspectorId = builder.inspectorId;
 
     }
@@ -19,8 +19,8 @@ public class Client extends User {
     }
 
 
-    public String getCompanyName() {
-        return companyName;
+    public int getCompanyId() {
+        return companyId;
     }
 
     public int getInspectorId() {
@@ -39,13 +39,13 @@ public class Client extends User {
             return false;
         }
         Client client = (Client) o;
-        return companyName == client.companyName &&
+        return companyId == client.companyId &&
                 inspectorId == client.inspectorId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), companyName, inspectorId);
+        return Objects.hash(super.hashCode(), companyId, inspectorId);
     }
 
     public static class ClientBuilder {
@@ -55,7 +55,7 @@ public class Client extends User {
         private String email;
         private String password;
         private EmployeeRole employeeRole;
-        private String companyName;
+        private int companyId;
         private int inspectorId;
 
 
@@ -92,8 +92,8 @@ public class Client extends User {
         }
 
 
-        public ClientBuilder withCompanyName(String companyName) {
-            this.companyName = companyName;
+        public ClientBuilder withCompanyId(int companyId) {
+            this.companyId = companyId;
             return this;
         }
 
