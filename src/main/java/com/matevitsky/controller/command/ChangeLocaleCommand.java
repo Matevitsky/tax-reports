@@ -4,7 +4,6 @@ import com.matevitsky.controller.command.admin.AdminMainPageCommand;
 import com.matevitsky.controller.command.client.GetMainClientPageCommand;
 import com.matevitsky.controller.command.inspector.InspectorGetNewReportsCommand;
 import com.matevitsky.service.ResourceManager;
-import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,9 +14,6 @@ import static com.matevitsky.controller.constant.ParameterConstant.*;
 
 
 public class ChangeLocaleCommand implements Command {
-
-    private static final Logger LOGGER = Logger.getLogger(ChangeLocaleCommand.class);
-
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

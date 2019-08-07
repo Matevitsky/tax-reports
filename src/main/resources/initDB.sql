@@ -30,7 +30,7 @@ CREATE TABLE employees
     password            VARCHAR(32)                NOT NULL,
     employee_role       ENUM ('INSPECTOR','ADMIN') NOT NULL,
 
-    PRIMARY KEY (id)
+    PRIMARY KEY (employee_id)
 );
 
 
@@ -54,10 +54,10 @@ create table clients
 CREATE TABLE requests
 (
     request_id INT AUTO_INCREMENT,
-    client_id  INT NOT NULL,
+    client_id  INT NOT NULL UNIQUE,
 
     PRIMARY KEY (request_id),
-    FOREIGN KEY (client_id) REFERENCES employees (employee_id)
+    FOREIGN KEY (client_id) REFERENCES clients (client_id)
 );
 
 
@@ -72,7 +72,7 @@ CREATE TABLE reports
 
 
     PRIMARY KEY (report_id),
-    FOREIGN KEY (client_id) REFERENCES employees (employee_id)
+    FOREIGN KEY (client_id) REFERENCES clients (client_id)
 
 
 );
@@ -83,7 +83,7 @@ INSERT INTO employees (employee_first_name, employee_last_name, employee_email, 
     VALUE ('inspector', 'inspector', 'inspector@test.tes', '8e96c1fb87ac069c2a39f1ed61b10428', 'INSPECTOR');
 
 INSERT INTO employees (employee_first_name, employee_last_name, employee_email, password, employee_role)
-    VALUE ('admin', 'admin', 'admin@test.tes', '8e96c1fb87ac069c2a39f1ed61b10428', 'ADMIN');
+    VALUE ('admin', 'admin', 'admin@test.tes', '21232f297a57a5a743894a0e4a801fc3', 'ADMIN');
 
 INSERT INTO companies(company_name)
     value ('Samsung')

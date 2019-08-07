@@ -38,10 +38,9 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Employee> implem
     private static final String SELECT_INSPECTOR_BY_EMAIL_SQL = "SELECT * FROM employees WHERE employee_email='%s'";
     private static final String SELECT_INSPECTOR_REPORTS_SQL =
             "SELECT report_id,tittle,clients.client_first_name,clients.client_last_name,clients.client_id," +
-                "clients.employee_id,report_status\n" +
+                    "clients.employee_id,report_status\n" +
                     "FROM clients,reports\n" +
-                "WHERE reports.client_id=clients.client_id AND clients.employee_id='%d'";
-
+                    "WHERE reports.client_id=clients.client_id AND clients.employee_id='%d'";
 
 
     @Override
@@ -146,18 +145,12 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Employee> implem
             ResultSet resultSet = statement.executeQuery();
             ReportWithClientName reportWithClientName;
 
-            try {
-                while (resultSet.next()) {
-                    reportWithClientName = mapToReportWithClientName(resultSet);
-                    if (reportWithClientName != null) {
-                        inspectorReportList.add(reportWithClientName);
-                    }
+            while (resultSet.next()) {
+                reportWithClientName = mapToReportWithClientName(resultSet);
+                if (reportWithClientName != null) {
+                    inspectorReportList.add(reportWithClientName);
                 }
-
-            } catch (SQLException e) {
-                LOGGER.warn("GetAll method return empty RowSet");
             }
-
         } catch (SQLException e) {
             LOGGER.error("Failed to get entity by ID " + e.getMessage());
         }
