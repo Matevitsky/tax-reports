@@ -2,7 +2,6 @@ package com.matevitsky.service;
 
 import com.matevitsky.db.ConnectorDB;
 import com.matevitsky.entity.Request;
-import com.matevitsky.repository.implementation.RequestInspectorChangeRepositoryImpl;
 import com.matevitsky.repository.interfaces.RequestInspectorChangeRepository;
 import com.matevitsky.service.interfaces.RequestService;
 import org.apache.log4j.Logger;
@@ -18,8 +17,8 @@ public class RequestServiceImpl implements RequestService {
 
     private RequestInspectorChangeRepository requestInspectorChangeRepository;
 
-    public RequestServiceImpl() {
-        this.requestInspectorChangeRepository = new RequestInspectorChangeRepositoryImpl();
+    public RequestServiceImpl(RequestInspectorChangeRepository requestInspectorChangeRepository) {
+        this.requestInspectorChangeRepository = requestInspectorChangeRepository;
     }
 
     @Override
@@ -34,7 +33,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public boolean deleteById(Integer id) {
+    public boolean deleteById(int id) {
         try (Connection connection = ConnectorDB.getConnection()) {
             requestInspectorChangeRepository.deleteById(id, connection);
         } catch (SQLException e) {
@@ -50,7 +49,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public Optional<Request> getById(Integer id) {
+    public Optional<Request> getById(int id) {
         try (Connection connection = ConnectorDB.getConnection()) {
             return requestInspectorChangeRepository.getById(id, connection);
         } catch (SQLException e) {

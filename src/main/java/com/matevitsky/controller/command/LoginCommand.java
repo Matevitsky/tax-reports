@@ -5,6 +5,9 @@ import com.matevitsky.controller.command.client.GetMainClientPageCommand;
 import com.matevitsky.controller.command.inspector.InspectorGetNewReportsCommand;
 import com.matevitsky.dto.UserForLogin;
 import com.matevitsky.service.LoginService;
+import com.matevitsky.service.interfaces.AdminService;
+import com.matevitsky.service.interfaces.InspectorService;
+import com.matevitsky.service.interfaces.ReportService;
 import com.matevitsky.util.MD5Util;
 import org.apache.log4j.Logger;
 
@@ -19,7 +22,17 @@ public class LoginCommand implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(LoginCommand.class);
 
-    private final LoginService loginService = new LoginService();
+    private final LoginService loginService;
+    private final AdminService adminService;
+    private final InspectorService inspectorService;
+    private final ReportService reportService;
+
+    public LoginCommand(LoginService loginService, AdminService adminService, InspectorService inspectorService, ReportService reportService) {
+        this.loginService = loginService;
+        this.adminService = adminService;
+        this.inspectorService = inspectorService;
+        this.reportService = reportService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -33,11 +46,11 @@ public class LoginCommand implements Command {
         if (user != null && user.getPassword().equals(encryptedPassword)) {
             switch (user.getRole()) {
                 case ADMIN:
-                    return new AdminMainPageCommand().execute(request, response);
+                    return new AdminMainPageCommand(adminService).execute(request, response);
                 case INSPECTOR:
-                    return new InspectorGetNewReportsCommand().execute(request, response);
+                    return new InspectorGetNewReportsCommand(inspectorService).execute(request, response);
                 case CLIENT:
-                    return new GetMainClientPageCommand().execute(request, response);
+                    return new GetMainClientPageCommand(reportService).execute(request, response);
             }
         }
         LOGGER.info("User with email " + email + " not exist");

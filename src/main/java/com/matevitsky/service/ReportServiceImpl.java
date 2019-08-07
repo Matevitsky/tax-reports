@@ -3,7 +3,6 @@ package com.matevitsky.service;
 import com.matevitsky.db.ConnectorDB;
 import com.matevitsky.entity.Report;
 import com.matevitsky.entity.ReportStatus;
-import com.matevitsky.repository.implementation.ReportRepositoryImpl;
 import com.matevitsky.repository.interfaces.ReportRepository;
 import com.matevitsky.service.interfaces.ReportService;
 import org.apache.log4j.Logger;
@@ -18,8 +17,8 @@ public class ReportServiceImpl implements ReportService {
     private static final Logger LOGGER = Logger.getLogger(ReportServiceImpl.class);
     private final ReportRepository reportRepository;
 
-    public ReportServiceImpl() {
-        reportRepository = new ReportRepositoryImpl();
+    public ReportServiceImpl(ReportRepository reportRepository) {
+        this.reportRepository = reportRepository;
     }
 
     @Override
@@ -34,7 +33,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public boolean deleteById(Integer id) {
+    public boolean deleteById(int id) {
         try (Connection connection = ConnectorDB.getConnection()) {
             reportRepository.deleteById(id, connection);
             return true;
@@ -55,7 +54,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public Optional<Report> getById(Integer id) {
+    public Optional<Report> getById(int id) {
 
         try (Connection connection = ConnectorDB.getConnection()) {
             return reportRepository.getById(id, connection);
@@ -90,7 +89,6 @@ public class ReportServiceImpl implements ReportService {
             optionalReportList.ifPresent(reports1 -> reports.removeIf(report -> report.getStatus().equals(ReportStatus.ACCEPTED)));
             return Optional.of(reports);
         }
-
         return Optional.empty();
     }
 

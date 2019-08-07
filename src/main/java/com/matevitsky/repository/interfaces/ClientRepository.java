@@ -14,7 +14,6 @@ public interface ClientRepository extends CrudRepository<Client> {
 
     Optional<List<Client>> findClientsByInspectorId(int inspectorId, Connection connection) throws SQLException;
 
-
     Optional<List<ClientForAdmin>> getAllClientsForAdmin(Connection connection);
 
     Optional<List<ClientForAdmin>> getClientsForAdminByInspectorId(int inspectorId, Connection connection);

@@ -3,8 +3,8 @@ package com.matevitsky.controller.command;
 
 import com.matevitsky.controller.command.client.GetMainClientPageCommand;
 import com.matevitsky.entity.Client;
-import com.matevitsky.service.ClientServiceImpl;
 import com.matevitsky.service.interfaces.ClientService;
+import com.matevitsky.service.interfaces.ReportService;
 import com.matevitsky.util.MD5Util;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +15,13 @@ import static com.matevitsky.controller.constant.ParameterConstant.*;
 
 public class RegisterCommand implements Command {
 
-    private final ClientService clientService = new ClientServiceImpl();
+    private final ClientService clientService;
+    private final ReportService reportService;
+
+    public RegisterCommand(ClientService clientService, ReportService reportService) {
+        this.clientService = clientService;
+        this.reportService = reportService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -40,6 +46,6 @@ public class RegisterCommand implements Command {
 
         optionalClient.ifPresent(value -> request.getSession().setAttribute(USER_ID, value.getId()));
 
-        return new GetMainClientPageCommand().execute(request, response);
+        return new GetMainClientPageCommand(reportService).execute(request, response);
     }
 }

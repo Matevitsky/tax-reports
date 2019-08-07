@@ -1,7 +1,6 @@
 package com.matevitsky.controller.command.inspector;
 
 import com.matevitsky.controller.command.Command;
-import com.matevitsky.service.InspectorServiceImpl;
 import com.matevitsky.service.interfaces.InspectorService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +11,11 @@ import static com.matevitsky.controller.constant.ParameterConstant.REPORT_ID;
 
 public class InspectorDeclineReportCommand implements Command {
 
-    private final InspectorService inspectorService = new InspectorServiceImpl();
+    private final InspectorService inspectorService;
+
+    public InspectorDeclineReportCommand(InspectorService inspectorService) {
+        this.inspectorService = inspectorService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -23,6 +26,6 @@ public class InspectorDeclineReportCommand implements Command {
         inspectorService.declineReport(reportId, reasonToReject);
 
 
-        return new InspectorGetAllReportsCommand().execute(request, response);
+        return new InspectorGetAllReportsCommand(inspectorService).execute(request, response);
     }
 }

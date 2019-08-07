@@ -5,7 +5,6 @@ import com.matevitsky.dto.ClientForAdmin;
 import com.matevitsky.entity.Client;
 import com.matevitsky.entity.Employee;
 import com.matevitsky.entity.Report;
-import com.matevitsky.repository.implementation.ClientRepositoryImpl;
 import com.matevitsky.repository.interfaces.ClientRepository;
 import com.matevitsky.service.interfaces.ClientService;
 import com.matevitsky.service.interfaces.InspectorService;
@@ -15,21 +14,28 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+
+import static com.matevitsky.controller.constant.ParameterConstant.REPORT;
 
 public class ClientServiceImpl implements ClientService {
 
-    public static final String REPORT = "report";
+
     private static final Logger LOGGER = Logger.getLogger(ClientServiceImpl.class);
 
     private final ClientRepository clientRepository;
 
+    private final InspectorService inspectorService;
 
-    public ClientServiceImpl() {
-        clientRepository = new ClientRepositoryImpl();
+    private final ReportService reportService;
 
+
+    public ClientServiceImpl(ClientRepository clientRepository, InspectorService inspectorService, ReportService reportService) {
+        this.clientRepository = clientRepository;
+        this.inspectorService = inspectorService;
+        this.reportService = reportService;
     }
-
 
     @Override
     public Optional<Client> register(Client client) {
@@ -55,7 +61,6 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public boolean addReportToRequest(HttpServletRequest request, int reportId) {
-        ReportService reportService = new ReportServiceImpl();
         Optional<Report> reportById = reportService.getById(reportId);
         if (reportById.isPresent()) {
             request.setAttribute(REPORT, reportById.get());
@@ -64,21 +69,6 @@ public class ClientServiceImpl implements ClientService {
         return false;
     }
 
-    @Override
-    public Optional<Employee> getInspector(int clientId) {
-        try (Connection connection = ConnectorDB.getConnection()) {
-            Optional<Client> clientOptional = clientRepository.getById(clientId, connection);
-            if (clientOptional.isPresent()) {
-                Client client = clientOptional.get();
-                InspectorService inspectorService = new InspectorServiceImpl();
-                return inspectorService.getById(client.getInspectorId());
-            }
-        } catch (SQLException e) {
-            LOGGER.error("Failed to get entity by ID " + e.getMessage());
-        }
-        return Optional.empty();
-
-    }
 
     @Override
     public Optional<List<Client>> getClientsByInspectorId(int clientId) {
@@ -92,7 +82,8 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client assignInspector(Client client) {
-        Employee availableInspector = getFreeInspector();
+
+        Employee availableInspector = inspectorService.getFreeInspector();
 
         if (availableInspector == null) {
             LOGGER.warn("No available inspector");
@@ -130,7 +121,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
 
-    private Employee getFreeInspector() {
+   /* public Employee getFreeInspector() {
         InspectorService inspectorService = new InspectorServiceImpl();
         Optional<List<Employee>> optionalInspectorList = inspectorService.getAll();
         List<Employee> inspectorList;
@@ -148,7 +139,7 @@ public class ClientServiceImpl implements ClientService {
                 Comparator.comparingInt(Map.Entry::getValue)).getKey();
 
     }
-
+*/
 
     @Override
     public boolean create(Client client) {
@@ -162,7 +153,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean deleteById(Integer id) {
+    public boolean deleteById(int id) {
         try (Connection connection = ConnectorDB.getConnection()) {
             clientRepository.deleteById(id, connection);
             return true;
@@ -183,7 +174,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Optional<Client> getById(Integer id) {
+    public Optional<Client> getById(int id) {
         try (Connection connection = ConnectorDB.getConnection()) {
             return clientRepository.getById(id, connection);
 

@@ -2,8 +2,6 @@ package com.matevitsky.controller.command.admin;
 
 import com.matevitsky.controller.command.Command;
 import com.matevitsky.dto.ClientForAdmin;
-import com.matevitsky.service.AdminServiceImpl;
-import com.matevitsky.service.ClientServiceImpl;
 import com.matevitsky.service.interfaces.AdminService;
 import com.matevitsky.service.interfaces.ClientService;
 
@@ -17,8 +15,13 @@ import static com.matevitsky.controller.constant.ParameterConstant.*;
 
 public class AdminInspectorClientsCommand implements Command {
 
-    private final ClientService clientService = new ClientServiceImpl();
-    private final AdminService adminService = new AdminServiceImpl();
+    private final ClientService clientService;
+    private final AdminService adminService;
+
+    public AdminInspectorClientsCommand(ClientService clientService, AdminService adminService) {
+        this.clientService = clientService;
+        this.adminService = adminService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

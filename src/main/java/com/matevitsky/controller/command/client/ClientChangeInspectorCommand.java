@@ -2,7 +2,7 @@ package com.matevitsky.controller.command.client;
 
 import com.matevitsky.controller.command.Command;
 import com.matevitsky.entity.Request;
-import com.matevitsky.service.RequestServiceImpl;
+import com.matevitsky.service.interfaces.ReportService;
 import com.matevitsky.service.interfaces.RequestService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +12,13 @@ import static com.matevitsky.controller.constant.ParameterConstant.USER_ID;
 
 public class ClientChangeInspectorCommand implements Command {
 
-    private final RequestService requestService = new RequestServiceImpl();
+    private final RequestService requestService;
+    private final ReportService reportService;
+
+    public ClientChangeInspectorCommand(RequestService requestService, ReportService reportService) {
+        this.requestService = requestService;
+        this.reportService = reportService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -22,7 +28,7 @@ public class ClientChangeInspectorCommand implements Command {
 
         requestService.create(changeInspectorRequest);
 
-        return new GetMainClientPageCommand().execute(request, response);
+        return new GetMainClientPageCommand(reportService).execute(request, response);
         //TODO: Notify client about success
     }
 }

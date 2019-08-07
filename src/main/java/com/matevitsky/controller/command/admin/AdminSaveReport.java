@@ -2,7 +2,7 @@ package com.matevitsky.controller.command.admin;
 
 import com.matevitsky.controller.command.Command;
 import com.matevitsky.entity.Report;
-import com.matevitsky.service.ReportServiceImpl;
+import com.matevitsky.service.interfaces.AdminService;
 import com.matevitsky.service.interfaces.ReportService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +13,13 @@ import static com.matevitsky.controller.constant.ParameterConstant.*;
 
 public class AdminSaveReport implements Command {
 
-    private final ReportService reportService = new ReportServiceImpl();
+    private final ReportService reportService;
+    private final AdminService adminService;
+
+    public AdminSaveReport(ReportService reportService, AdminService adminService) {
+        this.reportService = reportService;
+        this.adminService = adminService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -36,6 +42,6 @@ public class AdminSaveReport implements Command {
                     .build();
             reportService.update(reportForSave);
         });
-        return new AdminCancelCommand().execute(request, response);
+        return new AdminCancelCommand(reportService, adminService).execute(request, response);
     }
 }

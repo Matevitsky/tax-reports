@@ -2,10 +2,11 @@ package com.matevitsky.service;
 
 import com.matevitsky.db.ConnectorDB;
 import com.matevitsky.dto.ReportWithClientName;
+import com.matevitsky.entity.Client;
 import com.matevitsky.entity.Employee;
 import com.matevitsky.entity.Report;
 import com.matevitsky.entity.ReportStatus;
-import com.matevitsky.repository.implementation.InspectorRepositoryImpl;
+import com.matevitsky.repository.interfaces.ClientRepository;
 import com.matevitsky.repository.interfaces.InspectorRepository;
 import com.matevitsky.service.interfaces.InspectorService;
 import com.matevitsky.service.interfaces.ReportService;
@@ -13,18 +14,21 @@ import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class InspectorServiceImpl implements InspectorService {
 
     private static final Logger LOGGER = Logger.getLogger(InspectorServiceImpl.class);
-    private InspectorRepository inspectorRepository;
 
+    private final InspectorRepository inspectorRepository;
+    private final ClientRepository clientRepository;
+    private final ReportService reportService;
 
-    public InspectorServiceImpl() {
-        inspectorRepository = new InspectorRepositoryImpl();
+    public InspectorServiceImpl(InspectorRepository inspectorRepository, ClientRepository clientRepository, ReportService reportService) {
+        this.inspectorRepository = inspectorRepository;
+        this.clientRepository = clientRepository;
+        this.reportService = reportService;
     }
 
     @Override
@@ -39,7 +43,7 @@ public class InspectorServiceImpl implements InspectorService {
     }
 
     @Override
-    public boolean deleteById(Integer id) {
+    public boolean deleteById(int id) {
         try (Connection connection = ConnectorDB.getConnection()) {
             inspectorRepository.deleteById(id, connection);
             return true;
@@ -51,6 +55,7 @@ public class InspectorServiceImpl implements InspectorService {
 
     @Override
     public Employee update(Employee inspector) {
+
         try (Connection connection = ConnectorDB.getConnection()) {
             inspectorRepository.update(inspector, connection);
         } catch (SQLException e) {
@@ -60,8 +65,8 @@ public class InspectorServiceImpl implements InspectorService {
     }
 
     @Override
-    public Optional<Employee> getById(Integer id) {
-        //TODO: return int
+    public Optional<Employee> getById(int id) {
+
         try (Connection connection = ConnectorDB.getConnection()) {
             return inspectorRepository.getById(id, connection);
         } catch (SQLException e) {
@@ -119,7 +124,7 @@ public class InspectorServiceImpl implements InspectorService {
     public boolean acceptReport(int reportId) {
 
         Report update = null;
-        ReportService reportService = new ReportServiceImpl();
+
         Optional<Report> optionalReport = reportService.getById(reportId);
         if (optionalReport.isPresent()) {
             Report report = optionalReport.get();
@@ -140,7 +145,7 @@ public class InspectorServiceImpl implements InspectorService {
     @Override
     public boolean declineReport(int reportId, String reasonToReject) {
         Report update = null;
-        ReportService reportService = new ReportServiceImpl();
+
         Optional<Report> optionalReport = reportService.getById(reportId);
         if (optionalReport.isPresent()) {
             Report report = optionalReport.get();
@@ -160,5 +165,29 @@ public class InspectorServiceImpl implements InspectorService {
             }
         }
         return update != null;
+    }
+
+
+    public Employee getFreeInspector() {
+
+        Optional<List<Employee>> optionalInspectorList = getAll();
+        List<Employee> inspectorList;
+
+        Map<Employee, Integer> map = new HashMap<>();
+        if (optionalInspectorList.isPresent()) {
+            inspectorList = optionalInspectorList.get();
+            for (Employee inspector : inspectorList) {
+                try (Connection connection = ConnectorDB.getConnection()) {
+                    Optional<List<Client>> optionalClients = clientRepository.findClientsByInspectorId(inspector.getId(), connection);
+                    optionalClients.ifPresent(clients ->
+                            map.put(inspector, clients.size()));
+                } catch (SQLException s) {
+                    LOGGER.warn("Failed to get inspector by id " + inspector.getId());
+                }
+            }
+        }
+        return Collections.min(map.entrySet(),
+                Comparator.comparingInt(Map.Entry::getValue)).getKey();
+
     }
 }

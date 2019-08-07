@@ -3,7 +3,6 @@ package com.matevitsky.controller.command.client;
 import com.matevitsky.controller.command.Command;
 import com.matevitsky.entity.Report;
 import com.matevitsky.entity.ReportStatus;
-import com.matevitsky.service.ReportServiceImpl;
 import com.matevitsky.service.interfaces.ReportService;
 import org.apache.log4j.Logger;
 
@@ -16,7 +15,12 @@ import static com.matevitsky.controller.constant.ParameterConstant.*;
 public class ClientCreateReportCommand implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(ClientCreateReportCommand.class);
-    private final ReportService reportService = new ReportServiceImpl();
+
+    private final ReportService reportService;
+
+    public ClientCreateReportCommand(ReportService reportService) {
+        this.reportService = reportService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -39,6 +43,6 @@ public class ClientCreateReportCommand implements Command {
 
         reportService.create(report);
 
-        return new GetMainClientPageCommand().execute(request, response);
+        return new GetMainClientPageCommand(reportService).execute(request, response);
     }
 }

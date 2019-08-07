@@ -7,11 +7,11 @@ public interface CrudService<S> {
 
     boolean create(S entity);
 
-    boolean deleteById(Integer id);
+    boolean deleteById(int id);
 
     S update(S entity);
 
-    Optional<S> getById(Integer id);
+    Optional<S> getById(int id);
 
     Optional<List<S>> getAll();
 }

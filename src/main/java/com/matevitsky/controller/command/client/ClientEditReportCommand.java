@@ -3,7 +3,6 @@ package com.matevitsky.controller.command.client;
 import com.matevitsky.controller.command.Command;
 import com.matevitsky.entity.Report;
 import com.matevitsky.entity.ReportStatus;
-import com.matevitsky.service.ReportServiceImpl;
 import com.matevitsky.service.interfaces.ReportService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +14,11 @@ import static com.matevitsky.controller.constant.ParameterConstant.*;
 
 public class ClientEditReportCommand implements Command {
 
-    private final ReportService reportService = new ReportServiceImpl();
+    private final ReportService reportService;
+
+    public ClientEditReportCommand(ReportService reportService) {
+        this.reportService = reportService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -38,7 +41,7 @@ public class ClientEditReportCommand implements Command {
         Optional<List<Report>> optionalReportList = reportService.getReportsByClientId(clientId);
         optionalReportList.ifPresent(reports -> request.setAttribute(REPORTS, reports));
 
-        return new GetMainClientPageCommand().execute(request, response);
+        return new GetMainClientPageCommand(reportService).execute(request, response);
     }
 
 }

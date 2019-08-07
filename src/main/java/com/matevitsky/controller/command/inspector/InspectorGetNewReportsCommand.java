@@ -2,7 +2,6 @@ package com.matevitsky.controller.command.inspector;
 
 import com.matevitsky.controller.command.Command;
 import com.matevitsky.dto.ReportWithClientName;
-import com.matevitsky.service.InspectorServiceImpl;
 import com.matevitsky.service.interfaces.InspectorService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +15,11 @@ import static com.matevitsky.controller.constant.ParameterConstant.USER_ID;
 
 public class InspectorGetNewReportsCommand implements Command {
 
-    private final InspectorService inspectorService = new InspectorServiceImpl();
+    private final InspectorService inspectorService;
+
+    public InspectorGetNewReportsCommand(InspectorService inspectorService) {
+        this.inspectorService = inspectorService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

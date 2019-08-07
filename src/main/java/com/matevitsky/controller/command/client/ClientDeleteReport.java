@@ -1,7 +1,6 @@
 package com.matevitsky.controller.command.client;
 
 import com.matevitsky.controller.command.Command;
-import com.matevitsky.service.ReportServiceImpl;
 import com.matevitsky.service.interfaces.ReportService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +10,11 @@ import static com.matevitsky.controller.constant.ParameterConstant.REPORT_ID;
 
 public class ClientDeleteReport implements Command {
 
-    private final ReportService reportService = new ReportServiceImpl();
+    private final ReportService reportService;
+
+    public ClientDeleteReport(ReportService reportService) {
+        this.reportService = reportService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -19,6 +22,6 @@ public class ClientDeleteReport implements Command {
 
         reportService.deleteById(reportId);
 
-        return new GetMainClientPageCommand().execute(request, response);
+        return new GetMainClientPageCommand(reportService).execute(request, response);
     }
 }

@@ -16,10 +16,13 @@ import static java.util.Locale.ENGLISH;
 
 public class LoginService {
 
+    private final ClientService clientService;
+    private final InspectorService inspectorService;
 
-    private ClientService clientService = new ClientServiceImpl();
-    private InspectorService inspectorService = new InspectorServiceImpl();
-
+    public LoginService(ClientService clientService, InspectorService inspectorService) {
+        this.clientService = clientService;
+        this.inspectorService = inspectorService;
+    }
 
     private static final Logger LOGGER = Logger.getLogger(LoginService.class);
 
@@ -29,41 +32,48 @@ public class LoginService {
             LOGGER.info("Email validation failed or password is empty");
             return null;
         }
-        UserForLogin user = null;
+
         Optional<Employee> optionalInspector = inspectorService.findByEmail(email);
         request.getSession().setAttribute(LOCALE, ENGLISH);
 
         if (optionalInspector.isPresent()) {
-            Employee employee = optionalInspector.get();
-            request.getSession().setAttribute(USER_ID, employee.getId());
-            request.getSession().setAttribute(ADMIN_NAME, employee.getFirstName() + " " + employee.getLastName());
-
-            switch (employee.getEmployeeRole()) {
-                case INSPECTOR:
-                    request.getSession().setAttribute(ROLE, INSPECTOR);
-                    user = new UserForLogin(employee.getId(), employee.getEmail(), employee.getPassword(), UserForLogin.Role.INSPECTOR);
-                    return user;
-
-                case ADMIN:
-                    request.getSession().setAttribute(ROLE, ADMIN);
-                    user = new UserForLogin(employee.getId(), employee.getEmail(), employee.getPassword(), UserForLogin.Role.ADMIN);
-                    return user;
-            }
-
+            return buildEmployee(optionalInspector.get(), request);
         }
 
         Optional<Client> optionalClient = clientService.findByEmail(email);
-        if (optionalClient.isPresent()) {
-            Client client = optionalClient.get();
-            request.getSession().setAttribute(USER_ID, client.getId());
-            request.getSession().setAttribute(ROLE, CLIENT);
-            request.getSession().setAttribute(CLIENT_NAME, client.getFirstName() + " " + client.getLastName());
-            Optional<Employee> inspector = clientService.getInspector(client.getId());
-            inspector.ifPresent(employee -> request.getSession().setAttribute(INSPECTOR, employee));
 
-            user = new UserForLogin(client.getId(), client.getEmail(), client.getPassword(), UserForLogin.Role.CLIENT);
+        return optionalClient.map(client -> buildClient(client, request)).orElse(null);
+
+    }
+
+    private UserForLogin buildEmployee(Employee employee, HttpServletRequest request) {
+
+        request.getSession().setAttribute(USER_ID, employee.getId());
+        request.getSession().setAttribute(ADMIN_NAME, employee.getFirstName() + " " + employee.getLastName());
+
+        switch (employee.getEmployeeRole()) {
+            case INSPECTOR:
+                request.getSession().setAttribute(ROLE, INSPECTOR);
+                return new UserForLogin(employee.getId(), employee.getEmail(), employee.getPassword(), UserForLogin.Role.INSPECTOR);
+
+
+            case ADMIN:
+                request.getSession().setAttribute(ROLE, ADMIN);
+                return new UserForLogin(employee.getId(), employee.getEmail(), employee.getPassword(), UserForLogin.Role.ADMIN);
+
         }
+        return null;
 
-        return user;
+    }
+
+    private UserForLogin buildClient(Client client, HttpServletRequest request) {
+
+        request.getSession().setAttribute(USER_ID, client.getId());
+        request.getSession().setAttribute(ROLE, CLIENT);
+        request.getSession().setAttribute(CLIENT_NAME, client.getFirstName() + " " + client.getLastName());
+        Optional<Employee> inspector = inspectorService.getById(client.getId());
+        inspector.ifPresent(employee -> request.getSession().setAttribute(INSPECTOR, employee));
+
+        return new UserForLogin(client.getId(), client.getEmail(), client.getPassword(), UserForLogin.Role.CLIENT);
     }
 }

@@ -2,7 +2,6 @@ package com.matevitsky.controller.command.inspector;
 
 import com.matevitsky.controller.command.Command;
 import com.matevitsky.entity.Report;
-import com.matevitsky.service.ReportServiceImpl;
 import com.matevitsky.service.interfaces.ReportService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +15,11 @@ import static com.matevitsky.controller.constant.ParameterConstant.REPORT_ID;
 
 public class InspectorGetReportPageCommand implements Command {
 
-    private final ReportService reportService = new ReportServiceImpl();
+    private final ReportService reportService;
+
+    public InspectorGetReportPageCommand(ReportService reportService) {
+        this.reportService = reportService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

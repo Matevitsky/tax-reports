@@ -1,8 +1,6 @@
 package com.matevitsky.controller.command.admin;
 
 import com.matevitsky.controller.command.Command;
-import com.matevitsky.service.AdminServiceImpl;
-import com.matevitsky.service.InspectorServiceImpl;
 import com.matevitsky.service.interfaces.AdminService;
 import com.matevitsky.service.interfaces.InspectorService;
 
@@ -14,8 +12,13 @@ import static com.matevitsky.controller.constant.ParameterConstant.INSPECTORS;
 
 public class AdminGetAllInspectorsCommand implements Command {
 
-    private final InspectorService inspectorService = new InspectorServiceImpl();
-    private final AdminService adminService = new AdminServiceImpl();
+    private final InspectorService inspectorService;
+    private final AdminService adminService;
+
+    public AdminGetAllInspectorsCommand(InspectorService inspectorService, AdminService adminService) {
+        this.inspectorService = inspectorService;
+        this.adminService = adminService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
