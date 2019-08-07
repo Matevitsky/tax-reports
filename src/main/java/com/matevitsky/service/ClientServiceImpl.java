@@ -70,7 +70,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
 
-    @Override
+  /*  @Override
     public Optional<List<Client>> getClientsByInspectorId(int clientId) {
         try (Connection connection = ConnectorDB.getConnection()) {
             return clientRepository.findClientsByInspectorId(clientId, connection);
@@ -78,7 +78,7 @@ public class ClientServiceImpl implements ClientService {
             LOGGER.error("Failed to get entity by ID " + e.getMessage());
         }
         return Optional.empty();
-    }
+    }*/
 
     @Override
     public Client assignInspector(Client client) {
@@ -90,6 +90,7 @@ public class ClientServiceImpl implements ClientService {
             return client;
         }
         return Client.newClientBuilder()
+                .withId(client.getId())
                 .withFirstName(client.getFirstName())
                 .withLastName(client.getLastName())
                 .withEmail(client.getEmail())
@@ -119,27 +120,6 @@ public class ClientServiceImpl implements ClientService {
         }
         return Optional.empty();
     }
-
-
-   /* public Employee getFreeInspector() {
-        InspectorService inspectorService = new InspectorServiceImpl();
-        Optional<List<Employee>> optionalInspectorList = inspectorService.getAll();
-        List<Employee> inspectorList;
-
-        Map<Employee, Integer> map = new HashMap<>();
-        if (optionalInspectorList.isPresent()) {
-            inspectorList = optionalInspectorList.get();
-            for (Employee inspector : inspectorList) {
-                Optional<List<Client>> optionalClients = getClientsByInspectorId(inspector.getId());
-                optionalClients.ifPresent(clients ->
-                        map.put(inspector, clients.size()));
-            }
-        }
-        return Collections.min(map.entrySet(),
-                Comparator.comparingInt(Map.Entry::getValue)).getKey();
-
-    }
-*/
 
     @Override
     public boolean create(Client client) {

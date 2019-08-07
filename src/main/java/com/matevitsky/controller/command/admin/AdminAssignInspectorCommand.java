@@ -25,8 +25,6 @@ public class AdminAssignInspectorCommand implements Command {
 
         adminService.assignInspector(clientId, inspectorId);
 
-        //TODO: return message to user from admin service
-
         return new AdminMainPageCommand(adminService).execute(request, response);
     }
 }

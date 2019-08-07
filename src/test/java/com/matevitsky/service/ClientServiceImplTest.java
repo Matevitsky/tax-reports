@@ -3,33 +3,25 @@ package com.matevitsky.service;
 import com.matevitsky.entity.Client;
 import com.matevitsky.entity.Employee;
 import com.matevitsky.service.interfaces.InspectorService;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.when;
 
 
 @RunWith(MockitoJUnitRunner.class)
 public class ClientServiceImplTest {
 
     @Mock
-    InspectorService inspectorService;
+    private InspectorService inspectorService;
 
 
-    @Mock
+    @InjectMocks
     private ClientServiceImpl clientService;
-
-
-    @Before
-    public void setUp() throws Exception {
-
-        MockitoAnnotations.initMocks(this);
-    }
 
 
     @Test
@@ -46,11 +38,11 @@ public class ClientServiceImplTest {
             .withInspectorId(25)
             .build();
 
-        Mockito.when(inspectorService.getFreeInspector()).thenReturn(employee);
+        when(inspectorService.getFreeInspector()).thenReturn(employee);
 
 
         Client actual = clientService.assignInspector(client);
 
-        assertEquals(expected, actual);
+        assertTrue((expected.getId() == actual.getId() && expected.getInspectorId() == actual.getInspectorId()));
     }
 }

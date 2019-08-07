@@ -1,5 +1,7 @@
 package com.matevitsky.dto;
 
+import java.util.Objects;
+
 public class UserForLogin {
     private final int id;
     private final String email;
@@ -33,5 +35,25 @@ public class UserForLogin {
         ADMIN,
         CLIENT,
         INSPECTOR
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof UserForLogin)) {
+            return false;
+        }
+        UserForLogin that = (UserForLogin) o;
+        return id == that.id &&
+                email.equals(that.email) &&
+                password.equals(that.password) &&
+                role == that.role;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email, password, role);
     }
 }

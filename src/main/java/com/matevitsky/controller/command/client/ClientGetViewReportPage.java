@@ -22,7 +22,6 @@ public class ClientGetViewReportPage implements Command {
 
         int reportId = Integer.parseInt(request.getParameter(REPORT_ID));
 
-        //TODO:обработаь ошибку
         clientService.addReportToRequest(request, reportId);
 
         return CLIENT_VIEW_REPORT_PAGE;
