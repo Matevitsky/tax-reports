@@ -22,25 +22,25 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Employee> implem
     private static final Logger LOGGER = Logger.getLogger(InspectorRepositoryImpl.class);
 
     private static final String CREATE_INSPECTOR_SQL = "INSERT INTO employees " +
-            "(employee_first_name, employee_last_name, employee_email, password," +
+            "(first_name, last_name, email, password," +
             " role) VALUES ('%s', '%s', '%s', '%s','%s');";
 
 
     private static final String DELETE_INSPECTOR_SQL = "DELETE FROM employees WHERE employee_id=%d";
 
     private static final String UPDATE_INSPECTOR_SQL =
-            "UPDATE employees SET employee_first_name='%s', employee_last_name='%s',employee_email='%s', password='%s', role='%s" +
+            "UPDATE employees SET first_name='%s', last_name='%s',email='%s', password='%s', role='%s" +
                     "where employee_id=%d";
 
     private static final String SELECT_INSPECTOR_BY_ID_SQL = "SELECT * FROM employees WHERE employee_id='%d'";
     private static final String SELECT_ALL_INSPECTORS_SQL = "SELECT * FROM employees WHERE employee_role ='INSPECTOR'";
 
-    private static final String SELECT_INSPECTOR_BY_EMAIL_SQL = "SELECT * FROM employees WHERE employee_email='%s'";
+    private static final String SELECT_INSPECTOR_BY_EMAIL_SQL = "SELECT * FROM employees WHERE email='%s'";
     private static final String SELECT_INSPECTOR_REPORTS_SQL =
-            "SELECT report_id,tittle,clients.client_first_name,clients.client_last_name,clients.client_id," +
-                    "clients.employee_id,report_status\n" +
-                    "FROM clients,reports\n" +
-                    "WHERE reports.client_id=clients.client_id AND clients.employee_id='%d'";
+            "SELECT report_id,tittle,clients.first_name,clients.last_name,client_id,\n" +
+                    "                    clients.employee_id_fk,report_status\n" +
+                    "                    FROM clients,reports\n" +
+                    "                    WHERE reports.client_id_fk=client_id AND clients.employee_id_fk";
 
 
     @Override
@@ -98,9 +98,9 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Employee> implem
                 resultSet.next();
             }
             int id = resultSet.getInt(EMPLOYEE_ID);
-            String firstName = resultSet.getString(EMPLOYEE_FIRST_NAME);
-            String lastName = resultSet.getString(EMPLOYEE_LAST_NAME);
-            String email = resultSet.getString(EMPLOYEE_EMAIL);
+            String firstName = resultSet.getString(DB_FIRST_NAME);
+            String lastName = resultSet.getString(DB_LAST_NAME);
+            String email = resultSet.getString(EMAIL);
             String password = resultSet.getString(PASSWORD);
             String role = resultSet.getString(EMPLOYEE_ROLE);
 
@@ -164,8 +164,8 @@ public class InspectorRepositoryImpl extends CrudRepositoryImpl<Employee> implem
 
         try {
             int reportId = resultSet.getInt(DB_REPORT_ID);
-            String clientFirstName = resultSet.getString(CLIENT_FIRST_NAME);
-            String clientLastName = resultSet.getString(CLIENT_LAST_NAME);
+            String clientFirstName = resultSet.getString(DB_FIRST_NAME);
+            String clientLastName = resultSet.getString(DB_LAST_NAME);
             String tittle = resultSet.getString(TITTLE);
             String reportStatus = resultSet.getString(REPORT_STATUS);
             report = new ReportWithClientName(reportId, tittle, clientFirstName, clientLastName,

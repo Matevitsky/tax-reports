@@ -19,17 +19,17 @@ public class ReportRepositoryImpl extends CrudRepositoryImpl<Report> implements 
 
     private static final Logger LOGGER = Logger.getLogger(ReportRepositoryImpl.class);
 
-    private static final String CREATE_REPORT = "INSERT INTO reports (tittle, content, report_status, reason_to_reject, client_id) \n" +
+    private static final String CREATE_REPORT = "INSERT INTO reports (tittle, content, report_status, reason_to_reject, client_id_fk) \n" +
             "VALUES ('%s', '%s', '%s', '%s','%d');";
     private static final String DELETE_REPORT = "DELETE FROM reports WHERE report_id='%d'";
 
     private static final String UPDATE_REPORT =
             "UPDATE reports SET tittle='%s', content='%s', report_status='%s', reason_to_reject='%s'," +
-                    " client_id='%d' where report_id=%d";
+                    " client_id_fk='%d' where report_id=%d";
 
     private static final String SELECT_REPORT_BY_ID = "SELECT * FROM reports WHERE report_id='%d'";
     private static final String SELECT_ALL_REPORTS = "SELECT * FROM reports";
-    private static final String SELECT_ALL_BY_CLIENT_ID = "SELECT * FROM reports WHERE client_id='%d'";
+    private static final String SELECT_ALL_BY_CLIENT_ID = "SELECT * FROM reports WHERE client_id_fk='%d'";
 
     @Override
     protected String getCreateQuery(Report report) {
@@ -89,7 +89,7 @@ public class ReportRepositoryImpl extends CrudRepositoryImpl<Report> implements 
             String content = resultSet.getString(CONTENT);
             String reportStatus = resultSet.getString(REPORT_STATUS);
             String cancellationReason = resultSet.getString(DB_REASON_TO_REJECT);
-            int clientId = resultSet.getInt(DB_CLIENT_ID);
+            int clientId = resultSet.getInt(DB_CLIENT_ID_FK);
 
             report = Report.newBuilder()
                     .withId(id)

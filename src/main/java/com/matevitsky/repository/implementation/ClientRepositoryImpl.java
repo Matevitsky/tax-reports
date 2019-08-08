@@ -21,28 +21,38 @@ public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements 
     private static final Logger LOGGER = Logger.getLogger(ClientRepositoryImpl.class);
 
     private static final String CREATE_CLIENT_SQL = "INSERT INTO companies(company_name) VALUES ('%s') ON DUPLICATE KEY UPDATE company_id = company_id + 0;" +
-            "INSERT IGNORE INTO clients (client_first_name, client_last_name, client_email, password, company_name, employee_id)" +
+            "INSERT IGNORE INTO clients (first_name, last_name, mail, password, company_name, employee_id)" +
             "VALUES ('%s', '%s', '%s', '%s', '%s','%d');";
 
     private static final String DELETE_CLIENT_SQL = "DELETE FROM clients WHERE client_id='%d'";
     private static final String UPDATE_CLIENT_SQL =
-            "UPDATE clients SET client_first_name='%s', client_last_name='%s', client_email='%s', password='%s', company_id='%s'," +
+            "UPDATE clients SET first_name='%s', last_name='%s', email='%s', password='%s', company_id='%s'," +
                     " employee_id='%d' where client_id='%d'";
     private static final String SELECT_CLIENT_BY_ID_SQL = "SELECT  * FROM clients WHERE client_id='%d'";
     private static final String SELECT_ALL_CLIENTS_SQL = "SELECT * FROM clients";
 
-    private static final String SELECT_CLIENT_BY_EMAIL_SQL = "SELECT * FROM clients  where client_email='%s'";
+    private static final String SELECT_CLIENT_BY_EMAIL_SQL = "SELECT * FROM clients  where email='%s'";
     private static final String SELECT_CLIENT_BY_INSPECTOR_ID_SQL = "SELECT * FROM clients  where employee_id='%d'";
-    private static final String SELECT_All_CLIENT_FOR_ADMIN_SQL = "select " +
-            "client_id,client_first_name,client_last_name,client_email,company_name,employee_first_name,employee_last_name\n" +
-            "from clients\n" +
-            "join employees e on clients.employee_id = e.employee_id\n" +
-            "join companies c on clients.company_id = c.company_id\n";
-    private static final String SELECT_CLIENT_FOR_ADMIN_BY_INSPECTOR_ID_SQL = " select client_id,client_first_name,client_last_name,client_email,company_name,employee_first_name,employee_last_name\n" +
-            "from clients\n" +
-            "join employees e on clients.employee_id = e.employee_id\n" +
-            "join companies c on clients.company_id = c.company_id\n" +
-            "WHERE e.employee_id='%d'";
+    private static final String SELECT_All_CLIENT_FOR_ADMIN_SQL = "SELECT client_id, clients.first_name, clients.last_name, clients.email, company_name, employees.first_name as employee_first_name,\n" +
+            "       employees.last_name as employee_last_name\n" +
+            "\n" +
+            "FROM clients\n" +
+            "     left join employees on employee_id=employee_id_fk\n" +
+            "     left join companies on company_id=company_id_fk\n" +
+            "\n";
+
+    private static final String SELECT_CLIENT_FOR_ADMIN_BY_INSPECTOR_ID_SQL = "SELECT client_id,\n" +
+            "       clients.first_name,\n" +
+            "       clients.last_name,\n" +
+            "       clients.email,\n" +
+            "       company_name,\n" +
+            "       employees.first_name as employee_first_name,\n" +
+            "       employees.last_name  as employee_last_name\n" +
+            "\n" +
+            "FROM clients\n" +
+            "         left join employees on employee_id = employee_id_fk\n" +
+            "         left join companies on company_id = company_id_fk\n" +
+            "WHERE employee_id = '1'\n";
 
 
     @Override
@@ -102,14 +112,14 @@ public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements 
             }
 
             int id = resultSet.getInt(DB_CLIENT_ID);
-            String firstName = resultSet.getString(CLIENT_FIRST_NAME);
-            String lastName = resultSet.getString(CLIENT_LAST_NAME);
-            String email = resultSet.getString(CLIENT_EMAIL);
+            String firstName = resultSet.getString(DB_FIRST_NAME);
+            String lastName = resultSet.getString(DB_LAST_NAME);
+            String email = resultSet.getString(EMAIL);
             String password = resultSet.getString(PASSWORD);
-            int companyId = resultSet.getInt(COMPANY_ID);
+            int companyId = resultSet.getInt(COMPANY_ID_FK);
 
 
-            int inspectorId = resultSet.getInt(EMPLOYEE_ID);
+            int inspectorId = resultSet.getInt(EMPLOYEE_ID_FK);
             client = Client.newClientBuilder()
                     .withId(id)
                     .withFirstName(firstName)
@@ -171,9 +181,9 @@ public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements 
 
         ClientForAdmin clientForAdmin;
         int id = resultSet.getInt(DB_CLIENT_ID);
-        String clientFirstName = resultSet.getString(CLIENT_FIRST_NAME);
-        String clientLastName = resultSet.getString(CLIENT_LAST_NAME);
-        String email = resultSet.getString(CLIENT_EMAIL);
+        String clientFirstName = resultSet.getString(DB_FIRST_NAME);
+        String clientLastName = resultSet.getString(DB_LAST_NAME);
+        String email = resultSet.getString(EMAIL);
         String companyName = resultSet.getString(DB_COMPANY_NAME);
         String inspectorFirstName = resultSet.getString(DB_EMPLOYEE_FIRST_NAME);
         String inspectorLastName = resultSet.getString(DB_EMPLOYEE_LAST_NAME);
@@ -200,7 +210,7 @@ public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements 
             }
 
         } catch (SQLException s) {
-            LOGGER.warn("getAllClientsForAdmin failed " + s.getMessage());
+            LOGGER.warn("getClientsForAdminByInspectorId failed " + s.getMessage());
         }
 
         return Optional.of(clientForAdminList);
