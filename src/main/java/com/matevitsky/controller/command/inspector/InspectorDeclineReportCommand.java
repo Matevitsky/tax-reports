@@ -25,7 +25,6 @@ public class InspectorDeclineReportCommand implements Command {
 
         inspectorService.declineReport(reportId, reasonToReject);
 
-
         return new InspectorGetAllReportsCommand(inspectorService).execute(request, response);
     }
 }

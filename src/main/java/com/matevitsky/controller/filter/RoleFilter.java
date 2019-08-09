@@ -27,11 +27,15 @@ public class RoleFilter implements Filter {
         String role = (String) request.getSession().getAttribute(ROLE);
 
         if (!ALLOWED_PATH.contains(command)) {
+
             Object userId = request.getSession().getAttribute(USER_ID);
+
             if (Objects.isNull(userId)) {
                 LOGGER.warn("Attribute userId is null.not logged on user ");
                 response.sendRedirect(PageConstant.LOGIN_PAGE);
+
             } else {
+
                 if (command.contains(role)) {
                     chain.doFilter(request, response);
                 } else {

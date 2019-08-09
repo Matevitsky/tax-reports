@@ -24,6 +24,7 @@ public class ClientChangeInspectorCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         int clientId = (int) request.getSession().getAttribute(USER_ID);
+
         Request changeInspectorRequest = new Request(0, clientId);
 
         requestService.create(changeInspectorRequest);

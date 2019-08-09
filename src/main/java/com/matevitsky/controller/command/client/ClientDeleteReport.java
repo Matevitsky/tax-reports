@@ -18,6 +18,7 @@ public class ClientDeleteReport implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+
         int reportId = Integer.parseInt(request.getParameter(REPORT_ID));
 
         reportService.deleteById(reportId);

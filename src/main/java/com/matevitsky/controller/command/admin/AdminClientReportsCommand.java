@@ -39,6 +39,7 @@ public class AdminClientReportsCommand implements Command {
 
 
         adminService.addRequestAmountToHeader(request);
+
         return ADMIN_REPORTS_PAGE;
     }
 }

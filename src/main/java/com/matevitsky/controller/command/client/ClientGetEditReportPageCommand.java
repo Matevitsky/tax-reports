@@ -22,14 +22,15 @@ public class ClientGetEditReportPageCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+
         int reportId = Integer.parseInt(request.getParameter(REPORT_ID));
 
         Optional<Report> optionalReport = reportService.getById(reportId);
-        if (optionalReport.isPresent()) {
 
-            Report reportForUpdate = optionalReport.get();
-            request.setAttribute(REPORT, reportForUpdate);
-        }
+        optionalReport.ifPresent(report -> {
+            request.setAttribute(REPORT, report);
+        });
+
         return CLIENT_EDIT_REPORT_PAGE;
     }
 }

@@ -31,17 +31,17 @@ public class AdminSaveReport implements Command {
         Optional<Report> optionalReport = reportService.getById(reportId);
 
         optionalReport.ifPresent(value -> {
-            Report report = value;
             Report reportForSave = Report.newBuilder()
                     .withId(reportId)
                     .withTittle(tittle)
                     .withContent(content)
-                    .withClientId(report.getClientId())
-                    .withStatus(report.getStatus())
-                    .withreasonToReject(report.getReasonToReject())
+                    .withClientId(value.getClientId())
+                    .withStatus(value.getStatus())
+                    .withreasonToReject(value.getReasonToReject())
                     .build();
             reportService.update(reportForSave);
         });
+
         return new AdminCancelCommand(reportService, adminService).execute(request, response);
     }
 }

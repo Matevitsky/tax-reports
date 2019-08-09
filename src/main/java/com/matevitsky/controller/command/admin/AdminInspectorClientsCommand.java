@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.matevitsky.controller.constant.PageConstant.ADMIN_CLIENTS_PAGE;
-import static com.matevitsky.controller.constant.ParameterConstant.*;
+import static com.matevitsky.controller.constant.ParameterConstant.CLIENTS;
+import static com.matevitsky.controller.constant.ParameterConstant.INSPECTOR_ID;
 
 public class AdminInspectorClientsCommand implements Command {
 
@@ -29,9 +30,6 @@ public class AdminInspectorClientsCommand implements Command {
         adminService.addRequestAmountToHeader(request);
 
         int inspectorId = Integer.parseInt(request.getParameter(INSPECTOR_ID));
-        String firstName = request.getParameter(INSPECTOR_FIRST_NAME);
-        String lastName = request.getParameter(INSPECTOR_LAST_NAME);
-
 
         Optional<List<ClientForAdmin>> optionalClients = clientService.getClientsForAdminByInspectorId(inspectorId);
 

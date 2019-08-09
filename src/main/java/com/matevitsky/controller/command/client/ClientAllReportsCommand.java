@@ -29,7 +29,6 @@ public class ClientAllReportsCommand implements Command {
         Optional<List<Report>> clientActiveReports = reportService.getReportsByClientId(clientId);
         clientActiveReports.ifPresent(reports -> request.setAttribute(REPORTS, reports));
 
-
         return CLIENT_ALL_REPORT_PAGE;
     }
 }

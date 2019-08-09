@@ -30,6 +30,7 @@ public class AdminCancelCommand implements Command {
         String clientName = (String) request.getSession().getAttribute(CLIENT_NAME);
 
         Optional<List<Report>> optionalReportList = reportService.getReportsByClientId(clientId);
+
         optionalReportList.ifPresent(reports -> {
             request.setAttribute(REPORTS, reports);
             request.setAttribute(CLIENT_NAME, clientName);

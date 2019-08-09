@@ -35,6 +35,7 @@ public class ChangeLocaleCommand implements Command {
         request.getSession().setAttribute(LOCALE, locale);
 
         String role = (String) request.getSession().getAttribute(ROLE);
+
         if (Objects.nonNull(role)) {
             switch (role) {
                 case CLIENT:

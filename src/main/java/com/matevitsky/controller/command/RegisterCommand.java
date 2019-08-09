@@ -42,8 +42,6 @@ public class RegisterCommand implements Command {
         Client clientWithInspector = clientService.assignInspector(client);
         Optional<Client> optionalClient = clientService.register(clientWithInspector);
 
-        /*   request.setAttribute("Registration error", e.getMessage());*/
-
         optionalClient.ifPresent(value -> request.getSession().setAttribute(USER_ID, value.getId()));
 
         return new GetMainClientPageCommand(reportService).execute(request, response);

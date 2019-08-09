@@ -27,6 +27,7 @@ public class ClientCreateReportCommand implements Command {
 
         String tittle = request.getParameter(TITTLE);
         String content = request.getParameter(CONTENT);
+
         if (tittle.isEmpty() || content.isEmpty()) {
             LOGGER.info("tittle or content is empty");
             return CREATE_REPORT_PAGE;

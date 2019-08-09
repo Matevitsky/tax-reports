@@ -20,6 +20,7 @@ public class AdminMainPageCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         adminService.prepareAdminPage(request);
+
         return ADMIN_PAGE;
     }
 }

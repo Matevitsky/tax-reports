@@ -44,6 +44,7 @@ public class LoginCommand implements Command {
         UserForLogin user = loginService.login(email, encryptedPassword, request);
 
         if (user != null && user.getPassword().equals(encryptedPassword)) {
+
             switch (user.getRole()) {
                 case ADMIN:
                     return new AdminMainPageCommand(adminService).execute(request, response);

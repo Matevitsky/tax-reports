@@ -20,6 +20,7 @@ public class AuthenticationFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
+
         String uri = request.getRequestURI();
 
         if (uri.contains("/app")) {
