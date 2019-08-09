@@ -9,7 +9,7 @@ public final class ParameterConstant {
 
     public static final String EMAIL_ADDRESS = "emailAddress";
     public static final String PASSWORD = "password";
-    public static final String COMPANY_NAME = "companyName";
+
     public static final String DB_COMPANY_NAME = "company_name";
     public static final String COMPANY_ID = "company_id";
     public static final String COMPANY_ID_FK = "company_id_fk";

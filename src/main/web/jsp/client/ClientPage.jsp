@@ -76,5 +76,9 @@
 
     </div>
 </div>
+
+
 </body>
+<%@include file="ClientFooter.jsp" %>
+
 </html>

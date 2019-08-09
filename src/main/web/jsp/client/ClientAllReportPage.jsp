@@ -83,10 +83,6 @@
 
 
 </body>
-<script>
-    $(document).ready(function () {
-        $('#allReports').DataTable();
-    });
-</script>
 
+<%@include file="ClientFooter.jsp" %>
 </html>

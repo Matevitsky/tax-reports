@@ -96,4 +96,5 @@
 </div>
 
 </body>
+<%@include file="AdminFooter.jsp" %>
 </html>

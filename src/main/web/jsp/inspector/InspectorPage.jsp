@@ -70,4 +70,6 @@
 </div>
 
 </body>
+<%@include file="InspectorFooter.jsp" %>
+
 </html>
