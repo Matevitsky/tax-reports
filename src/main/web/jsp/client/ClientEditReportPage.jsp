@@ -26,6 +26,15 @@
                         <textarea class="form-control" rows="3" name="content">${report.content} </textarea>
                     </div>
 
+                    <c:if test="${not empty report.reasonToReject}">
+                        <div class="form-group">
+                            <label>
+                                <fmt:message bundle="${common}" key="report.reason"/>
+                            </label>
+                            <textarea class="form-control" rows="3" name="reason">${report.reasonToReject} </textarea>
+                        </div>
+                    </c:if>
+
                     <button type="submit" class="btn btn-default" name="command" value="client_edit_report">
                         <fmt:message bundle="${common}" key="save"/>
                     </button>

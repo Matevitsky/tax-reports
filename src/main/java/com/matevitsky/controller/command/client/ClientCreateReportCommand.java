@@ -27,6 +27,7 @@ public class ClientCreateReportCommand implements Command {
 
         String tittle = request.getParameter(TITTLE);
         String content = request.getParameter(CONTENT);
+        String reason = request.getParameter(REASON);
 
         if (tittle.isEmpty() || content.isEmpty()) {
             LOGGER.info("tittle or content is empty");
@@ -38,7 +39,7 @@ public class ClientCreateReportCommand implements Command {
                 .withTittle(tittle)
                 .withContent(content)
                 .withStatus(ReportStatus.NEW)
-                .withreasonToReject("")
+                .withreasonToReject(reason)
                 .withClientId(clientId)
                 .build();
 

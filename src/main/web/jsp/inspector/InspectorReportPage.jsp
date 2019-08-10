@@ -31,12 +31,21 @@
                         <textarea class="form-control" rows="3" name="content"> ${report.content} </textarea>
                     </div>
 
+
                     <div class="form-group">
                         <label>
+
                             <fmt:message bundle="${common}" key="reason.to.reject"/>
+
                         </label>
+
                         <textarea class="form-control" rows="3"
-                                  name="reasonToReject">${report.reasonToReject} </textarea>
+                                  name="reasonToReject">
+                                           <c:if test="${report.reasonToReject != 'null'}">
+                                               ${report.reasonToReject}
+                                           </c:if>
+                        </textarea>
+
                     </div>
 
 

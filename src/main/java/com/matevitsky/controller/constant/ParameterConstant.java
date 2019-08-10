@@ -31,6 +31,7 @@ public final class ParameterConstant {
     public static final String DB_EMPLOYEE_FIRST_NAME = "employee_first_name";
     public static final String TITTLE = "tittle";
     public static final String CONTENT = "content";
+    public static final String REASON = "reason";
     public static final String REASON_TO_REJECT = "reasonToReject";
     public static final String DB_REASON_TO_REJECT = "reason_to_reject";
     public static final String CLIENT = "client";
