@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/jsp/i18n.jsp" %>
 <html>
@@ -25,9 +26,9 @@
 
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/fa9ccce587.js"></script>
+    <script src="https://cdnjs.com/libraries/popper.js "></script>
 
 
-    <!-- you need to include the shieldui css and js assets in order for the charts to work -->
     <link rel="stylesheet" type="text/css"
           href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css"/>
     <link id="gridcss" rel="stylesheet" type="text/css"
@@ -40,7 +41,9 @@
 
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top" employeeRole="navigation">
+
     <div class="navbar-header">
+
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -51,6 +54,7 @@
                                                                                  key="main.page"/> </a>
     </div>
     <div class="collapse navbar-collapse navbar-ex1-collapse">
+
         <ul id="active" class="nav navbar-nav side-nav">
 
 
@@ -79,6 +83,7 @@
 
                     <li><a href="/app?command=client_change_supervisor"><i class="fas fa-exchange-alt"></i>
                         <fmt:message bundle="${common}" key="change.inspector"/>
+
                     </a></li>
                 </ul>
             </li>
@@ -89,7 +94,7 @@
                 <ul class="dropdown-menu">
                     <%--  <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>--%>
 
-                    <li class="divider"></li>
+
                     <li><a href="/app?command=log_out"><i class="fa fa-power-off"></i>
                         <fmt:message bundle="${common}" key="log.out"/>
                     </a></li>
@@ -118,7 +123,9 @@
             </li>
         </ul>
     </div>
+
 </nav>
+
 </body>
 
 </html>

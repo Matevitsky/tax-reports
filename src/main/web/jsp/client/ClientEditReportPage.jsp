@@ -7,6 +7,7 @@
         <div class="row">
             <div class="col-lg-6">
 
+
                 <form employeeRole="form" action="/app" method="get">
                     <c:set var="report" value="${report}"/>
                     <input type="hidden" name="reportId" value=${report.id}>

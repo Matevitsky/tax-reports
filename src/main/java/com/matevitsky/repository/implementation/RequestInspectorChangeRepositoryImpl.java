@@ -18,7 +18,7 @@ public class RequestInspectorChangeRepositoryImpl extends CrudRepositoryImpl<Req
 
     private static final Logger LOGGER = Logger.getLogger(RequestInspectorChangeRepositoryImpl.class);
 
-    private static final String CREATE_REQUEST = "INSERT INTO requests (client_id) VALUES ('%d');";
+    private static final String CREATE_REQUEST = "INSERT INTO requests (client_id_fk) VALUES ('%d');";
     private static final String DELETE_REQUEST = "DELETE FROM requests WHERE request_id='%d'";
     private static final String SELECT_REQUEST_BY_ID = "SELECT * FROM requests WHERE request_id='%d'";
     private static final String SELECT_ALL_REQUESTS = "SELECT * FROM requests";

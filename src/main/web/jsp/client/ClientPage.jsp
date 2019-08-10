@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="ClientHeader.jsp" %>
 <html lang="en">
@@ -13,13 +12,22 @@
                 </h1>
                 </br>
                 </br>
-                <%-- <div class="alert alert-dismissable alert-warning">
-                     <button data-dismiss="alert" class="close" type="button">&times;</button>
-                     Welcome to the admin dashboard! Feel free to review all pages and modify the layout to your needs.
-                     <br/>
-                     This theme uses the <a href="https://www.shieldui.com">ShieldUI</a> JavaScript library for the
-                     additional data visualization and presentation functionality illustrated here.
-                 </div>--%>
+
+                <c:choose>
+                    <c:when test="${result}">
+
+                        <div class="alert alert-success" srole="alert">
+                            The request successfully added
+
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                    </c:when>
+                </c:choose>
+
+
             </div>
         </div>
 

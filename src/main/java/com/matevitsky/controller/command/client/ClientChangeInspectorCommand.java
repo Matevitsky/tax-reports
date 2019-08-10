@@ -27,7 +27,9 @@ public class ClientChangeInspectorCommand implements Command {
 
         Request changeInspectorRequest = new Request(0, clientId);
 
-        requestService.create(changeInspectorRequest);
+        boolean b = requestService.create(changeInspectorRequest);
+
+        request.setAttribute("result", b);
 
         return new GetMainClientPageCommand(reportService).execute(request, response);
 
