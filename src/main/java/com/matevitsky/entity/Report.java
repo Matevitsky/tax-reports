@@ -61,12 +61,11 @@ public class Report {
         }
         Report report = (Report) o;
         return id == report.id &&
-            clientId == report.clientId &&
-
-            tittle.equals(report.tittle) &&
-            content.equals(report.content) &&
-            status == report.status &&
-                reasonToReject.equals(report.reasonToReject);
+                clientId == report.clientId &&
+                Objects.equals(tittle, report.tittle) &&
+                Objects.equals(content, report.content) &&
+                status == report.status &&
+                Objects.equals(reasonToReject, report.reasonToReject);
     }
 
     @Override
