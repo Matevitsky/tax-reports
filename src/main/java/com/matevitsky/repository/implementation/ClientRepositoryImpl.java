@@ -20,19 +20,20 @@ public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements 
 
     private static final Logger LOGGER = Logger.getLogger(ClientRepositoryImpl.class);
 
-    private static final String CREATE_CLIENT_SQL = "INSERT INTO companies(company_name) VALUES ('%s') ON DUPLICATE KEY UPDATE company_id = company_id + 0;" +
-            "INSERT IGNORE INTO clients (first_name, last_name, mail, password, company_name, employee_id)" +
+    private static final String CREATE_CLIENT_SQL =
+            "INSERT INTO companies(company_name) VALUES ('%s') ON DUPLICATE KEY UPDATE company_id = company_id + 0;" +
+                    "INSERT IGNORE INTO clients (first_name, last_name, email, password, company_id_fk, employee_id_fk)" +
             "VALUES ('%s', '%s', '%s', '%s', '%s','%d');";
 
     private static final String DELETE_CLIENT_SQL = "DELETE FROM clients WHERE client_id='%d'";
     private static final String UPDATE_CLIENT_SQL =
-            "UPDATE clients SET first_name='%s', last_name='%s', email='%s', password='%s', company_id='%s'," +
-                    " employee_id='%d' where client_id='%d'";
+            "UPDATE clients SET first_name='%s', last_name='%s', email='%s', password='%s', company_id_fk='%s'," +
+                    " employee_id_fk='%d' where client_id='%d'";
     private static final String SELECT_CLIENT_BY_ID_SQL = "SELECT  * FROM clients WHERE client_id='%d'";
     private static final String SELECT_ALL_CLIENTS_SQL = "SELECT * FROM clients";
 
     private static final String SELECT_CLIENT_BY_EMAIL_SQL = "SELECT * FROM clients  where email='%s'";
-    private static final String SELECT_CLIENT_BY_INSPECTOR_ID_SQL = "SELECT * FROM clients  where employee_id='%d'";
+    private static final String SELECT_CLIENT_BY_INSPECTOR_ID_SQL = "SELECT * FROM clients  where employee_id_fk='%d'";
     private static final String SELECT_All_CLIENT_FOR_ADMIN_SQL = "SELECT client_id, clients.first_name, clients.last_name, clients.email, company_name, employees.first_name as employee_first_name,\n" +
             "       employees.last_name as employee_last_name\n" +
             "\n" +
@@ -147,13 +148,16 @@ public class ClientRepositoryImpl extends CrudRepositoryImpl<Client> implements 
     }
 
     @Override
-    public Optional<List<Client>> findClientsByInspectorId(int inspectorId, Connection connection) throws SQLException {
+    public Optional<List<Client>> findClientsByInspectorId(int inspectorId, Connection connection) {
 
         String sqlQuery = String.format(SELECT_CLIENT_BY_INSPECTOR_ID_SQL, inspectorId);
 
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             ResultSet resultSet = statement.executeQuery();
             return Optional.ofNullable(mapToList(resultSet));
+        } catch (SQLException e) {
+            LOGGER.info("For this inspector the client not exist");
+            return Optional.empty();
         }
     }
 

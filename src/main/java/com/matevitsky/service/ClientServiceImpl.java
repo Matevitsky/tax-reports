@@ -39,13 +39,24 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Optional<Client> register(Client client) {
-        try (Connection connection = ConnectorDB.getConnection()) {
-            clientRepository.create(client, connection);
-            return Optional.of(client);
-        } catch (SQLException e) {
-            LOGGER.error("Failed to add entity to database " + e.getMessage());
+
+        Employee freeInspector = inspectorService.getFreeInspector();
+
+        client = Client.newClientBuilder()
+                .withFirstName(client.getFirstName())
+                .withLastName(client.getLastName())
+                .withEmail(client.getEmail())
+                .withPassword(client.getPassword())
+                .withCompanyId(client.getCompanyId())
+                .withInspectorId(freeInspector.getId())
+                .build();
+
+        if (create(client)) {
+            return findByEmail(client.getEmail());
+        } else {
+            LOGGER.error("Filed to register client");
+            return Optional.empty();
         }
-        return Optional.empty();
     }
 
     @Override
@@ -69,16 +80,17 @@ public class ClientServiceImpl implements ClientService {
         return false;
     }
 
-
-  /*  @Override
-    public Optional<List<Client>> getClientsByInspectorId(int clientId) {
+    @Override
+    public Optional<List<Client>> findClientsByInspectorId(int inspectorId) {
         try (Connection connection = ConnectorDB.getConnection()) {
-            return clientRepository.findClientsByInspectorId(clientId, connection);
+            return clientRepository.findClientsByInspectorId(inspectorId, connection);
+
         } catch (SQLException e) {
-            LOGGER.error("Failed to get entity by ID " + e.getMessage());
+            LOGGER.warn("Failed to get clients for inspector with id " + inspectorId);
         }
+
         return Optional.empty();
-    }*/
+    }
 
     @Override
     public Client assignInspector(Client client) {

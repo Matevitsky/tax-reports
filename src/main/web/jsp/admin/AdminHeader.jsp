@@ -21,6 +21,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.3/js/bootstrap-select.min.js"></script>
 
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
     <script src="https://kit.fontawesome.com/fa9ccce587.js"></script>
 
 
@@ -32,7 +33,9 @@
 
     <script type="text/javascript"
             src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+
     <script type="text/javascript" src="http://www.prepbootstrap.com/Content/js/gridData.js"></script>
+
 </head>
 <body>
 <div id="wrapper">

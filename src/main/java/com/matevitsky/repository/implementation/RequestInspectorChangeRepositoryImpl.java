@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.matevitsky.controller.constant.ParameterConstant.DB_CLIENT_ID;
+import static com.matevitsky.controller.constant.ParameterConstant.DB_CLIENT_ID_FK;
 import static com.matevitsky.controller.constant.ParameterConstant.REQUEST_ID;
 
 public class RequestInspectorChangeRepositoryImpl extends CrudRepositoryImpl<Request> implements RequestInspectorChangeRepository {
@@ -22,7 +22,7 @@ public class RequestInspectorChangeRepositoryImpl extends CrudRepositoryImpl<Req
     private static final String DELETE_REQUEST = "DELETE FROM requests WHERE request_id='%d'";
     private static final String SELECT_REQUEST_BY_ID = "SELECT * FROM requests WHERE request_id='%d'";
     private static final String SELECT_ALL_REQUESTS = "SELECT * FROM requests";
-    private static final String DELETE_REQUEST_BY_CLIENT_ID = "DELETE FROM requests WHERE client_id='%d'";
+    private static final String DELETE_REQUEST_BY_CLIENT_ID = "DELETE FROM requests WHERE client_id_fk='%d'";
 
 
 
@@ -78,7 +78,7 @@ public class RequestInspectorChangeRepositoryImpl extends CrudRepositoryImpl<Req
                 resultSet.next();
             }
             int id = resultSet.getInt(REQUEST_ID);
-            int clientId = resultSet.getInt(DB_CLIENT_ID);
+            int clientId = resultSet.getInt(DB_CLIENT_ID_FK);
             request = new Request(id, clientId);
 
         } catch (SQLException e) {

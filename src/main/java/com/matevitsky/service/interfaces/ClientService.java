@@ -15,6 +15,7 @@ public interface ClientService extends CrudService<Client> {
 
     boolean addReportToRequest(HttpServletRequest request, int reportId);
 
+    Optional<List<Client>> findClientsByInspectorId(int inspectorId);
 
     Client assignInspector(Client client);
 

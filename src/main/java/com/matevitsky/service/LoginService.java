@@ -71,7 +71,7 @@ public class LoginService {
         request.getSession().setAttribute(USER_ID, client.getId());
         request.getSession().setAttribute(ROLE, CLIENT);
         request.getSession().setAttribute(CLIENT_NAME, client.getFirstName() + " " + client.getLastName());
-        Optional<Employee> inspector = inspectorService.getById(client.getId());
+        Optional<Employee> inspector = inspectorService.getById(client.getInspectorId());
         inspector.ifPresent(employee -> request.getSession().setAttribute(INSPECTOR, employee));
 
         return new UserForLogin(client.getId(), client.getEmail(), client.getPassword(), UserForLogin.Role.CLIENT);

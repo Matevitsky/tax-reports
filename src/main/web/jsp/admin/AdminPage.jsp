@@ -2,7 +2,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="AdminHeader.jsp" %>
 <html lang="en">
-<title>Requests Page</title>
+
+<title>Admin Requests Page</title>
 <body>
 <div id="wrapper">
     <div id="page-wrapper">
@@ -18,6 +19,7 @@
                 <th class="th-sm">
                     <fmt:message bundle="${common}" key="inspectors"/>
                 </th>
+
                 <th></th>
 
             </tr>
@@ -26,12 +28,13 @@
             </thead>
             <tbody>
             <div class="form-group">
+                <tr>
+                    <c:forEach items="${clientList}" var="client">
+                        <form action="/app" method="get">
+                            <input type="hidden" name="clientId" value="${client.id}"/>
 
-                <c:forEach items="${clientList}" var="client">
-                    <form action="/app" method="get">
-                        <input type="hidden" name="clientId" value="${client.id}"/>
-                        <tr>
                             <td>${client.firstName} ${client.lastName}</td>
+
                             <td>
 
                                 <select class="form-control " id="inspectorList" name="inspectorId">
@@ -44,6 +47,7 @@
                                 </select>
 
                             </td>
+
                             <td>
                                 <button type="submit" class="btn btn-default" name="command"
                                         value="admin_assign_supervisor">
@@ -52,9 +56,10 @@
 
                             </td>
 
-                        </tr>
-                    </form>
-                </c:forEach>
+
+                        </form>
+                    </c:forEach>
+                </tr>
 
             </div>
             </tbody>
@@ -65,9 +70,11 @@
                 <th class="th-sm">
                     <fmt:message bundle="${common}" key="client.name"/>
                 </th>
+
                 <th class="th-sm">
                     <fmt:message bundle="${common}" key="inspectors"/>
                 </th>
+
                 <th></th>
 
             </tr>

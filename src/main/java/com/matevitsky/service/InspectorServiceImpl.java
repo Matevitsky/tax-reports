@@ -170,10 +170,12 @@ public class InspectorServiceImpl implements InspectorService {
 
     public Employee getFreeInspector() {
 
-        Optional<List<Employee>> optionalInspectorList = getAll();
         List<Employee> inspectorList;
 
         Map<Employee, Integer> map = new HashMap<>();
+
+        Optional<List<Employee>> optionalInspectorList = getAll();
+
         if (optionalInspectorList.isPresent()) {
             inspectorList = optionalInspectorList.get();
             for (Employee inspector : inspectorList) {
@@ -182,12 +184,19 @@ public class InspectorServiceImpl implements InspectorService {
                     optionalClients.ifPresent(clients ->
                             map.put(inspector, clients.size()));
                 } catch (SQLException s) {
-                    LOGGER.warn("Failed to get inspector by id " + inspector.getId());
+                    LOGGER.warn("Failed to find client for inspectorId " + inspector.getId());
                 }
             }
+            if (map.isEmpty()) {
+                Optional<Employee> optionalEmployee = getById(1);
+                if (optionalEmployee.isPresent()) {
+                    return optionalEmployee.get();
+                }
+            }
+
         }
+
         return Collections.min(map.entrySet(),
                 Comparator.comparingInt(Map.Entry::getValue)).getKey();
-
     }
 }

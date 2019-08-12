@@ -4,14 +4,8 @@ package com.matevitsky.controller.command;
 import com.matevitsky.controller.command.admin.*;
 import com.matevitsky.controller.command.client.*;
 import com.matevitsky.controller.command.inspector.*;
-import com.matevitsky.repository.implementation.ClientRepositoryImpl;
-import com.matevitsky.repository.implementation.InspectorRepositoryImpl;
-import com.matevitsky.repository.implementation.ReportRepositoryImpl;
-import com.matevitsky.repository.implementation.RequestInspectorChangeRepositoryImpl;
-import com.matevitsky.repository.interfaces.ClientRepository;
-import com.matevitsky.repository.interfaces.InspectorRepository;
-import com.matevitsky.repository.interfaces.ReportRepository;
-import com.matevitsky.repository.interfaces.RequestInspectorChangeRepository;
+import com.matevitsky.repository.implementation.*;
+import com.matevitsky.repository.interfaces.*;
 import com.matevitsky.service.*;
 import com.matevitsky.service.interfaces.*;
 
@@ -73,8 +67,7 @@ public enum CommandList {
 
     CHANGE_LOCALE(new ChangeLocaleCommand(Context.reportService, Context.adminService, Context.inspectorService)),
 
-
-    REGISTER(new RegisterCommand(Context.clientService, Context.reportService));
+    REGISTER(new RegisterCommand(Context.clientService, Context.reportService, Context.companyService, Context.inspectorService));
 
     private Command command;
 
@@ -98,6 +91,9 @@ public enum CommandList {
 
         private static final InspectorService inspectorService = new InspectorServiceImpl
                 (inspectorRepository, new ClientRepositoryImpl(), reportService);
+
+        private final static CompanyRepository companyRepository = new CompanyRepositoryImpl();
+        private final static CompanyService companyService = new CompanyServiceImpl(companyRepository);
 
         private static final ClientService clientService = new ClientServiceImpl(clientRepository
                 , inspectorService, reportService);

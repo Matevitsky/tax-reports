@@ -11,7 +11,7 @@ public final class ParameterConstant {
     public static final String PASSWORD = "password";
 
     public static final String DB_COMPANY_NAME = "company_name";
-    public static final String COMPANY_ID = "company_id";
+
     public static final String COMPANY_ID_FK = "company_id_fk";
     public static final String USER_ID = "userId";
     public static final String CLIENT_ID = "clientId";
@@ -50,7 +50,9 @@ public final class ParameterConstant {
     public static final String CLIENT_LIST = "clientList";
     public static final String ADMIN_NAME = "adminName";
     public static final String COMMAND = "command";
-    public static final String ALLOWED_PATH = "login change_locale log_out";
+    public static final String ALLOWED_PATH = "login, change_locale, log_out, register";
+    public static final String COMPANY_NAME = "companyName";
+    public static final String DB_COMPANY_ID = "company_id";
 
 
 }

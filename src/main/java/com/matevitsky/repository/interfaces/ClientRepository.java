@@ -12,7 +12,7 @@ public interface ClientRepository extends CrudRepository<Client> {
 
     Optional<Client> findByEmail(String email, Connection connection) throws SQLException;
 
-    Optional<List<Client>> findClientsByInspectorId(int inspectorId, Connection connection) throws SQLException;
+    Optional<List<Client>> findClientsByInspectorId(int inspectorId, Connection connection);
 
     Optional<List<ClientForAdmin>> getAllClientsForAdmin(Connection connection);
 
