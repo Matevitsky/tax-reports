@@ -37,14 +37,18 @@
 
             </thead>
             <tbody>
+
             <div class="form-group">
 
                 <c:forEach items="${clients}" var="client">
-                    <form action="/app" method="get">
-                        <input type="hidden" name="clientId" value="${client.id}"/>
-                        <input type="hidden" name="clientName" value="${client.firstName} ${client.lastName}"/>
 
-                        <tr>
+                    <tr>
+                        <form action="/app" method="get">
+
+                            <input type="hidden" name="clientId" value="${client.id}"/>
+                            <input type="hidden" name="clientName" value="${client.firstName} ${client.lastName}"/>
+                            <input type="hidden" name="command" value="admin_customer_reports">
+
                             <td>${client.firstName} ${client.lastName}
                             </td>
 
@@ -55,14 +59,13 @@
                             <td>${client.inspectorFirstName} ${client.inspectorLastName}</td>
 
                             <td>
-                                <button type="submit" class="btn btn-default" name="command"
-                                        value="admin_customer_reports">
+                                <button type="submit" class="btn btn-default">
                                     <fmt:message bundle="${common}" key="clients.report"/>
                                 </button>
                             </td>
+                        </form>
+                    </tr>
 
-                        </tr>
-                    </form>
                 </c:forEach>
 
             </div>

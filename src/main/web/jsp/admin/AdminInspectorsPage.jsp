@@ -31,12 +31,13 @@
             <div class="form-group">
 
                 <c:forEach items="${inspectors}" var="inspector">
-                    <form action="/app" method="get">
-                        <input type="hidden" name="inspectorId" value="${inspector.id}"/>
-                        <input type="hidden" name="inspectorFirstName" value="${inspector.firstName}"/>
-                        <input type="hidden" name="inspectorLastName" value="${inspector.lastName}"/>
 
-                        <tr>
+
+                    <tr>
+                        <form action="/app" method="get">
+                            <input type="hidden" name="inspectorId" value="${inspector.id}"/>
+                            <input type="hidden" name="inspectorFirstName" value="${inspector.firstName}"/>
+                            <input type="hidden" name="inspectorLastName" value="${inspector.lastName}"/>
                             <td>${inspector.firstName} ${inspector.lastName}</td>
 
                             <td>${inspector.email}</td>
@@ -47,8 +48,9 @@
                                     <fmt:message bundle="${common}" key="inspector.clients"/>
                                 </button>
                             </td>
-                        </tr>
-                    </form>
+                        </form>
+                    </tr>
+
                 </c:forEach>
 
             </div>
