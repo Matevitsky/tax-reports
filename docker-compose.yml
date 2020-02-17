@@ -6,7 +6,10 @@ services:
       dockerfile: Dockerfile
     image: tax-reports:1 
     ports:
-      - "8080:8080" 
+      - "8080:8080"
+      - "3306:3306"
+    links:
+      - database
   database: 
     image: mysql:latest 
     volumes:
@@ -16,6 +19,4 @@ services:
     restart: always
     environment:
        MYSQL_ROOT_PASSWORD: 12345678
-    ports: 
-      - "3306:3306"
         
