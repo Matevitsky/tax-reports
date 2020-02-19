@@ -106,7 +106,7 @@ public class ReportServiceImpl implements ReportService {
             reportRepository.update(reportInProgress, connection);
         } catch (SQLException s) {
             LOGGER.warn("Failed to change report status to IN_PROGRESS");
-            return report;
+            return reportInProgress;
         }
 
         return reportInProgress;
